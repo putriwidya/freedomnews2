@@ -239,7 +239,6 @@
 {% endblock %}
 
 {% block javascripts %}
-  {% do assets.addJs('theme://js/main.js') %}
   {% do assets.addJs('theme://js/modernizr.js') %}
   {% do assets.addJs('theme://js/assets/js/smart-sticky.js') %}
   {# {% do assets.addJs('theme://js/theia-sticky-sidebar.js') %} #}
@@ -251,6 +250,7 @@
   {% do assets.addJs('theme://js/jquery.cbslideheader.js?v=ROL-72') %}
   {% do assets.addJs('theme://js/jquery.bxslider.min.js?v=ROL-72') %}
   {% do assets.addJs('theme://js/jquery.lazyload.js?v=ROL-72') %}
+  {% do assets.addJs('theme://js/main.js') %}
   
 {% endblock %}
 
