@@ -1,0 +1,161 @@
+{% extends 'partials/base.html.twig' %}
+{% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
+{# {% set collection = page.collection() %} #}
+{% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
+{% set show_breadcrumbs = header_var('show_breadcrumbs', [page, blog])|defined(true) %}
+{% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
+{% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
+
+
+{% set collection = page.collection({"items":["@self.siblings"],"limit":3,"order":{"by":"date","dir":"desc"},"pagination":true,"url_taxonomy_filters":true,"filter":{"type":'jadwal'}}) %}
+
+{% set pagebanner =page.find(page.header.favorit1_konten).children.order('date', 'desc')|first %}
+{% if pagebanner==null %}
+{% set pagebanner =page.find(page.header.favorit1_konten) %}
+{% endif %}
+
+{% block stylesheets %}
+    
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% do assets.add('theme://js/jquery-1.11.0.min.js') %}
+    {% do assets.add('theme://js/jquery-ui-1.10.4.min.js') %}
+    {% do assets.add('theme://js/jquery.queryloader2.min.js') %}
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <section class="section page-heading animate-onscroll">
+        
+        <h1>{{page.title}}</h1>
+    </section>
+    <!-- Page Heading -->
+
+    <!-- Section -->
+    <section class="section full-width-bg gray-bg">
+        
+        <div class="row">
+        
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                
+                <!-- Event Single -->
+                <div class="event-single">
+                    
+                    <div class="row">
+                        
+                        <div class="col-lg-9 col-md-9 col-sm-8 animate-onscroll">
+                            
+                            <div class="event-image">
+                                    {% if page.media.images|first %}
+                                    <img alt=""  {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+                                    {% endif %}
+                            </div>
+                            
+                            <h6>Deskripsi Acara</h6>
+                            {{page.header.deskripsi|raw}}
+
+                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="margin-top: 50px;">
+                                <a class="a2a_button_whatsapp"></a>
+                                <a class="a2a_button_telegram"></a>
+                                <a class="a2a_button_facebook"></a>
+                                <a class="a2a_button_twitter"></a>
+                                <a class="a2a_button_linkedin"></a>
+                                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                            </div>
+                            <script async src="https://static.addtoany.com/menu/page.js"></script>
+
+                            <div class="related-articles">
+							
+                                <h3 class="animate-onscroll">Jadwal Terkait</h3>
+                                
+                                <div class="row related-events">
+                                    {% for child in collection %}
+                                        {% include 'partials/jadwal_item_related_item.html.twig' with {'page':child, 'truncate':true} %}     
+                                        {# {% include 'partials/related_event.html.twig' with {page:page} %} #}
+                                    {% endfor %}
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            
+                            <!-- Event Meta -->
+                            <div class="event-meta">
+                                
+                                <div class="event-meta-block animate-onscroll">
+                                    
+                                    <i class="icons icon-calendar"></i>
+                                    <p class="title">Tanggal</p>
+                                    <p>{{page.header.date|date("d F Y")}}</p>
+                                    
+                                </div>
+                                
+                                <div class="event-meta-block animate-onscroll">
+                                    
+                                    <i class="icons icon-clock"></i>
+                                    <p class="title">Jam</p>
+                                    <p>{{page.header.date|date("H:i")}} - Selesai</p>
+                                    
+                                </div>
+                                
+                                <div class="event-meta-block animate-onscroll">
+                                    
+                                    <i class="icons icon-location"></i>
+                                    <p class="title">Tempat</p>
+                                    <p>{{page.header.tempat}}</p>
+                                    
+                                </div>
+                                
+                                
+                                <div class="event-meta-block animate-onscroll">
+                                    
+                                    <i class="icons icon-user"></i>
+                                    <p class="title">Organizer</p>
+                                    <p>{{page.header.organizer}}</p>
+                                    
+                                </div>
+                                
+                                <div class="event-meta-block animate-onscroll">
+                                    
+                                    <i class="icons icon-phone"></i>
+                                    <p class="title">Telepon</p>
+                                    <p>{{page.header.phone}}</p>
+                                    
+                                </div>
+                                
+                                <div class="event-meta-block animate-onscroll">
+                                    
+                                    <i class="icons icon-mail-alt"></i>
+                                    <p class="title">Email</p>
+                                    <p><a href="mailto:mail@companyname.com">{{page.header.email}}</a></p>
+                                    
+                                </div>
+                                
+                                
+                            </div>
+                            <!-- /Event Meta -->
+                            
+                        </div>
+                        
+                    </div>
+                
+                </div>
+                <!-- /Event Single -->
+                
+                
+            </div>
+            
+            
+            
+        
+        </div>
+        
+    </section>
+            
+{% endblock %}

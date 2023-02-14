@@ -1,0 +1,532 @@
+{% set body_classes = body_class(['sticky-header-on', 'tablet-sticky-header', 'boxed-layout']) %}
+{% set grid_size = theme_var('grid-size') %}
+{% set compress = theme_var('production-mode') ? '.min.css' : '.css' %}
+{% set jargon = grav.config.site.jargon %}
+{% set logo = grav.config.site.logo %}
+{% set favicon = grav.config.site.favicon %}
+
+{% use 'blocks/base.html.twig' %}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+{# <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ grav.language.getActive ?: grav.config.site.default_lang }}"> #}
+<head>
+{% block head deferred %}
+    <meta charset="utf-8" />
+    <title>{% if page.title %}{{ page.title|e('html') }} | {% endif %}{{ site.title|e('html') }}</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Serif:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <link rel="stylesheet" href="https://static.republika.co.id/files/css/font-awesome.min.css?v=ROL-72">
+{% endblock head %}
+
+{% block stylesheets %}
+    {% do assets.addCss('theme://css/bootstrap.min.css') %}
+    {# {% do assets.addCss('theme://css/font-awesome.min.css') %} #}
+    {% do assets.addCss('theme://css/animate.css') %}
+
+    {% do assets.addCss('theme://css/owl.carousel.css') %}
+    {% do assets.addCss('theme://css/owl.theme.default.css') %}
+    {% do assets.addCss('theme://css/normalize.css') %}
+    {% do assets.addCss('theme://css/slicknav.min.css') %}
+    {% do assets.addCss('theme://css/jquery.bxslider.css') %}
+    {% do assets.addCss('theme://css/main.css') %}
+    {% do assets.addCss('theme://css/responsive.css') %}
+    {% do assets.addCss('theme://css/style.css') %}
+
+    <style>
+      .hide-search{
+          border-left: 1px solid #000;
+          color: #fff;
+          margin-left: 20px;
+          text-align: left;
+          padding: 12px;
+          padding-right: 0;
+      }
+      .hide-search input[type=search]{
+        border: none;
+        background-color: transparent;
+        outline: none;
+        min-width: 210px;
+        color: #000;
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 400;
+      }
+      .hide-search a.search-button-show{
+          float: left;
+          color: #000;
+          font-size: 12pt;
+          margin-right: 8px;
+      }
+      .topbar_first .container{
+          border-bottom: 1px solid #000 !important;
+      }
+      .topbar_first .container .date_home p{
+          font-family: 'IBM Plex Serif', serif;
+          font-size: 16px;
+          font-weight: 300;
+          position: relative !important;
+          padding: 12px 0;
+      }
+      .search_wrap {
+          float: right;
+          width: auto;
+          padding-top: 0;
+      }
+      .topbar_first .container .topbar_one_left, .topbar_first .container .topbar_one_right{
+          width: auto;
+      }
+      .sosmed_wrap{
+          float: right;
+      }
+      .sosmed_wrap ul li{
+          padding-left: 0;
+          padding-right: 0;
+      }
+      .sosmed_wrap a{
+          color: #000;
+          border: 1px #000 solid;
+          width: 24px;
+          height: 24px;
+          text-align: center;
+          border-radius: 100%;
+          display: table-cell;
+          vertical-align: middle;
+          font-size: 11px;
+      }
+      .topbar_two .container{
+          border-bottom: 3px solid #000 !important;
+          border-top: 1px solid #000 !important;
+          padding: 5px;
+      }
+      .topbar_two .nav a {
+          font-family: 'IBM Plex Serif', serif;
+          font-size: 14px;
+          font-weight: 300;
+          position: relative !important;
+          text-transform: uppercase;
+          padding: 10px 10px;
+      }
+      .logo img {
+          width: 300px;
+      }
+      .footer {
+          margin-top: 40px;
+          padding: 45px 100px;
+          background: #000;
+          color: #fff;
+          width: 100%;
+          float: left;
+      }
+      .col-bs10-4 {
+          width: 40%;
+          float: left;
+      }
+      .col-bs10-6 {
+          width: 60%;
+          float: left;
+      }
+      .footer__logo {
+          padding: 0 0 15px;
+          position: relative;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+      }
+      .footer__logo img {
+        height: 50px;
+        width: auto;
+      }
+      .footer__network {
+          position: relative;
+          padding: 0;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255,255,255,.2);
+          border-top: 1px solid rgba(255,255,255,.2);
+          font-size: 14px;
+          margin-top: 20px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+      }
+      .footer__network span {
+        display: inline-block;
+          color: #fff;
+          float: left;
+          margin-right: 24px;
+          margin-top: 20px;
+      }
+      .footer__network img {
+        display: inline-block;
+          margin-top: 20px;
+      }
+      .footer__contact p{
+        font-size: 14px;
+      }
+      .footer__link {
+          padding: 5px 0;
+          display: block;
+          font-size: 14px;
+          color: #fff;
+      }
+      .col-bs12-4, .col-bs9-3 {
+          width: 33.33333%;
+          float: left;
+      }
+
+      .col-bs12-8{
+        width: 75%;
+        float: left;
+      }
+      .col-bs12-8 .bottom_menu li{
+        width: 33.33%;
+      }
+      .row.footer__bottom {
+          letter-spacing: .6px;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          padding-top: 30px;
+          margin-top: 15px;
+          border-top: 1px solid rgba(255,255,255,.2);
+          border-bottom: none !important;
+      }
+      .col-bs10-7 {
+          width: 70%;
+          float: left;
+      }
+      .col-bs10-3 {
+          width: 30%;
+          float: left;
+      }
+      .footer__menu.inline .footer__link {
+          padding: 0 5px;
+      }
+      .footer__menu.inline .footer__item {
+          position: relative;
+          display: inline-block;
+      }
+      .footer__menu.inline .footer__item:after {
+          content: "|";
+          position: absolute;
+          right: -5px;
+          bottom: 1px;
+      }
+      .footer__menu.inline .footer__item:last-child:after {
+          content: "";
+      }
+      .footer__copyright {
+          text-align: right;
+          padding: 0;
+          margin: 0;
+          font-size: 14px;
+      }
+      .footer__copyright p{
+        margin: 0;
+      }
+      .news{
+          border-bottom: none;
+      }
+      .main_nav_cover #main-menu li{
+          padding: 0 10px !important;
+      }
+      .main_nav_cover #main-menu li a{
+        font-size: 14px !important;
+      }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+  {% do assets.addJs('theme://js/main.js') %}
+  {% do assets.addJs('theme://js/modernizr.js') %}
+  {% do assets.addJs('theme://js/assets/js/smart-sticky.js') %}
+  {# {% do assets.addJs('theme://js/theia-sticky-sidebar.js') %} #}
+  {% do assets.addJs('theme://js/jquery-3.5.1.min.js') %}
+  {% do assets.addJs('theme://js/owl.carousel.min.js') %}
+  {% do assets.addJs('theme://js/jquery.waypoints.min.js') %}
+  {% do assets.addJs('theme://js/jquery.slicknav.min.js') %}
+  {% do assets.addJs('theme://js/masonry.pkgd.min.js') %}
+  {% do assets.addJs('theme://js/jquery.cbslideheader.js?v=ROL-72') %}
+  {% do assets.addJs('theme://js/jquery.bxslider.min.js?v=ROL-72') %}
+  {% do assets.addJs('theme://js/jquery.lazyload.js?v=ROL-72') %}
+  
+{% endblock %}
+
+{% block assets deferred %}
+    {{ assets.css()|raw }}
+    {{ assets.js()|raw }}
+
+    
+{% endblock %}
+</head>
+<body>
+	<div class="spinner-cover">
+		<div class="spinner-inner">
+			<div class="spinner">
+			  <div class="rect1"></div>
+			  <div class="rect2"></div>
+			  <div class="rect3"></div>
+			  <div class="rect4"></div>
+			  <div class="rect5"></div>
+			</div>
+		</div>
+	</div>
+	<div class="spinner-cover">
+		<div class="spinner-inner">
+			<div class="spinner">
+			  <div class="rect1"></div>
+			  <div class="rect2"></div>
+			  <div class="rect3"></div>
+			  <div class="rect4"></div>
+			  <div class="rect5"></div>
+			</div>
+		</div>
+	</div>
+	<div id="wrapper">
+		<!--Start Offcanvas sidebar-->
+		<aside id="sidebar-wrapper">
+			<div class="sidebar-inner">
+				<div class="off-canvas-close"><span>CLOSE</span></div>
+				<div class="sidebar-widget">					
+					<div class="widget-title-cover">
+						<h4 class="widget-title"><span>Popular Articles</span></h4>
+					</div>
+					<ul class="menu" id="sidebar-menu">
+						<li class="menu-item"><a href="#">Trending</a></li>
+						<li class="menu-item menu-item-has-children"><a href="#">Thinking</a>
+							<ul class="sub-menu">
+								<li class="menu-item"><a href="#">Home &amp; Living</a></li>
+								<li class="menu-item menu-item-has-children"><a href="#">Lifestyle</a>
+									<ul class="sub-menu">
+										<li class="menu-item"><a href="#">Travel</a></li>
+										<li class="menu-item"><a href="#">Gardening</a></li>
+										<li class="menu-item"><a href="#">Inspirations</a></li>										
+									</ul>
+								</li>
+								<li class="menu-item"><a href="#">Inspirations</a></li>
+								<li class="menu-item"><a href="#">Gardening</a></li>
+							</ul>
+						</li>
+						<li class="menu-item menu-item-has-children"><a href="#">Inspirations</a>
+							<ul class="sub-menu">
+								<li class="menu-item"><a href="#">House &amp; Living</a></li>
+								<li class="menu-item"><a href="#">Travel</a></li>
+							</ul>
+						</li>
+						<li class="menu-item"><a href="#">Contact</a></li>
+					</ul>				
+				</div> 
+				
+				<div class="sidebar-widget">					
+					<div class="widget-title-cover"><h4 class="widget-title"><span>Trending</span></h4></div>
+					<div class="latest_style_2">  
+						<div class="latest_style_2_item_first">							                                                  
+							<figure class="alith_post_thumb_big">
+								<span class="post_meta_categories_label">Legal, Blog</span>
+								<a href="single.html"><img src="http://via.placeholder.com/700x475" alt=""/></a>
+							</figure>
+							<h3 class="alith_post_title">
+								<a href="single.html"><strong>Nor again is there anyone who loves or pursues or desires to obtain</strong></a>
+							</h3>
+						</div>
+						<div class="latest_style_2_item">
+							<figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""/></a></figure>
+							<h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam quis </a></h3>
+							
+							<div class="post_meta">			
+								<p class="meta"><span>2 Sep, 2018</span> <span>268 views</span></p>
+							</div>
+						</div>
+						<div class="latest_style_2_item">
+							<figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""/></a></figure>
+							<h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+							<div class="post_meta">			
+								<span class="meta_date">18 Sep, 2018</span>
+							</div>
+						</div>
+						<div class="latest_style_2_item">
+							<figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""/></a></figure>
+							<h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+							<div class="post_meta">			
+								<span class="meta_date">18 Sep, 2018</span>
+							</div>
+						</div>
+					</div>
+				</div> <!--.sidebar-widget-->
+				
+				<div class="sidebar-widget">					
+					<div class="widget-title-cover"><h4 class="widget-title"><span>Advertise</span></h4></div>
+					<div class="banner-adv">
+						<div class="adv-thumb">
+							<a href="#">
+								<img class="aligncenter" alt="img1" src="http://via.placeholder.com/647x898">
+							</a>
+						</div>
+					</div>
+				</div> <!--.sidebar-widget-->
+			</div> 
+        </aside><!--End Offcanvas sidebar-->
+
+		<div id="page-content-wrapper">
+    <div class="nav-atas">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="top_bar margin-15">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 time">
+                <div class="off-canvas-toggle" id="off-canvas-toggle"><span></span><p class="sidebar-open">MORE</p></div>
+                <i class="fa fa-clock-o"></i><span>&nbsp;{{ hari(""|date('Y-m-d')) }}, {{ hijri(""|date('Y-m-d')) }} / {{ bulan(""|date('Y-m-d')) }}</span>               
+              </div>
+              <div class="col-md-6 col-sm-12 social">
+                <ul>
+                  <li>
+                  <a href="https://twitter.com/freedomnewsid" target="_blank"  title="Twitter">
+                      <i class="fa fa-twitter" aria-hidden="true"></i>
+                  </a>
+                  </li>
+                  <li>
+                  <a href="https://www.instagram.com/freedomnewsid/" target="_blank"  title="Instagram">
+                      <i class="fa fa-instagram" aria-hidden="true"></i>
+                  </a>
+                  </li>
+                  <li>
+                  <a href="https://www.youtube.com/@freedomnewsid" target="_blank"  title="Youtube">
+                      <i class="fa fa-youtube" aria-hidden="true"></i>
+                  </a>
+                  </li>
+                  <li>
+                  <a href="https://www.tiktok.com/@freedomnewsid" target="_blank"  title="Tiktok" style="display: inline; padding: 2px 4px">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width: 10px;">
+                          <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                      </svg>
+                  </a>
+                  </li>
+                  <li>
+                  <a href="mailto: redaksi@freedomnews.co.id" title="Email">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                  </a>
+                  </li>
+                  <li>
+                  <li>
+                  <a href="https://t.me/freedomnewsid" target="_blank" title="Telegram">
+                      <i class="fa fa-telegram" aria-hidden="true"></i>
+                  </a>
+                  </li>
+                </ul>
+                <div class="top-search">
+                  <i class="fa fa-search"></i><span>SEARCH</span>
+                </div>
+                <div class="top-search-form">
+                  <form action="#" class="search-form" method="get" role="search"> 
+                    <label> 
+                      <span class="screen-reader-text">Search for:</span>
+                      <input type="search" name="s" value="" placeholder="Search …" class="search-field"> 
+                    </label> 
+                    <input type="submit" value="Search" class="search-submit">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid nav-utama">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-12 header">
+              <div class="logo">
+                <a href="{{ home_url }}"><img src="{{ url('theme://img/Freedom-500-black.png') }}"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-nav section_margin nav-utama">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-12 main_nav_cover" id="nav">							
+                <ul id="main-menu">
+                  <li><a href="{{ home_url }}">Home</a></li>
+                  {% for page in pages.children.visible %}
+                    {% if page.url != home_url~'/' and page.template == 'kategori' %}
+                    {% set has_child = (page.children.visible.count > 0) ? 'menu-item-has-children' : '' %}
+                        <li class="{{ has_child }}">
+                            <a href="{{ page.url }}">{{ page.menu }}</a>
+                            {% if page.children.visible.count > 0 %}
+                                {% set cek_tipe = 0 %}
+                                {% for p in page.children.visible %}
+                                    {% if p.template == 'kategori' %}
+                                    {% set cek_tipe = cek_tipe + 1 %}
+                                    {% if cek_tipe == 1 %}
+                                    <ul class="sub-menu">
+                                    {% endif %}
+                                    <li><a style="" href="{{ p.url }}">{{ p.menu }}</a></li>   
+                                    {% endif %}                                            
+                                {% endfor %}
+                                {% if cek_tipe > 0 %}
+                                    </ul>
+                                {% endif %}
+                            {% endif %}        
+                        </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% block content %}
+      {% endblock %}
+
+      {% block footer %}
+          {% include 'partials/footer.html.twig' %}
+      {% endblock %}
+
+      <script>
+      {# $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        var timeh = $(".nav-atas").height();
+
+        if (scroll >= 65) {
+          $(".nav-atas").css("position", "fixed");
+          $(".wrapper_conten_center").css("margin-top", timeh+75);
+        }else{
+          $(".wrapper_conten_center").css("margin-top", 75);
+        }
+      }); #}
+      $("img.lazy").lazyload({
+        effect: "fadeIn",
+        threshold: 200,
+        failure_limit: 40
+      });
+      </script>
+      <script>
+      $('.bxslider').bxSlider({
+        pagerCustom: '#bx-pager',
+        auto: true,
+        touchEnabled: false,
+        onSlideBefore: function($slideElement, oldIndex, newIndex) {
+          origin_ = $('.img-headline[data-index="' + newIndex + '"]').attr("data-original");
+          $('.img-headline[data-index="' + newIndex + '"]').attr('src', origin_)
+        },
+      });
+      </script>
+
+			<div class="gototop js-top">
+				<a href="#" class="js-gotop"><span>Take Me Top</span></a>
+			</div>
+		</div> <!--page-content-wrapper-->
+        
+		<div class="dark-mark"></div>
+
+        {% block bottom %}
+        {{ assets.js('bottom')|raw }}
+        {% endblock %}
+    </div> <!--#wrapper-->
+</body>
+</html>

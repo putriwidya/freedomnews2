@@ -1,0 +1,851 @@
+{% extends 'partials/base.html.twig' %}
+{% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
+{% set collection = page.collection() %}
+{% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
+{% set show_breadcrumbs = header_var('show_breadcrumbs', [page, blog])|defined(true) %}
+{% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
+{% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
+
+
+{% set collection = page.collection({'items': '@self.all', 'pagination': true, 'order': {'by': 'title'}, 'limit': 3}) %}
+{# {% set itemsInCollection = page.collection({'items': collection.params.items})|length %} #}
+{% set itemsInCollection = page.collection({'items': '@self.all'})|length %}
+{% set itemsPerPage = collection.params.limit %}
+{% set pagesInCollection = (itemsInCollection / itemsPerPage)|round(0, 'ceil') %}
+{% set currentPage = uri.param('page')|default('1') %}
+
+{% block content %}
+<style>
+      .section_margin {
+    margin-bottom: 30px;
+}
+.alith_news_img img{
+  width: 100%;
+}
+ .col-bs10-4 {
+        width: 40%;
+        /* position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; */
+        float: left;
+      }
+
+      .col-bs10-6 {
+        width: 60%;
+        /* position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; */
+        float: left;
+      }
+
+      .footer__logo {
+        padding: 0 0 15px;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .footer__logo img {
+        height: 50px;
+        width: auto;
+        margin-bottom: -15px;
+      }
+
+      .footer__network {
+        position: relative;
+        padding: 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, .2);
+        border-top: 1px solid rgba(255, 255, 255, .2);
+        font-size: 14px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+
+      .footer__network span {
+        display: inline-block;
+        color: #fff;
+        float: left;
+        margin-right: 24px;
+        margin-top: 20px;
+      }
+
+      .footer__network img {
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .footer__contact p {
+        font-size: 14px;
+      }
+
+      .footer__link {
+        padding: 5px 0;
+        display: block;
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .col-bs12-4,
+      .col-bs9-3 {
+        width: 33.33333%;
+        float: left;
+      }
+
+      .footer__bottom {
+        letter-spacing: .6px;
+        padding-top: 40px;
+        padding-bottom: 60px;
+      }
+
+      .col-bs10-7 {
+        width: 70%;
+        float: left;
+      }
+
+      .col-bs10-3 {
+        width: 30%;
+        float: left;
+      }
+
+      .footer__menu.inline .footer__link {
+        padding: 0 5px;
+      }
+
+      .footer__menu.inline .footer__item {
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer__menu.inline .footer__item:after {
+        content: "|";
+        position: absolute;
+        right: -5px;
+        bottom: 1px;
+      }
+
+      .footer__menu.inline .footer__item:last-child:after {
+        content: "";
+      }
+
+      .footer__copyright {
+        text-align: right;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .footer__copyright p {
+        margin: 0;
+      }
+
+      .sidebar-widget {
+        margin: 0 0 30px 0;
+    display: inline-block;
+    width: 100%;
+}
+      .widget-title-cover {
+    line-height: 1;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+h4.widget-title {
+    font-size: 16px;
+    position: relative;
+    text-transform: uppercase;
+    display: inline-block;
+}
+h4.widget-title span {
+    padding-left: 15px;
+    padding-right: 10px;
+}
+      h4.widget-title span::before {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    content: "";
+    height: 8px;
+    left: 0;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    width: 8px;
+}
+h4.widget-title::after {
+    background: #000 none repeat scroll 0 0;
+    bottom: 10px;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    left: 100%;
+    position: absolute;
+    width: 100vw;
+}
+
+.latest_style_1_item {
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    padding: 10px 0;
+    position: relative;
+    min-height: 80px;
+}
+.latest_style_1 .latest_style_1_item:first-child {
+    padding-top: 0;
+}
+.latest_style_1_item span.item-count {
+    float: left;
+    font-size: 30px;
+}
+.vertical-align {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.latest_style_1_item .alith_post_title_small {
+    clear: none;
+    float: left;
+    left: 12%;
+    margin-left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    color: #888;
+}
+.alith_post_title_small {
+    line-height: 1.2;
+}
+.alith_post_title_small .meta {
+    color: #888;
+    font-size: 12px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+.latest_style_1_item .alith_news_img {
+    display: block;
+    float: right;
+    margin: 0;
+    position: relative;
+    width: 35%;
+}
+.alith_news_img {
+    overflow: hidden;
+}
+figure {
+    margin-bottom: 15px;
+    max-width: 100%;
+    position: relative;
+}
+form.search-form input.search-field {
+  -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    color: #888;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    height: 50px;
+    line-height: 30px;
+    outline: none;
+    padding: 10px;
+    background: #fff;
+    box-shadow: none;
+    border-radius: 0;
+    
+    border: 1px solid #333;
+    font-size: 14px;
+    width: 70%;
+    float: left;
+    
+}
+form.search-form input.search-submit {
+    background: #333 none repeat scroll 0 0;
+    border: 0 none;
+    color: #fff;
+    float: right;
+    letter-spacing: 1px;
+    line-height: 30px;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 30%;
+}
+.alith_tagg {
+    background: #f1f1f1;
+    padding: 10px 15px;
+    color: #222;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.alith_post_thumb_big img{
+  height: auto;
+    max-width: 100%;
+}
+.alith_post_thumb_big .post_meta_categories_label {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+}
+.post_meta_categories_label {
+    background: #000 none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 10px;
+}
+.latest_style_2_item_first {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+.latest_style_2_item {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    position: relative;
+}
+.latest_style_2_item figure {
+    display: block;
+    float: left;
+    margin: 0 15px 0 0;
+    position: relative;
+    width: 35%;
+}
+.latest_style_2_item .alith_news_img {
+    overflow: hidden;
+}
+.latest_style_2_item .alith_news_img img{
+  height: auto;
+    max-width: 100%;
+}
+.latest_style_2_item h3.alith_post_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.post_meta {
+    font-size: 80%;
+    font-weight: 300;
+}
+.post_meta span {
+    color: #888;
+    margin: 0 20px 0 0;
+}
+
+.site-pagination {
+    border-top: 1px solid #eee;
+    font-size: 24px;
+    padding-top: 30px;
+}
+ul.page-numbers {
+    font-weight: 300;
+}
+ul.page-numbers li {
+  line-height: 28px;
+    list-style: none;
+    display: inline-block;
+    padding: 0 10px 0 0;
+}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+ul.page-numbers li a.prev {
+    font-size: 14px;
+    padding-left: 30px;
+    position: relative;
+}
+ul.page-numbers li a.next{
+  font-size: 14px;
+    padding-right: 30px;
+    position: relative;
+    transition-duration: .2s;
+}
+ul.page-numbers li a.prev::after {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/icon-prev.png) repeat scroll 0 0;
+    content: "";
+    height: 17px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px;
+}
+ul.page-numbers li a.next::after {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/icon-next.png) repeat scroll 0 0;
+    content: "";
+    height: 17px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 22px;
+}
+.latest_style_3_item {
+    border-bottom: 1px solid #eee;
+    min-height: 50px;
+    overflow: hidden;
+    padding: 40px 0;
+    position: relative;
+}
+.latest_style_3_item span.item-count {
+    float: left;
+    font-size: 30px;
+}
+.latest_style_3_item .alith_post_title_small {
+    clear: none;
+    float: left;
+    left: 12%;
+    margin-left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90%;
+}
+.vertical-align {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.alith_post_title_small {
+    line-height: 1.2;
+}
+.bottom_menu {
+    overflow: hidden;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+.bottom_menu li {
+    float: left;
+    margin: 2px 0;
+    width: 50%;
+    line-height: 28px;
+    list-style: none;
+}
+.alith-row.alith-gap-10 .alith-col, .alith-row.alith-gap-10 .alith-col-nr {
+    float: left;
+    margin: 0 0 10px;
+    padding: 0 5px;
+}
+.alith-row .alith-col-3 {
+    width: 33.33%;
+    line-height: 28px;
+    list-style: none;
+}
+.alith-col-3 img {
+    height: auto;
+    max-width: 100%;
+}
+.single-comment-title, .comment-reply-title {
+  font-size: 20pt;
+    position: relative;
+    text-align: center;
+    margin-top: 30px;
+    text-transform: uppercase;
+}
+.single-comment-title::before, .comment-reply-title::before {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/patern-1.png) no-repeat scroll right center;
+    content: "";
+    display: inline-block;
+    height: 15px;
+    margin-right: 10px;
+    width: 30px;
+}
+.single-comment-title::after, .comment-reply-title::after {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/patern-1.png) no-repeat scroll right center;
+    content: "";
+    display: inline-block;
+    height: 15px;
+    margin-left: 10px;
+    width: 30px;
+}
+.comments-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+.comments-title p {
+    background: #000 none repeat scroll 0 0;
+    color: #fff;
+    display: inline;
+    padding: 0 20px;
+    text-align: center;
+}
+h3.alith_post_title{
+  margin-top: 0;
+}
+ul.event-meta{
+  list-style: none;
+}
+.wrapper_conten_center.container{
+    margin-top: 75px;
+    padding: 0;
+    border-top: none;
+    margin-left: auto;
+}
+.nav-kategori{
+  display: none;
+
+    margin-top: 65px;
+}
+.nav-kategori.showing{
+    display: block;
+    position: fixed;
+    top: 0;
+    background-color: #fff;
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+    </style>
+    <div class="nav-kategori">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-12 header">
+              <h1 style="font-size: 31pt;">{{page.title}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-nav section_margin">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-12 main_nav_cover" id="nav">							
+                <ul id="main-menu">
+                  {% for pg in page.children.visible %}
+                    {% if pg.url != home_url~'/' and pg.template == 'kategori' %}
+                    {% set has_child = (pg.children.visible.count > 0) ? 'menu-item-has-children' : '' %}
+                        <li class="{{ has_child }}">
+                            <a href="{{ pg.url }}">{{ pg.menu }}</a>
+                            {% if pg.children.visible.count > 0 %}
+                                {% set cek_tipe = 0 %}
+                                {% for p in pg.children.visible %}
+                                    {% if p.template == 'kategori' %}
+                                    {% set cek_tipe = cek_tipe + 1 %}
+                                    {% if cek_tipe == 1 %}
+                                    <ul class="sub-menu">
+                                    {% endif %}
+                                    <li><a style="" href="{{ p.url }}">{{ p.menu }}</a></li>   
+                                    {% endif %}                                            
+                                {% endfor %}
+                                {% if cek_tipe > 0 %}
+                                    </ul>
+                                {% endif %}
+                            {% endif %}        
+                        </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container wrapper_conten_center">
+        <div class="col-md-8">
+          <div class="post_list post_list_style_1">
+            <h4 class="single-comment-title">Kategori {{page.title}}</h4>
+            <div class="comments-title"> <p>Ditemukan {{itemsInCollection}} berita dengan kategori {{page.title}}</p></div>
+            {% if itemsInCollection > 0 %}
+              {% for child in collection %}
+              {% include 'partials/kategori_item.html.twig' with {'page':child, 'truncate':true} %}
+              {% endfor %}
+            {% else %}
+              <div class="comments-title"> <p>Belum ada konten dengan kategori {{page.title}}</p></div>
+            {% endif %}	
+                  
+            {% if show_pagination %}
+              {% if pagesInCollection > 1 %}	
+              <div class="site-pagination animate-box fadeInUp animated-fast">
+                <ul class="page-numbers">
+                  {% for i in range(1, pagesInCollection) %}
+                    {% set newpg = page.url ~ '/page' ~ system.param_sep ~ i %}
+                    {% if newpg.hasPrev %}
+                      <li><a rel="prev" href="{{ newurl.prevUrl }}" class="prev page-numbers">PREV</a></li>
+                    {% endif %}
+
+                    <li class="currentpage">
+                      {% if currentPage is same as('' ~ i ~ '') %}
+                        <span class="page-numbers current" aria-current="page">{{ i }}</span>
+                      {% else %}
+                        <a href="{{ page.url ~ '/page' ~ system.param_sep ~ i }}" class="page-numbers">{{ i }}</a>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                  {# <li><a href="#" class="next page-numbers">NEXT</a></li> #}
+                </ul>
+              </div>
+              {% endif %}
+            {% endif %}
+
+          </div>
+        </div>
+
+        <aside class="col-md-4 sidebar_right" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+           
+         <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="sidebar-widget animate-box fadeInUp animated-fast">					
+             <div class="widget-title-cover"><h4 class="widget-title"><span>Popular Articles</span></h4></div>
+             <div class="latest_style_1">  
+               <div class="latest_style_1_item">                     
+                 <span class="item-count vertical-align">1.</span>
+                 <div class="alith_post_title_small">
+                   <a href="single.html"><strong>Ut enim ad minima veniam, quis nostrum</strong></a><p class="meta"><span>2 Sep, 2018</span> <span>268 views</span></p>
+                 </div>                                                  
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+               </div>
+               <div class="latest_style_1_item">                     
+                 <span class="item-count vertical-align">2.</span>
+                 <div class="alith_post_title_small">
+                   <a href="single.html"><strong>Curae lacinia consec tetur varius</strong></a><p class="meta"><span>2 Sep, 2018</span> <span>28 views</span></p>
+                 </div>                                                  
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+               </div>
+               <div class="latest_style_1_item">                     
+                 <span class="item-count vertical-align">3.</span>
+                 <div class="alith_post_title_small">
+                   <a href="single.html"><strong>Euismod lacus vulpu tate augue</strong></a><p class="meta"><span>2 Aug, 2018</span> <span>18 views</span></p>
+                 </div>                                                  
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+               </div>
+               <div class="latest_style_1_item">                     
+                 <span class="item-count vertical-align">4.</span>
+                 <div class="alith_post_title_small">
+                   <a href="single.html"><strong>Quam mauris lorem erat est euismod</strong></a><p class="meta"><span>21 Aug, 2018</span> <span>18 views</span></p>
+                 </div>                                                  
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+               </div>
+               <div class="latest_style_1_item">                     
+                 <span class="item-count vertical-align">5.</span>
+                 <div class="alith_post_title_small">
+                   <a href="single.html"><strong>Nec eget ince ptos aenean gravida</strong></a><p class="meta"><span>21 Jun, 2018</span> <span>18 views</span></p>
+                 </div>                                                  
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+               </div>
+             </div>
+           </div><div class="sidebar-widget animate-box fadeInUp animated-fast">
+             <div class="widget-title-cover"><h4 class="widget-title"><span>Search</span></h4></div>
+             <form action="#" class="search-form" method="get" role="search"> 
+               <label> 
+                 <input type="search" name="s" value="" placeholder="Search …" class="search-field"> 
+               </label> 
+                 <input type="submit" value="Search" class="search-submit">
+             </form>
+           </div><div class="sidebar-widget animate-box fadeInUp animated-fast">					
+             <div class="widget-title-cover"><h4 class="widget-title"><span>Trending</span></h4></div>
+             <div class="latest_style_2">  
+               <div class="latest_style_2_item_first">							                                                  
+                 <figure class="alith_post_thumb_big">
+                   <span class="post_meta_categories_label">Legal, Blog</span>
+                   <a href="single.html"><img src="http://via.placeholder.com/700x475" alt=""></a>
+                 </figure>
+                 <h3 class="alith_post_title">
+                   <a href="single.html"><strong>Nor again is there anyone who loves or pursues or desires to obtain</strong></a>
+                 </h3>
+               </div>
+               <div class="latest_style_2_item">
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+                 <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+                 <div class="post_meta">			
+                   <span class="meta_date">18 Sep, 2018</span>
+                 </div>
+               </div>
+               <div class="latest_style_2_item">
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+                 <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+                 <div class="post_meta">			
+                   <span class="meta_date">18 Sep, 2018</span>
+                 </div>
+               </div>
+               <div class="latest_style_2_item">
+                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+                 <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+                 <div class="post_meta">			
+                   <span class="meta_date">18 Sep, 2018</span>
+                 </div>
+               </div>
+             </div>
+           </div><div class="sidebar-widget animate-box fadeInUp animated-fast">					
+             <div class="widget-title-cover"><h4 class="widget-title"><span>Tags cloud</span></h4></div>
+             <div class="alith_tags_all">
+               <a href="#" class="alith_tagg">Business</a>
+               <a href="#" class="alith_tagg">Technology</a>
+               <a href="#" class="alith_tagg">Sport</a>
+               <a href="#" class="alith_tagg">Art</a>
+               <a href="#" class="alith_tagg">Lifestyle</a>
+               <a href="#" class="alith_tagg">Three</a>
+               <a href="#" class="alith_tagg">Photography</a>
+               <a href="#" class="alith_tagg">Lifestyle</a>
+               <a href="#" class="alith_tagg">Art</a>
+               <a href="#" class="alith_tagg">Education</a>
+               <a href="#" class="alith_tagg">Social</a>
+               <a href="#" class="alith_tagg">Three</a>
+             </div>
+           </div></div></aside>
+
+           <div class="container-fluid">
+            <div class="animate-box fadeInUp animated-fast">
+              <div class="bottom margin-15">
+                <div class="row">            
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="sidebar-widget">					
+                    <div class="widget-title-cover"><h4 class="widget-title"><span>Most comments</span></h4></div>
+                    <div class="latest_style_3">  
+                      <div class="latest_style_3_item">                     
+                        <span class="item-count vertical-align">1.</span>
+                        <div class="alith_post_title_small">
+                          <a href="single.html"><strong>Frtuitous spluttered unlike ouch vivid blinked far inside</strong></a>
+                        </div>
+                      </div>
+                      <div class="latest_style_3_item">                     
+                        <span class="item-count vertical-align">2.</span>
+                        <div class="alith_post_title_small">
+                          <a href="single.html"><strong>Against and lantern where a and gnashed nefarious</strong></a>
+                        </div>
+                      </div>
+                      <div class="latest_style_3_item">                     
+                        <span class="item-count vertical-align">3.</span>
+                        <div class="alith_post_title_small">
+                          <a href="single.html"><strong>Ouch oh alas crud unnecessary invaluable some</strong></a>
+                        </div> 
+                      </div>
+                      <div class="latest_style_3_item">                     
+                        <span class="item-count vertical-align">4.</span>
+                        <div class="alith_post_title_small">
+                          <a href="single.html"><strong>And far hey much hello and bashful one save less</strong></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="sidebar-widget">					
+                      <div class="widget-title-cover"><h4 class="widget-title"><span>Latest</span></h4></div>
+                      <div class="latest_style_2">
+                        <div class="latest_style_2_item">
+                          <figure class="alith_news_img"><a href="single.html"><img alt="" src="http://via.placeholder.com/200x175" class="hover_grey"></a></figure>
+                          <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+                        </div>
+                        <div class="latest_style_2_item">
+                          <figure class="alith_news_img"><a href="single.html"><img alt="" src="http://via.placeholder.com/200x175" class="hover_grey"></a></figure>
+                          <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+                        </div>
+                        <div class="latest_style_2_item">
+                          <figure class="alith_news_img"><a href="single.html"><img alt="" src="http://via.placeholder.com/200x175" class="hover_grey"></a></figure>
+                          <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="sidebar-widget">					
+                      <div class="widget-title-cover"><h4 class="widget-title"><span>Categories</span></h4></div>
+                      <ul class="bottom_menu">
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Business</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Entertainment</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Environment</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Health</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Life style</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Politics</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; Technology</a></li>
+                        <li><a href="#" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp; World</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="sidebar-widget">					
+                      <div class="widget-title-cover"><h4 class="widget-title"><span>Instagram</span></h4></div>
+                      <ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>
+                        <li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+                          <a class="" target="_blank" href="#">
+                            <img class="" title="" alt="" src="http://via.placeholder.com/200x175">
+                          </a>
+                        </li>						
+                      </ul>
+                    </div>
+                  </div>
+                </div> <!--.row-->
+              </div>
+            </div>
+          </div>
+</div>
+<script>
+      $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        var timeh = $(".nav-atas").height();
+        if (scroll >= 65) {
+          $(".nav-utama").css("display","none");
+          $(".nav-kategori").css("display","block");
+          /*$(".nav-kategori").addClass("showing");
+          $(".nav-kategori").css("top",timeh);*/
+        }else{
+          $(".nav-utama").css("display","block");
+          $(".nav-kategori").css("display","none");
+          /*
+          $(".nav-kategori").removeClass("showing");
+          */
+        }
+        
+        console.log(timeh);
+      });
+</script>
+{% endblock %}

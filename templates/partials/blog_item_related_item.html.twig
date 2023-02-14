@@ -1,0 +1,30 @@
+<div class="col-lg-4 col-md-4 col-sm-4">								
+    <!-- Blog Post -->
+    <div class="blog-post animate-onscroll">
+        
+        <div class="post-image">
+            {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+        </div>
+        
+        <h4 class="post-title"><a href="{{ page.url }}">{{ page.title|raw }}</a></h4>
+        
+        <div class="post-meta">
+            <span>by <a href="#">admin</a></span>
+            <span>{{ page.date|date("d M Y H:i") }}</span>
+        </div>
+        
+    </div>
+    <!-- /Blog Post -->
+    
+</div>
+
+{# <div class="mb-3 overflow-hidden rounded d-flex">
+            {% if page.media.images|first %}
+                <img class="img-fluid"style="width: 100px; height: 100px; object-fit: cover;" alt=""  {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+            {% else %}
+                <img class="img-fluid" src="https://via.placeholder.com/100x100?text=gambar+tidak+tersedia">
+            {% endif %}
+
+            <a href="{{ page.url }}" class="px-3 mb-0 d-flex align-items-center mytext-primary bg-light">{{ page.title|raw }}
+    </a>
+</div> #}

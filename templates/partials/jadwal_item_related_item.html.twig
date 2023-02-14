@@ -1,0 +1,49 @@
+<div class="col-lg-4 col-md-4 col-sm-4">								
+    <!-- Blog Post -->
+    {# <div class="blog-post animate-onscroll">
+        
+        <div class="post-image">
+            {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+        </div>
+        
+        <h4 class="post-title"><a href="{{ page.url }}">{{ page.title|raw }}</a></h4>
+        
+        <div class="post-meta">
+            <span>by <a href="#">admin</a></span>
+            <span>{{ page.date|date("d M Y H:i") }}</span>
+        </div>
+        
+    </div> #}
+    <!-- /Blog Post -->
+
+    <!-- Event Item -->
+    <div class="event-item">
+        
+        <div class="event-image">
+            {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+        </div>
+        
+        <div class="event-info">
+        
+            <div class="date">
+                <span>
+                    <span class="day">{{page.header.date|date("d")}}</span>
+                    <span class="month">{{page.header.date|date("M")}}</span>
+                </span>
+            </div>
+            
+            <div class="event-content">
+                <h6><a href="{{ page.url }}">{{ page.title|raw }}</a></h6>
+                <ul class="event-meta">
+                    <li><i class="icons icon-clock"></i> {{page.header.date|date("h:i")}} - Selesai</li>
+                    <li><i class="icons icon-location"></i> {{page.header.tempat}}</li>
+                </ul>
+            </div>
+        
+        </div>
+
+    </div>
+    <!-- /Event Item -->
+    
+</div>
+

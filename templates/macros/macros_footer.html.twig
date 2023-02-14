@@ -1,0 +1,16 @@
+{% macro nav_loop(page) %}
+  {% import _self as macros %}
+  {% set num = page.children.visible|length %}
+  {% set left = (num / 2)|round(0, 'ceil') %}
+
+  {% for p in page.children.visible %}
+    {% if loop.index <= left %}
+      {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
+      <li>
+        <a href="{{ p.url }}" class="{{ active_page }}">
+          {{ p.menu }}
+        </a>
+      </li>
+    {% endif %}	
+  {% endfor %}
+{% endmacro %}

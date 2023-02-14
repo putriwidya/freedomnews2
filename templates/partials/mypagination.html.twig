@@ -1,0 +1,32 @@
+{% set pagination = pagination|default(page.collection.params.pagination) %}
+{% set base_url = page.url %}
+
+<div class="animate-onscroll">
+						
+    <div class="divider"></div>
+    
+    <div class="numeric-pagination">
+        {% if pagination.hasPrev %}
+            {% set url =  (base_url ~ pagination.params ~ pagination.prevUrl)|replace({'//':'/'}) %}
+             <a href="{{url}}" class="button"><i class="icons icon-left-dir"></i></a>
+        {% endif %}
+
+        {% for paginate in pagination %}
+
+            {% if paginate.isCurrent %}
+                <a href="#" class="button active-button">{{ paginate.number }}</a>
+            {% elseif paginate.isInDelta %}
+                {% set url = (base_url ~ pagination.params ~ paginate.url)|replace({'//':'/'}) %}
+                <a href="{{ url }}" class="button">{{ paginate.number }}</a>
+            {% elseif paginate.isDeltaBorder %}
+                <li class="gap"><span>&hellip;</span></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if pagination.hasNext %}
+            {% set url = (base_url ~ pagination.params ~ pagination.nextUrl)|replace({'//':'/'}) %}
+            <a href="url" class="button"><i class="icons icon-right-dir"></i></a>
+        {% endif %}
+    </div>
+
+</div>

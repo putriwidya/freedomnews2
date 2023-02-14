@@ -1,0 +1,85 @@
+{# {% import 'macros/macros_footer.html.twig' as macros %}
+{% import 'macros/macros_footer_right.html.twig' as macros2 %}
+
+<div class="container-fluid alith_footer_right_reserved">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-12 bottom-logo">
+				<h1 class="logo"><a href="index.html">HELLO WORLD</a></h1>
+				<div class="tagline social">
+					<ul>
+						<li class="facebook"><a href=""><i class="fa fa-facebook"></i></a></li>
+						<li class="twitter"><a href=""><i class="fa fa-twitter"></i></a></li>
+						<li class="google-plus"><a href=""><i class="fa fa-google-plus"></i></a></li>
+						<li class="instagram"><a href=""><i class="fa fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 coppyright"> <p>© Copyright 2018, All rights reserved. Design by <a href="https://alithemes.com" title="AliTheme">Alithemes.com</a></p> </div>
+		</div>
+	</div>
+</div> #}
+
+{# <section id="footer" class="section bg-gray">
+    <section class="container {{ grid_size }}">
+        <p><a href="http://getgrav.org">Grav</a> was <i class="fa fa-code"></i> with <i class="fa fa-heart-o pulse "></i> by <a href="https://trilby.media">Trilby Media</a>.</p>
+    </section>
+</section> #}
+{% import 'macros/macros_footer.html.twig' as macros %}
+{% import 'macros/macros_footer_right.html.twig' as macros2 %}
+
+<footer class="footer">
+    <div class="container clearfix row footer__top" style="border: none !important;">
+    <!-- <div class="clearfix col-offset-fluid"> -->
+    <div class="col-bs10-4">
+        <div class="clearfix footer__logo">
+        <a href="#" rel="”noreferred”">
+            <img class=" lazyloaded" src="{{ url('theme://img/Freedom-500.png') }}" data-loaded="true">
+        </a>
+        </div>
+        <div class="footer__contact">
+        <p> SOHO PANCORAN <br> Jl. Letjen MT.Haryono Kav 2-3, <br> Pancoran Jakarta Selatan 12810 <br>Telp. 08111 09 2117 <br><br>redaksi@freedomnews.co.id <br> marketing@freedomnews.co.id <BR> Telegram : t.me/freedomnewsid </p>
+        </div>
+    </div>
+    <div class="col-bs10-6">
+        <div class="clearfix col-offset-fluid" style="margin-bottom: 15px;">
+			<div class="col-bs12-8">
+				<ul class="bottom_menu">
+				{% for page in pages.children.visible %}
+					{% if page.url != home_url~'/' %}
+						<li class="footer__item">
+							<a href="{{page.url}}" class="footer__link" rel="”noreferred”">{{page.title}}</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+        </div>
+    </div>
+    </div>
+    <div class="container clearfix row footer__bottom">
+    <div class="clearfix col-offset-fluid">
+        <div class="col-bs10-7">
+        <div class="inline clearfix footer__menu">
+            <div class="footer__item">
+            <a href="/freedomnews/info/tentang-kami" class="footer__link" rel="”noreferred”">Tentang Kami</a>
+            </div>
+            <div class="footer__item">
+            <a href="/freedomnews/info/redaksi" class="footer__link" rel="”noreferred”">Redaksi</a>
+            </div>
+            <div class="footer__item">
+            <a href="/freedomnews/info/pedoman-pemberitaan-media-siber" class="footer__link" rel="”noreferred”">Pedoman Pemberitaan</a>
+            </div>
+            <div class="footer__item">
+            <a href="/freedomnews/info/kontak" class="footer__link" rel="”noreferred”">Kontak</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-bs10-3">
+        <div class="footer__copyright">
+            <p>©2023 Freedom News</p>
+        </div>
+        </div>
+    </div>
+    </div>
+</footer>

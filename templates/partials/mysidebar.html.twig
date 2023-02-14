@@ -1,0 +1,101 @@
+<!-- Sidebar -->
+<style>
+.banner-wrapper a img{
+	position: absolute;
+    margin-left: -62px;
+    margin-top: 3px;
+    width: 40px;
+}
+</style>
+
+{% set hot1 =page.find(page.find('/').header.hotline1_konten).children.order('date', 'desc')|first %}
+{% if hot1==null %}
+{% set hot1 =page.find(page.find('/').header.hotline1_konten) %}
+{% endif %}
+
+{% set hot2 =page.find(page.find('/').header.hotline2_konten).children.order('date', 'desc')|first %}
+{% if hot2==null %}
+{% set hot2 =page.find(page.find('/').header.hotline2_konten) %}
+{% endif %}
+
+{% set hot3 =page.find(page.find('/').header.hotline3_konten).children.order('date', 'desc')|first %}
+{% if hot3==null %}
+{% set hot3 =page.find(page.find('/').header.hotline3_konten) %}
+{% endif %}
+
+{% set pagebanner =page.find(page.find('/').header.banner_konten).children.order('date', 'desc')|first %}
+{% if pagebanner==null %}
+{% set pagebanner =page.find(page.find('/').header.banner_konten) %}
+{% endif %}
+
+{# {% set bn =page.find(page.header.banner_konten).children.order('date', 'desc')|first %}
+{% if bn==null %}
+{% set bn =page.find(page.header.banner_konten) %}
+{% endif %} #}
+					<div class="col-lg-3 col-md-3 col-sm-4 sidebar">
+						
+						<div class="banner-wrapper">
+							<a class="banner animate-onscroll" href="{{hot1.url}}">
+								<img src="{{ page.find('/').media[page.find('/homepage').header.hotline1_icon].url|e }}" />
+								<h4>{{page.find('/').header.hotline1_title}}</h4>
+								<p>{{page.find('/').header.hotline1_narasi}}</p>
+							</a>
+						</div>
+						
+						<div class="banner-wrapper">
+							<a class="banner animate-onscroll" href="{{hot2.url}}">
+								<img src="{{ page.find('/').media[page.find('/homepage').header.hotline2_icon].url|e }}" />
+								<h4>{{page.find('/').header.hotline2_title}}</h4>
+								<p>{{page.find('/').header.hotline2_narasi}}</p>
+							</a>
+						</div>
+						
+						<div class="banner-wrapper">
+							<a class="banner animate-onscroll" href="{{hot3.url}}">
+								<img src="{{ page.find('/').media[page.find('/homepage').header.hotline3_icon].url|e }}" />
+								<h4>{{page.find('/').header.hotline3_title}}</h4>
+								<p>{{page.find('/').header.hotline3_narasi}}</p>
+							</a>
+						</div>
+						
+						<div class="sidebar-box white animate-onscroll" style="margin-top: 30px;">
+							<h3>Acara Mendatang</h3>
+							{% set options = { items: ["@root.descendants"], 'limit': 5, 'order': {'by': 'date', 'dir': 'desc'}, 'pagination': true, "filter":{"type":'jadwal'}} %}
+							{% set my_collection = page.collection(options) %}
+
+							<ul class="upcoming-events">
+								{% for p in my_collection %}
+									<!-- Event -->
+									<li>
+										<div class="date">
+											<span>
+												<span class="day">{{ p.header.date|date("d") }}</span>
+												<span class="month">{{ p.header.date|date("M") }}</span>
+											</span>
+										</div>
+										
+										<div class="event-content">
+											<h6><a href="{{p.url}}">{{ p.title|e }}</a></h6>
+											<ul class="event-meta">
+												<li><i class="icons icon-clock"></i> {{ p.header.date|date('H:i') }} - Selesai</li>
+												<li><i class="icons icon-location"></i> {{ p.header.tempat }}</li>
+											</ul>
+										</div>
+									</li>
+									<!-- /Event -->
+								{% endfor %}
+							</ul>
+
+							<a href="{{page.find('/jadwal').url}}" class="button transparent button-arrow" style="margin-top: 30px;">Selengkapnya</a>
+						</div>
+						<!-- /Upcoming Events -->						<!-- Image Banner -->
+						<div class="sidebar-box image-banner animate-onscroll">
+							<a href="{{pagebanner.url}}">
+								{{ pagebanner.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+								<h3>{{pagebanner.title}}</h3>
+								<span class="button transparent button-arrow">Selengkapnya</span>
+							</a>
+						</div>
+									
+					</div>
+					<!-- /Sidebar -->

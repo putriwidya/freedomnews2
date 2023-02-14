@@ -1,0 +1,54 @@
+{% extends 'partials/base.html.twig' %}
+{% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
+{% set collection = page.collection() %}
+{% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
+{% set show_breadcrumbs = header_var('show_breadcrumbs', [page, blog])|defined(true) %}
+{% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
+{% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
+
+
+
+{% block content %}
+<!-- Page Heading -->
+			<section class="section page-heading animate-onscroll">
+				
+				<h1>{{page.title}}</h1>
+				
+			</section>
+			<!-- Page Heading -->
+			
+
+			
+			<!-- Section -->
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+					<div class="col-lg-9 col-md-9 col-sm-8">
+                        {% if page.media.images|first %}
+                        <img class="animate-onscroll" style="margin-bottom: 15px;" alt=""  {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+                        {% endif %}
+
+                        {{ page.content|raw }}	
+
+						
+						<div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="margin-top: 50px;">
+							<a class="a2a_button_whatsapp"></a>
+							<a class="a2a_button_telegram"></a>
+							<a class="a2a_button_facebook"></a>
+							<a class="a2a_button_twitter"></a>
+							<a class="a2a_button_linkedin"></a>
+							<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+						</div>
+						<script async src="https://static.addtoany.com/menu/page.js"></script>
+					</div>
+					
+                    {% include 'partials/mysidebar.html.twig' %}
+					
+					
+				
+				</div>
+				
+			</section>
+			<!-- /Section -->
+{% endblock %}
+

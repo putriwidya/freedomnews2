@@ -1,0 +1,31 @@
+<article class="row section_margin animate-box fadeInUp animated-fast">
+    <div class="col-md-4 animate-box fadeInUp animated-fast">							
+        <figure class="alith_news_img">
+            <a href="{{page.url}}">
+            {% if page.header.link==null %} {# Jika bukan video youtube #}
+                <img {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+            {% else %}
+                {% set urly = page.header.link|split('v=', 2) %}
+                <img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
+            {% endif %}
+            </a>
+        </figure>
+    </div>
+    <div class="col-md-8 animate-box fadeInUp animated-fast">
+        <h3 class="alith_post_title"><a href="{{page.url}}">{{page.title}}</a></h3>
+        {% if page.header.email!=null %}
+            <ul class="event-meta">
+                <li><i class="icons icon-clock"></i>&nbsp;{{page.header.date|date("j F Y g:i")}}</li>
+                <li><i class="icons icon-location"></i> {{page.header.tempat}}</li>
+                <li><i class="icons icon-megaphone-1"></i> {{page.header.deskripsi|striptags|truncate(250)}}</li>
+            </ul>
+        {% else %}
+            <p>{{page.content|truncate(100)|striptags|raw}}</p>
+            <div class="post_meta">
+                <a href="#" class="meta_author_avatar"><img src="{{ url('theme://img/author-avatar.png') }}" alt="author details"></a>
+                <span class="meta_author_name"><a href="#" class="author">Admin</a></span>
+                <span class="meta_date">{{ page.header.date|date("d M Y") }}</span>
+            </div>
+        {% endif %}
+    </div>
+</article>

@@ -1,0 +1,38 @@
+{% extends 'partials/base.html.twig' %}
+
+
+{% block content %}
+<style>
+fieldset{
+	border: none;
+}
+.form-field{
+	width: 100% !important;
+}
+input, textarea{
+	margin-bottom: 10px;
+}
+</style>
+			<section class="section page-heading animate-onscroll">
+				<h1>{{page.title}}</h1>
+			</section>
+			
+			<section class="section full-width-bg gray-bg">
+				
+				<div class="row">
+					<div class="col-lg-9 col-md-9 col-sm-8">
+						<h3 class="" style="opacity: 1;">{{content|raw}}</h3>
+                        {% include "forms/form.html.twig" %}
+					</div>
+					
+					
+                    {% include 'partials/mysidebar.html.twig' %}
+					
+					
+				
+				</div>
+				
+			</section>
+			<!-- /Section -->
+{% endblock %}
+

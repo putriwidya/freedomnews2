@@ -1,0 +1,82 @@
+extends@: mydefault
+title: PLUGIN_ADMIN.DEFAULT
+
+rules:
+  slug:
+    pattern: '[a-zA-Zа-яA-Я0-9_\-]+'
+    min: 1
+    max: 200
+
+form:
+  validation: loose
+
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: Konten
+
+          fields:
+            xss_check:
+              type: xss
+
+            header.title:
+              type: text
+              label: Judul Video
+              autofocus: true
+              style: vertical
+
+            header.link:
+              type: text
+              style: vertical
+              label: Link
+            content:
+              type: markdown
+              label: Narasi
+              validate:
+                type: textarea
+              autofocus: true
+              style: vertical
+
+        urutan:
+          type: tab
+          title: Urutan
+
+          fields:
+            columns:
+              type: columns
+              fields:
+                column2:
+                  type: column
+
+                  fields:
+                    order_title:
+                      type: section
+                      title: PLUGIN_ADMIN.ORDERING
+                      underline: true
+
+                    ordering:
+                      type: toggle
+                      label: PLUGIN_ADMIN.FOLDER_NUMERIC_PREFIX
+                      help: PLUGIN_ADMIN.FOLDER_NUMERIC_PREFIX_HELP
+                      highlight: 1
+                      options:
+                        1: PLUGIN_ADMIN.ENABLED
+                        0: PLUGIN_ADMIN.DISABLED
+                      validate:
+                        type: bool
+
+                    order:
+                      type: order
+                      label: PLUGIN_ADMIN.SORTABLE_PAGES
+                      sitemap:
+        advanced:
+          fields:
+            overrides:
+              fields:
+                header.child_type:
+                  default: artikel

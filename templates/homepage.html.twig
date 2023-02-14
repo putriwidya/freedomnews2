@@ -1,0 +1,888 @@
+{% extends 'partials/base.html.twig' %}
+{% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
+{% set collection = page.collection() %}
+{% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
+{% set show_breadcrumbs = header_var('show_breadcrumbs', [page, blog])|defined(true) %}
+{% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
+{% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
+
+{% set hot1 =page.find(page.header.hotline1_konten).children.order('date', 'desc')|first %}
+{% if hot1==null %}
+{% set hot1 =page.find(page.header.hotline1_konten) %}
+{% endif %}
+
+{% set hot2 =page.find(page.header.hotline2_konten).children.order('date', 'desc')|first %}
+{% if hot2==null %}
+{% set hot2 =page.find(page.header.hotline2_konten) %}
+{% endif %}
+
+{% set hot3 =page.find(page.header.hotline3_konten).children.order('date', 'desc')|first %}
+{% if hot3==null %}
+{% set hot3 =page.find(page.header.hotline3_konten) %}
+{% endif %}
+
+{% set hl =page.find(page.header.headline_konten).children.order('date', 'desc')|first %}
+{% if hl==null %}
+{% set hl =page.find(page.header.headline_konten) %}
+{% endif %}
+
+{% set bn =page.find(page.header.banner_konten).children.order('date', 'desc')|first %}
+{% if bn==null %}
+{% set bn =page.find(page.header.banner_konten) %}
+{% endif %}
+
+{% set unggulan = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 10} %}
+{% set my_unggulan = page.collection(unggulan) %}
+
+{% set terbaru = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set my_terbaru = page.collection(terbaru) %}
+
+{% set unggulan2 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_unggulan2 = page.collection(unggulan2) %}
+
+{% set populer = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_populer = page.collection(populer) %}
+
+{% set terbaru_bawah = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_terbaru_bawah = page.collection(terbaru_bawah) %}
+
+{% set koleksi = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_koleksi = page.collection(koleksi) %}
+
+{% set editorial = { items: {'@page':'/editorial'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_editorial = page.collection(editorial) %}
+
+{% set nasional = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_nasional = page.collection(nasional) %}
+
+{% set internasional = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_internasional = page.collection(internasional) %}
+
+{% set ekonomi = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_ekonomi = page.collection(ekonomi) %}
+
+{% set hukum = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_hukum = page.collection(hukum) %}
+
+{% set olahraga = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_olahraga = page.collection(olahraga) %}
+
+{% set otomotif = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_otomotif = page.collection(otomotif) %}
+
+{% set sosok = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_sosok = page.collection(sosok) %}
+
+{% set ekonomi8 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
+{% set my_ekonomi8 = page.collection(ekonomi8) %}
+
+{% set unggulan8 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
+{% set my_unggulan8 = page.collection(unggulan8) %}
+
+{% set nasional1 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_nasional1 = page.collection(nasional1) %}
+
+{% set internasional1 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_internasional = page.collection(internasional1) %}
+
+{% set ekonomi1 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_ekonomi1 = page.collection(ekonomi1) %}
+
+{% set hukum1 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_hukum1 = page.collection(hukum1) %}
+
+{% set olahraga1 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_olahraga1 = page.collection(olahraga1) %}
+
+{% set otomotif1 = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_otomotif1 = page.collection(otomotif1) %}
+
+{% set sosok1 = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_sosok1 = page.collection(sosok1) %}
+
+{% set tekno1 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_tekno1 = page.collection(tekno1) %}
+
+{# Ekonomi 1 #}
+{% set ekonomi_10 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_ekonomi10 = page.collection(ekonomi_10) %}
+{# Nasional #}
+{% set nasional_10 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_nasional10 = page.collection(nasional_10) %}
+{# Internsioonal #}
+{% set internasional_10 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_internasional10 = page.collection(internasional_10) %}
+{# Hukum #}
+{% set hukum_10 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_hukum10 = page.collection(hukum_10) %}
+{# Olahraga #}
+{% set olahraga_10 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_olahraga10 = page.collection(olahraga_10) %}
+
+{# Tekno IT 4 #}
+{% set tekno_10 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_tekno10 = page.collection(tekno_10) %}
+{# Ekonomi #}
+{% set ekonomi_11 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_ekonomi11 = page.collection(ekonomi_11) %}
+{# Otomotif #}
+{% set otomotif_10 = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_otomotif10 = page.collection(otomotif_10) %}
+{# mimbar #}
+{% set mimbar_10 = { items: {'@page':'/mimbar'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_mimbar10 = page.collection(mimbar_10) %}
+{# hukum #}
+{% set hukum_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_hukum11 = page.collection(hukum_11) %}
+
+{# Otomotif 4 #}
+{% set otomotif_11 = { items: {'@page':'/otomotif'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set my_otomotif11 = page.collection(otomotif_11) %}
+{# tekno it #}
+{% set tekno_11 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_tekno11 = page.collection(tekno_11) %}
+{# olahraga #}
+{% set olahraga_11 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_olahraga11 = page.collection(olahraga_11) %}
+{# Sosok #}
+{% set sosok_10 = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_sosok10 = page.collection(sosok_10) %}
+{# internasional #}
+{% set internasional_11 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_internasional11 = page.collection(internasional_11) %}
+
+{# Mimbat 4 4 #}
+{% set mimbar_11 = { items: {'@page':'/mimbar'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
+{% set my_mimbar11 = page.collection(mimbar_11) %}
+{# ekonomi_11 #}
+{% set ekonomi_12 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_ekonomi12 = page.collection(ekonomi_12) %}
+{# city corner #}
+{% set city_10 = { items: {'@page':'/city-corner'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_city10 = page.collection(city_10) %}
+{# nasional #}
+{% set nasional_11 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_nasional11 = page.collection(nasional_11) %}
+{# hukum #}
+{% set hukum_12 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set my_hukum12 = page.collection(hukum_12) %}
+
+{# Olahraga 4 #}
+{% set olahraga_12 = { items: {'@page':'/olahraga'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set my_olahraga12 = page.collection(olahraga_12) %}
+{# tekno it #}
+{% set tekno_12 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set my_tekno12 = page.collection(tekno_12) %}
+{# city corner #}
+{% set city_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set my_city11 = page.collection(city_11) %}
+
+
+
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<style>
+#unggulan-next, #unggulan-prev{
+  float: right;
+}
+#unggulan-next i, #unggulan-prev i {
+  font-size: 10px;
+  color: #000;
+}
+.teaser_topik h3 a{
+  color: #000;
+}
+.teaser_topik {
+  width: 150px;
+}
+.kop_hottopik{
+  border-bottom: none;
+}
+.headline #bx-pager p{
+  margin-top: 15px;
+}
+.headline #bx-pager ul li a.active{
+  border-top: 2px solid #000;
+}
+h4.widget-title {
+    font-size: 16px;
+    position: relative;
+    text-transform: uppercase;
+    display: inline-block;
+}
+h4.widget-title a::after {
+    background: #000 none repeat scroll 0 0;
+    bottom: 10px;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    left: 100%;
+    position: absolute;
+    width: 100vw;
+}
+h4.widget-title span {
+    padding-left: 15px;
+    padding-right: 10px;
+}
+h4.widget-title span::before {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    content: "";
+    height: 8px;
+    left: 0;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    width: 8px;
+}
+.left-first.overview h4.widget-title a::after {
+    width: 100%;
+}
+.box .img_populer_teaser{
+  background-color: #fff;
+  padding: 15px 0 24px 0;
+}
+.box .img_populer_teaser h2 a{
+  color: #000;
+}
+.conten_populer ul li {
+    padding: 15px 0;
+    background-color: #fff;
+    width: 100%;
+}
+.conten_populer ul li .img_populer{
+    display: block;
+    float: left;
+    margin: 0 15px 0 0;
+    position: relative;
+    width: 35%;
+    padding-bottom: 30%;
+    background-color: #f3f3f3;
+}
+.conten_populer ul li .img_populer img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+}
+.teaser_populer h3 a{
+  color: #000;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: 'IBM Plex Serif', serif;
+}
+.box .img_populer_teaser h2 a{
+  font-size: 18px;
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.teaser_populer p{
+    color: #888;`
+    margin-top: 10px;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 14px;
+    font-weight: 300;
+}
+.img_populer_one span{
+    font-family: 'Playfair Display', serif;
+    background-color: #000;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    position: absolute;
+    font-weight: 300;
+    right: 12px;
+    margin-top: 12px;
+}
+.img_populer_one, .img_populer_one img{
+  height: auto;
+}
+
+.conten1{
+    background-color: #fff;
+    border-top: none;
+    border-bottom: 1px #eee solid;
+}
+.center_conten1{
+  width: 100%;
+}
+.wrap_line{
+  background-color: #000 !important;
+  border-bottom: 4px #000 solid;
+}
+.teaser_conten1 p{
+  font-family: 'Playfair Display', serif;
+}
+.center_conten1 .date{
+  font-family: 'Playfair Display', serif;
+}
+.teaser_conten1 h2{
+  margin-top: 15px;
+}
+.teaser_conten1 h1 p a{
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: #000;
+}
+.teaser_conten1 h1 p a::after{
+    content: "";
+    display: block;
+    width: 34px;
+    height: 4px;
+    margin-top: 2px;
+    background-color: #000;
+}
+.teaser_conten1 h2 a{
+  color: #000;
+  font-size: 18px;
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 600;
+}
+.puisi-sastra h2{
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: #000;
+}
+.knl_vid p{
+  font-family: 'Playfair Display', serif;
+}
+.txt_subkanal.home h2 a{
+  font-family: 'IBM Plex Serif', serif;
+  color: #000;
+}
+.puisi-sastra .kop_kanal h2 a{
+  color: #000;
+}
+.puisi-sastra .kop_kanal h2 a::before{
+  background: rgba(0, 0, 0, 0) url('{{ url('theme://img/patern-1.png') }}') no-repeat scroll right center;
+  content: "";
+  display: inline-block;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: -7px;
+  width: 60px;
+}
+.puisi-sastra .kop_kanal h2 a::after{
+  background: rgba(0, 0, 0, 0) url('{{ url('theme://img/patern-1.png') }}') no-repeat scroll left center;
+    content: "";
+    display: inline-block;
+    height: 30px;
+    margin-left: 10px;
+        margin-bottom: -7px;
+    width: 60px;
+}
+
+.conten_populer{
+  border: none;
+}
+.hot_topik_2_center span{
+    font-size: 24px;
+    float: left;
+}
+.hot_topik_2_center li a{
+    color: #000;
+    float: left;
+    margin-left: 6px;
+    width: calc(100% - 35px);
+    font-family: 'IBM Plex Serif', serif;
+}
+.wrapper_conten_center{
+  padding: 0;
+  border-top: 0;
+}
+.populer_set_left li{
+  background: #fff;
+  border-top: none;
+  padding: 0;
+}
+.populer_set_left_right h1{
+  color: #000;
+  float: left;
+  margin-left: 6px;
+  width: calc(100% - 35px);
+  font-family: 'IBM Plex Serif', serif;
+}
+.populer_set_left_right span{
+  font-size: 24px;
+  float: left;
+}
+.hot_topik_2{
+  margin-bottom: 45px;
+}
+.hot_topik_2_center ul li{
+  border-top: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+.set_subkanal.home li a{
+  color: #000;
+}
+.banner-freedom img{
+  width: 100%;
+  margin-bottom: 30px;
+}
+article img{
+  width: 100%;
+}
+#slider-carousel .wrap{
+  height: 230px;
+}
+#slider-carousel .alith_post_thumb {
+  height: 160px;
+}
+#slider-carousel .grid-caption{
+  background: transparent;
+  padding: 0;
+  color: #000;
+}
+#slider-carousel .owl-item:hover{
+  background: transparent;
+}
+#slider-carousel {
+  margin-top: 0;
+}
+#slider-small.owl-carousel .owl-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.slider-carousel.owl-carousel .owl-item img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+#slider-carousel h2{
+  font-size: 12pt;
+  line-height: 1.2;
+  margin-top: 12px;
+}
+#slider-carousel h2 a{
+  color: #000;
+}
+#slider-carousel .grid-caption{
+  position: relative;
+}
+#slider-carousel .grid-caption .post_meta span{
+  border-radius: 20px;
+  padding: 5px 8px;
+  font-weight: 700;
+}
+#slider-carousel .post_meta span a{
+  color: #fff;
+}
+#slider-carousel .post_meta_small{
+  color: rgb(102, 102, 102);
+  font-size: 8pt;
+}
+.owl-carousel .owl-item{
+/*margin-left: 10px;*/
+}
+.post_list article span{
+    font-size: 18pt;
+    font-weight: 500;
+    margin-top: 12px;
+    line-height: 1.2;
+    display: block;
+}
+.post_list article div{
+  font-size: 9pt;
+  margin-top: 5px;
+  color: #333;
+	margin-bottom: 20px;
+}
+.post_list .item-sm{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.post_list .item-sm article img{
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+}
+.post_list .item-sm article span{
+  font-size: 12pt;
+}
+
+.mySlides{
+	width: 100%;
+}
+.owl-carousel.owl-loaded{
+	margin-bottom: -30px;
+}
+
+
+/** Popularity **/
+.populer{
+display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.populer div{
+	padding: 15px;
+    border-top: 1px #ccc solid;
+	border-right: 1px #ccc solid;
+}
+.populer div:nth-child(-n+4){
+	border-top: none;
+}
+.populer div:nth-child(4n){
+	border-right: none;
+}
+.populer article img{
+	float: right;
+	width: 65px;
+	height: 65px;
+	object-fit: cover;
+	margin-left: 15px;
+}
+.populer article span{
+	font-weight: 500;
+}
+.populer article small{
+	font-size: 8pt;
+    margin-top: 8px;
+}
+{# span[aria-label="Previous"]{
+	content: "";
+	width: 20px;
+	height: 20px;
+	background-color: #f00;
+} #}
+
+.owl-carousel.owl-loaded{
+	margin-top: 0;
+    margin-bottom: 45px;
+}
+.arrow-prev, .arrow-next{
+	position: inherit;
+}
+.owl-prev{
+	position: absolute;
+    left: 0;
+    top: -15px;
+    padding: 5px 10px;
+    border-radius: 100%;
+    background-color: #fff;
+}
+.owl-prev svg{
+	transform:  rotate(180deg);
+}
+.owl-next{
+	position: absolute;
+    right: -20px;
+    top: -15px;
+    padding: 5px 10px;
+    border-radius: 100%;
+    background-color: #fff;
+}
+.grid-caption .post_meta span.meta_categories{
+	background: transparent;
+	padding: 0;
+}
+.grid-caption .post_meta span.meta_categories a{
+	background-color: #000;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.owl-item h2{
+	font-family: 'IBM Plex Serif', serif;
+	font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-size: 13pt;
+}
+.owl-item .post_meta_small{
+	font-size: 9pt;
+    margin-top: 5px;
+    color: #333;
+}
+.bungkus_txt_headline_center{
+	padding-top: 53px;
+    padding-bottom: 53px;
+}
+.latest_style_2_item h3.alith_post_title{
+	margin: 0;
+    margin-left: 40%;
+}
+.latest_style_2_item h3.alith_post_title a{
+	font-size: 11pt;
+}
+.latest_style_2_item .alith_news_img{
+	width: 95px;
+	height: 70px;
+	object-fit: cover;
+}
+.alith-instagram-grid-widget img{
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+}
+</style>
+	<div class="container-fluid">
+		<div class="container animate-box">
+			<div class="row">			
+				<div class="owl-carousel owl-theme js carausel_slider section_margin" id="slider-small">
+				{% for p in my_unggulan %}
+					<div class="px-2 item">
+						<div class="alith_latest_trading_img_position_relative">
+							<figure class="alith_post_thumb">
+								<a href="{{ p.url }}"><img src="{{ p.media.images|first.url }}" alt=""/></a>
+							</figure>
+							<div class="alith_post_title_small">
+								<a href="{{ p.url }}"><strong>{{ p.title }}</strong></a>
+								<p class="meta"><span>{{p.header.date|date("d M Y")}}</span> 
+								{# <span>90 views</span> #}
+								</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="container">
+			<div class="primary margin-15">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="headline">
+							<ul class="bxslider">
+							{% for p in my_terbaru %}
+								<li>
+								<div class="line_blok">
+									<h3>{{ p.parent.title }}</h3>
+								</div>
+								<div class="bungkus_txt_headline">
+									<div class="bungkus_txt_headline_center">
+									<h2>
+										<a href="{{ p.url }}">{{ p.title }}</a>
+									</h2>
+									</div>
+								</div>
+								<img src="{{ p.media.images|first.url }}" class="img-headline" data-index="{{ loop.index - 1}}" />
+								</li>
+							{% endfor %}
+							</ul>
+							<div id="bx-pager">
+								<ul>
+								{% for p in my_terbaru %}
+								<li>
+									<a data-slide-index="{{ loop.index - 1}}" href="#">
+									<img class="lazy" data-original="{{ p.media.images|first.url }}" />
+									</a>
+									<div class="margin_pager">
+									<p data-href="{{ p.url }}" class="link-headline">{{ p.title }}</p>
+									</div>
+								</li>
+								{% endfor %}
+								</ul>
+							</div>
+							<script>
+								$('.link-headline').click(function() {
+								location.href = $(this).attr('data-href');
+								})
+							</script>
+						</div>
+					</div>
+
+
+					<!--Start Sidebar-->
+					<aside class="col-md-4 sidebar_right">
+						{# <div class="sidebar-widget animate-box">					
+							<img class="lazy" data-original="{{ url('theme://img/banner/banner2.jpeg') }}" />
+						</div> #}
+						<div class="w3-content w3-section">
+							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner1.jpeg') }}">
+							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner2.jpeg') }}">
+							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner3.jpeg') }}">	
+						</div>
+						<script>
+						var myIndex = 0;
+						carousel();
+
+						function carousel() {
+						var i;
+						var x = document.getElementsByClassName("mySlides");
+						for (i = 0; i < x.length; i++) {
+							x[i].style.display = "none";  
+						}
+						myIndex++;
+						if (myIndex > x.length) {myIndex = 1}    
+						x[myIndex-1].style.display = "block";  
+						setTimeout(carousel, 4000);    
+						}
+						</script>
+						<div class="sidebar-widget animate-box">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Tags cloud</span></h4></div>
+							<div class="alith_tags_all">
+								<a href="#" class="alith_tagg">Business</a>
+								<a href="#" class="alith_tagg">Technology</a>
+								<a href="#" class="alith_tagg">Sport</a>
+								<a href="#" class="alith_tagg">Art</a>
+								<a href="#" class="alith_tagg">Lifestyle</a>
+								<a href="#" class="alith_tagg">Three</a>
+								<a href="#" class="alith_tagg">Photography</a>
+								<a href="#" class="alith_tagg">Lifestyle</a>
+								<a href="#" class="alith_tagg">Art</a>
+								<a href="#" class="alith_tagg">Education</a>
+								<a href="#" class="alith_tagg">Social</a>
+								<a href="#" class="alith_tagg">Three</a>
+							</div>
+						</div> <!--.sidebar-widget-->
+						
+					</aside>
+					<!--End Sidebar-->
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="widget-title-cover"><h4 class="widget-title"><span>Populer</span></h4></div>
+						<div class="row populer">
+						{% for p in my_unggulan2.slice(10, 8) %}
+							<div class="col-md-3">
+								<article>
+									<img src="{{ p.media.images|first.url }}" />
+									<span>{{ p.title }}</span>
+								</article>
+							</div>
+						{% endfor %}
+						</div>
+
+					{% set cek_tipe = 0 %}
+					{% for page in pages.children.visible %}
+                    {% if page.url != home_url~'/' and page.children.visible.count > 0 %}
+						{% set cek_tipe = cek_tipe + 1 %}
+						{% if (cek_tipe is odd) %}
+						<div class="post_list post_list_style_1">
+							<div class="row">
+							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
+							{% for p in page.children.visible.slice(0, 5) %}
+								<div class="col-md-6">
+									<article>
+										<img src="{{ p.media.images|first.url }}" />
+										<span>{{p.title}}</span>
+										<div>{{p.header.date|date("d M Y h:i")}}</div>
+									</article>
+								</div>
+
+								{% if page.children.visible.count > 0 and loop.index == 1 %}
+								<div class="col-md-6">
+									<div class="row item-sm">
+								{% endif %}
+							{% endfor %}
+								{% if page.children.visible.count > 0 %}
+									</div>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+						{% else %}
+							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
+							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
+								{% for p in page.children.visible.slice(0, 8) %}
+								<div class="item">
+									<div class="alith_latest_trading_img_position_relative">
+										<div class="wrap">
+										<figure class="alith_post_thumb">
+											<a href="#"><img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""/></a>
+										</figure>
+										</div>
+										<div class="grid-caption">
+										<div class="post_meta">
+											<span class="meta_categories"><a href="{{p.parent.url}}">{{p.parent.title}}</a></span>
+										</div>
+										<h2><a href="{{p.url}}" title="">{{p.title}}</a></h2>
+										<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						{% endif %}
+					{% endif %}
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="container animate-box">
+			<div class="margin-15">
+				<div class="row">            
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+						<div class="widget-title-cover"><h4 class="widget-title"><span>Paling Diminati</span></h4></div>
+						<div class="latest_style_3">  
+						{% for p in my_populer.slice(18, 4) %}
+							<div class="latest_style_3_item">                     
+								<span class="item-count vertical-align">{{loop.index}}.</span>
+								<div class="alith_post_title_small">
+									<a href="{{p.url}}"><strong>{{p.title}}</strong></a>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Terbaru</span></h4></div>
+							<div class="latest_style_2">
+								{% for p in my_terbaru_bawah.slice(6, 3) %}
+								<div class="latest_style_2_item">
+									<figure class="alith_news_img"><a href="{{p.url}}"><img alt="" src="{{ p.media.images|first.url }}" class="hover_grey"></a></figure>
+									<h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Kategori</span></h4></div>
+							<ul class="bottom_menu">
+								{% for page in pages.children.visible %}
+									{% if page.url != home_url~'/' %}
+										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Koleksi</span></h4></div>
+							<ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
+								{% for p in my_koleksi.slice(9, 9) %}
+								<li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+									<a class="" target="_blank" href="{{p.url}}">
+										<img class="" title="{{p.title}}" alt="" src="{{ p.media.images|first.url }}">
+									</a>
+								</li>
+								{% endfor %}			
+							</ul>
+						</div>
+					</div>
+				</div> <!--.row-->
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+

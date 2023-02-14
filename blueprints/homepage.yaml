@@ -1,0 +1,591 @@
+extends@: mydefault
+title: PLUGIN_ADMIN.DEFAULT
+rules:
+  slug:
+    pattern: '[a-zA-Zа-яA-Я0-9_\-]+'
+    min: 1
+    max: 200
+
+form:
+  validation: loose
+
+  fields:
+
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        media:
+          type: tab
+          title: Media
+          fields:
+            media: 
+             type: section
+             title: Pustaka Gambar
+             underline: true
+             fields:
+               header.media_order:
+                type: pagemedia
+                label: Gambar
+        slider:
+          type: tab
+          title: Slider Utama
+          fields:
+            slide1:
+             type: section
+             title: Slide 1
+             underline: true
+             fields:
+               header.slide1_media:
+                label: Pilih Gambar
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+               header.slide1_title:
+                 label: Judul
+                 type: text
+               header.slide1_title_color:
+                 type: colorpicker
+                 label: Warna Text Judul
+                 default: '#FFFFFF'
+               header.slide1_narasi:
+                 label: Narasi
+                 validate:
+                 type: textarea
+               header.slide1_button_text:
+                 label: Button Text
+                 type: text
+               header.slide1_button_text_color:
+                 type: colorpicker
+                 label: Warna Text Button
+                 default: '#274472'
+               header.slide1_button_text_background:
+                 type: colorpicker
+                 label: Warna Background Button
+                 default: '#e2eaf2'
+               header.slide1_url:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+               header.slide1_aligment:
+                  type: toggle
+                  label: Posisi text
+                  highlight: 1
+                  options:
+                    2: Rata Kiri
+                    1: Rata Tengah
+                    0: Rata Kanan
+                  validate:
+                    required: true
+            slide2:
+             type: section
+             title: Slide 2
+             underline: true
+             fields:
+               header.slide2_media:
+                label: Pilih Gambar
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+               header.slide2_title:
+                 label: Judul
+                 type: text
+               header.slide2_title_color:
+                 type: colorpicker
+                 label: Warna Text Judul
+                 default: '#FFFFFF'
+               header.slide2_narasi:
+                 label: Narasi
+                 validate:
+                 type: textarea
+               header.slide2_button_text:
+                 label: Button Text
+                 type: text
+               header.slide2_button_text_color:
+                 type: colorpicker
+                 label: Warna Text Button
+                 default: '#274472'
+               header.slide2_button_text_background:
+                 type: colorpicker
+                 label: Warna Background Button
+                 default: '#e2eaf2'
+               header.slide2_url:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+               header.slide2_aligment:
+                  type: toggle
+                  label: Posisi text
+                  highlight: 1
+                  options:
+                    2: Rata Kiri
+                    1: Rata Tengah
+                    0: Rata Kanan
+                  validate:
+                    required: true
+            slide3:
+             type: section
+             title: Slide 3
+             underline: true
+             fields:
+               header.slide3_media:
+                label: Pilih Gambar
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+               header.slide3_title:
+                 label: Judul
+                 type: text
+               header.slide3_title_color:
+                 type: colorpicker
+                 label: Warna Text Judul
+                 default: '#FFFFFF'
+               header.slide3_narasi:
+                 label: Narasi
+                 validate:
+                 type: textarea
+               header.slide3_button_text:
+                 label: Button Text
+                 type: text
+               header.slide3_button_text_color:
+                 type: colorpicker
+                 label: Warna Text Button
+                 default: '#274472'
+               header.slide3_button_text_background:
+                 type: colorpicker
+                 label: Warna Background Button
+                 default: '#e2eaf2'
+               header.slide3_url:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+               header.slide3_aligment:
+                  type: toggle
+                  label: Posisi text
+                  highlight: 1
+                  options:
+                    2: Rata Kiri
+                    1: Rata Tengah
+                    0: Rata Kanan
+                  validate:
+                    required: true
+        headline:
+          type: tab
+          title: Konten Utama
+          fields:
+            header.headline_title:
+              label: Header Title
+              type: text
+              style: vertical
+              size: medium
+              default: Berita Utama
+            header.headline_konten:
+              type: pages
+              size: medium
+              classes: fancy
+              label: Pilih Halaman
+              start_route: ''
+              show_all: false
+              show_modular: true
+              show_root: false
+              style: vertical
+        hotline:
+          type: tab
+          title: Pintasan
+          fields:
+            hotline1:
+             type: section
+             title: Hotline 1
+             underline: true
+             fields:
+               header.hotline1_konten:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_root: false
+                 show_modular: true
+                 style: vertical
+               header.hotline1_title:
+                 label: Judul
+                 type: text
+                 style: vertical
+               header.hotline1_narasi:
+                 label: Narasi
+                 type: text
+                 style: vertical
+               header.hotline1_icon:
+                label: Gambar Icon
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                style: vertical
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+                header.hotline1_url:
+                 label: Link URL
+                 type: text
+                 style: vertical
+            hotline2:
+             type: section
+             title: Hotline 2
+             underline: true
+             fields:
+               header.hotline2_konten:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_root: false
+                 show_modular: true
+                 style: vertical
+               header.hotline2_title:
+                 label: Judul
+                 type: text
+                 style: vertical
+               header.hotline2_narasi:
+                 label: Narasi
+                 type: text
+                 style: vertical
+               header.hotline2_icon:
+                label: Gambar Icon
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                style: vertical
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+                header.hotline2_url:
+                 label: Link URL
+                 type: text
+                 style: vertical
+            hotline3:
+             type: section
+             title: Hotline 3
+             underline: true
+             fields:
+               header.hotline3_konten:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_root: false
+                 show_modular: true
+                 style: vertical
+               header.hotline3_title:
+                 label: Judul
+                 type: text
+                 style: vertical
+               header.hotline3_narasi:
+                 label: Narasi
+                 type: text
+                 style: vertical
+               header.hotline3_icon:
+                label: Gambar Icon
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                style: vertical
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+                header.hotline3_url:
+                 label: Link URL
+                 type: text
+                 style: vertical
+        favorit:
+          type: tab
+          title: Favorit
+          fields:
+            header.favorit_title:
+              label: Header Title
+              type: text
+              style: vertical
+              size: medium
+              default: Konten Terpilih
+            favorit1_konten: 
+             type: section
+             title: Favorit 1
+             underline: true
+             fields:
+               header.favorit1_konten:
+                 type: pages
+                 size: medium
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+                 style: vertical
+            favorit2_konten: 
+             type: section
+             title: Favorit 2
+             underline: true
+             fields:
+               header.favorit2_konten:
+                 type: pages
+                 size: medium
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+                 style: vertical
+            favorit3_konten: 
+             type: section
+             title: Favorit 3
+             underline: true
+             fields:
+               header.favorit3_konten:
+                 type: pages
+                 size: medium
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+                 style: vertical
+            favorit4_konten: 
+             type: section
+             title: Favorit 4
+             underline: true
+             fields:
+               header.favorit4_konten:
+                 type: pages
+                 size: medium
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+                 style: vertical
+        agenda:
+          type: tab
+          title: Agenda
+          fields:
+            agenda_konten: 
+             type: section
+             title: Agenda
+             underline: true
+             fields:
+               header.agenda_title:
+                  label: Header Title
+                  type: text
+                  style: vertical
+                  size: medium
+                  default: Acara Mendatang
+               header.agenda_konten:
+                 type: pages
+                 size: medium
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+                 style: vertical
+        banner:
+          type: tab
+          title: Banner
+          fields:
+            header.banner_title:
+              label: Header Title
+              type: text
+              style: vertical
+              size: medium
+              default: Info Lebih Lanjut
+            banner_konten: 
+             type: section
+             title: Banner
+             underline: true
+             fields:
+               header.banner_konten:
+                 type: pages
+                 size: medium
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+                 style: vertical
+        slider2_slider:
+          type: tab
+          title: Slider Bawah
+          fields:
+            slider2_slide1:
+             type: section
+             title: Slide 1
+             underline: true
+             fields:
+               header.slider2_slide1_media:
+                label: Pilih Gambar
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+               header.slider2_slide1_title:
+                 label: Judul
+                 type: text
+               header.slider2_slide1_title2:
+                 label: Judul Atas
+                 type: text
+               header.slider2_slide1_narasi:
+                 label: Narasi
+                 type: textarea
+               header.slider2_slide1_button_text:
+                 label: Button Text
+                 type: text
+               header.slider2_slide1_url:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+               header.slider2_slide1_aligment:
+                  type: toggle
+                  label: Posisi text
+                  highlight: 1
+                  options:
+                    2: Rata Kiri
+                    1: Rata Tengah
+                    0: Rata Kanan
+                  validate:
+                    required: true
+            slider2_slide2:
+             type: section
+             title: Slide 2
+             underline: true
+             fields:
+               header.slider2_slide2_media:
+                label: Pilih Gambar
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+               header.slider2_slide2_title:
+                 label: Judul
+                 type: text
+               header.slider2_slide2_title2:
+                 label: Judul Atas
+                 type: text
+               header.slider2_slide2_narasi:
+                 label: Narasi
+                 validate:
+                 type: textarea
+               header.slider2_slide2_button_text:
+                 label: Button Text
+                 type: text
+               header.slider2_slide2_url:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+               header.slider2_slide2_aligment:
+                  type: toggle
+                  label: Posisi text
+                  highlight: 1
+                  options:
+                    2: Rata Kiri
+                    1: Rata Tengah
+                    0: Rata Kanan
+                  validate:
+                    required: true
+            slider2_slide3:
+             type: section
+             title: Slide 3
+             underline: true
+             fields:
+               header.slider2_slide3_media:
+                label: Pilih Gambar
+                type: filepicker
+                folder: 'self@'
+                preview_images: true
+                accept:
+                  - .png
+                  - .jpg
+                  - .jpeg
+               header.slider2_slide3_title:
+                 label: Judul
+                 type: text
+               header.slider2_slide3_title2:
+                 label: Judul Atas
+                 type: text
+               header.slider2_slide3_narasi:
+                 label: Narasi
+                 validate:
+                 type: textarea
+               header.slider2_slide3_button_text:
+                 label: Button Text
+                 type: text
+               header.slider2_slide3_url:
+                 type: pages
+                 classes: fancy
+                 label: Pilih Halaman
+                 start_route: ''
+                 show_all: false
+                 show_modular: true
+                 show_root: false
+               header.slider2_slide3_aligment:
+                  type: toggle
+                  label: Posisi text
+                  highlight: 1
+                  options:
+                    2: Rata Kiri
+                    1: Rata Tengah
+                    0: Rata Kanan
+                  validate:
+                    required: true
+        advanced:
+          fields:
+            overrides:
+              fields:
+                header.child_type:
+                  default: artikel

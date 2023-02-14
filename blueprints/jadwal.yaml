@@ -1,0 +1,75 @@
+extends@: mydefault
+title: PLUGIN_ADMIN.DEFAULT
+
+rules:
+  slug:
+    pattern: '[a-zA-Zа-яA-Я0-9_\-]+'
+    min: 1
+    max: 200
+
+form:
+  validation: loose
+
+  fields:
+
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: Konten
+
+          fields:
+            xss_check:
+              type: xss
+
+            header.title:
+              type: text
+              label: Acara
+              autofocus: true
+              style: vertical
+            header.date:
+              type: datetime
+              label: Waktu dan Tanggal
+              toggleable: true
+              style: vertical
+            header.tempat:
+              type: text
+              label: Tempat
+              autofocus: true
+              style: vertical
+            header.deskripsi:
+              type: markdown
+              label: Deskripsi Acara
+              validate:
+                type: textarea
+              autofocus: true
+              style: vertical
+            header.organizer:
+              type: text
+              label: Organizer
+              autofocus: true
+              style: vertical
+            header.phone:
+              type: text
+              label: Kontak Telepon
+              autofocus: true
+              style: vertical
+            header.email:
+              type: text
+              label: Kontak Email
+              autofocus: true
+              style: vertical
+              validate:
+                type: email
+            header.media_order:
+              type: pagemedia
+              label: Gambar
+        advanced:
+          fields:
+            overrides:
+              fields:
+                header.child_type:
+                  default: artikel

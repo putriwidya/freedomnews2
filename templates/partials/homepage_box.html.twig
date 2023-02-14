@@ -1,0 +1,23 @@
+{% set thepage =page.find(category).children.order('date', 'desc')|first %}
+{% if thepage==null %}
+{% set thepage =page.find(category) %}
+{% endif %}
+
+
+<div>								
+    <div class="blog-post animate-onscroll">
+        
+        <div class="post-image">
+            {% if page.media.images|first %}
+                {{ thepage.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+            {% endif %}
+        </div>
+        
+        <h4 class="post-title"><a href="{{thepage.url}}">{{thepage.title}}</a></h4>
+        
+        <p>{{thepage.content|striptags|truncate(50)|raw}}</p>
+        
+        <a href="{{thepage.url}}" class="button read-more-button big button-arrow">Selengkapnya</a>
+        
+    </div>
+</div>   

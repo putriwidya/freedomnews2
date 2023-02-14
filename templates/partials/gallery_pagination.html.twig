@@ -1,0 +1,26 @@
+<div class="numeric-pagination">
+    {% set prevpage=pagenum-1 %}
+    {% set nextpage=pagenum+1 %}
+    {% if prevpage<=0 %}
+     {% set prevpage=1 %}
+    {% endif %}
+
+    <a href="?page={{prevpage}}" class="button"><i class="icons icon-left-dir"></i></a>
+
+    {% for i in 0..1000000 if (i*pagesize) < totalelements %}
+        {% set i=i+1 %}
+        {% if pagenum==i %}
+        {% set activepage="active-button" %}
+        {% else %}
+        {% set activepage="" %}
+        {% endif %}
+        <a href="?page={{i}}" class="button {{activepage}}">{{i}}</a>
+
+        {% if nextpage>(i+1) %}
+        {% set nextpage=(i+1) %}
+        {% endif %}
+
+    {% endfor %}
+    
+    <a href="?page={{nextpage}}" class="button"><i class="icons icon-right-dir"></i></a>
+</div>
