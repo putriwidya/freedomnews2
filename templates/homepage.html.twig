@@ -765,13 +765,13 @@ display: flex;
 					{% set cek_tipe = 0 %}
 					{% for page in pages.children.visible %}
                     {% if page.url != home_url~'/' and page.children.visible.count > 0 %}
-						{% if p.template == "artikel" %}
-							{% set cek_tipe = cek_tipe + 1 %}
-							{% if (cek_tipe is odd) %}
-							<div class="post_list post_list_style_1">
-								<div class="row">
-								<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-								{% for p in page.children.visible.slice(0, 5) %}
+						{% set cek_tipe = cek_tipe + 1 %}
+						{% if (cek_tipe is odd) %}
+						<div class="post_list post_list_style_1">
+							<div class="row">
+							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
+							{% for p in page.children.visible.slice(0, 5) %}
+								{% if p.template == "artikel" %}
 									<div class="col-md-6">
 										<article>
 											<img src="{{ p.media.images|first.url }}" />
@@ -779,24 +779,24 @@ display: flex;
 											<div>{{p.header.date|date("d M Y h:i")}}</div>
 										</article>
 									</div>
+									
 
 									{% if page.children.visible.count > 0 and loop.index == 1 %}
 									<div class="col-md-6">
 										<div class="row item-sm">
 									{% endif %}
-								{% endfor %}
-									{% if page.children.visible.count > 0 %}
-										</div>
+								{% endif %}
+							{% endfor %}
+								{% if page.children.visible.count > 0 %}
 									</div>
-									{% endif %}
 								</div>
+								{% endif %}
 							</div>
-						{% endif %}
+						</div>
 						{% else %}
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
 								{% for p in page.children.visible.slice(0, 8) %}
-								{% if p.template == "artikel" %}
 								<div class="item">
 									<div class="alith_latest_trading_img_position_relative">
 										<div class="wrap">
@@ -813,7 +813,6 @@ display: flex;
 										</div>
 									</div>
 								</div>
-								{% endif %}
 								{% endfor %}
 							</div>
 						{% endif %}
