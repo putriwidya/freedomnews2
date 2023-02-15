@@ -49,135 +49,8 @@
 {% set koleksi = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
 {% set my_koleksi = page.collection(koleksi) %}
 
-{% set editorial = { items: {'@page':'/editorial'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_editorial = page.collection(editorial) %}
-
-{% set nasional = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_nasional = page.collection(nasional) %}
-
-{% set internasional = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_internasional = page.collection(internasional) %}
-
-{% set ekonomi = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_ekonomi = page.collection(ekonomi) %}
-
-{% set hukum = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_hukum = page.collection(hukum) %}
-
-{% set olahraga = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_olahraga = page.collection(olahraga) %}
-
-{% set otomotif = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_otomotif = page.collection(otomotif) %}
-
-{% set sosok = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_sosok = page.collection(sosok) %}
-
-{% set ekonomi8 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
-{% set my_ekonomi8 = page.collection(ekonomi8) %}
-
-{% set unggulan8 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
-{% set my_unggulan8 = page.collection(unggulan8) %}
-
-{% set nasional1 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_nasional1 = page.collection(nasional1) %}
-
-{% set internasional1 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_internasional = page.collection(internasional1) %}
-
-{% set ekonomi1 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_ekonomi1 = page.collection(ekonomi1) %}
-
-{% set hukum1 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_hukum1 = page.collection(hukum1) %}
-
-{% set olahraga1 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_olahraga1 = page.collection(olahraga1) %}
-
-{% set otomotif1 = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_otomotif1 = page.collection(otomotif1) %}
-
-{% set sosok1 = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_sosok1 = page.collection(sosok1) %}
-
-{% set tekno1 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_tekno1 = page.collection(tekno1) %}
-
-{# Ekonomi 1 #}
-{% set ekonomi_10 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_ekonomi10 = page.collection(ekonomi_10) %}
-{# Nasional #}
-{% set nasional_10 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_nasional10 = page.collection(nasional_10) %}
-{# Internsioonal #}
-{% set internasional_10 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_internasional10 = page.collection(internasional_10) %}
-{# Hukum #}
-{% set hukum_10 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_hukum10 = page.collection(hukum_10) %}
-{# Olahraga #}
-{% set olahraga_10 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_olahraga10 = page.collection(olahraga_10) %}
-
-{# Tekno IT 4 #}
-{% set tekno_10 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_tekno10 = page.collection(tekno_10) %}
-{# Ekonomi #}
-{% set ekonomi_11 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_ekonomi11 = page.collection(ekonomi_11) %}
-{# Otomotif #}
-{% set otomotif_10 = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_otomotif10 = page.collection(otomotif_10) %}
-{# mimbar #}
-{% set mimbar_10 = { items: {'@page':'/mimbar'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_mimbar10 = page.collection(mimbar_10) %}
-{# hukum #}
-{% set hukum_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_hukum11 = page.collection(hukum_11) %}
-
-{# Otomotif 4 #}
-{% set otomotif_11 = { items: {'@page':'/otomotif'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
-{% set my_otomotif11 = page.collection(otomotif_11) %}
-{# tekno it #}
-{% set tekno_11 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_tekno11 = page.collection(tekno_11) %}
-{# olahraga #}
-{% set olahraga_11 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_olahraga11 = page.collection(olahraga_11) %}
-{# Sosok #}
-{% set sosok_10 = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_sosok10 = page.collection(sosok_10) %}
-{# internasional #}
-{% set internasional_11 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_internasional11 = page.collection(internasional_11) %}
-
-{# Mimbat 4 4 #}
-{% set mimbar_11 = { items: {'@page':'/mimbar'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
-{% set my_mimbar11 = page.collection(mimbar_11) %}
-{# ekonomi_11 #}
-{% set ekonomi_12 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_ekonomi12 = page.collection(ekonomi_12) %}
-{# city corner #}
-{% set city_10 = { items: {'@page':'/city-corner'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_city10 = page.collection(city_10) %}
-{# nasional #}
-{% set nasional_11 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_nasional11 = page.collection(nasional_11) %}
-{# hukum #}
-{% set hukum_12 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
-{% set my_hukum12 = page.collection(hukum_12) %}
-
-{# Olahraga 4 #}
-{% set olahraga_12 = { items: {'@page':'/olahraga'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
-{% set my_olahraga12 = page.collection(olahraga_12) %}
-{# tekno it #}
-{% set tekno_12 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
-{% set my_tekno12 = page.collection(tekno_12) %}
-{# city corner #}
-{% set city_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
-{% set my_city11 = page.collection(city_11) %}
-
-
+{% set populer_pg = { items: '@self.siblings', 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{# {% set my_populer_pg = page.collection(populer_pg) %} #}
 
 
 {% block stylesheets %}
@@ -774,66 +647,39 @@ bottom-logo .social::before, .post-share::before {
                     </ul>
                   </div>
                   <script async src="https://static.addtoany.com/menu/page.js"></script>
-                  <div class="post-author section_margin_40"> 
-                    <figure><a href="#"><img src="{{ url('theme://img/post-author-avatar.jpg') }}" alt="hewo"></a></figure>
-                    <div class="post-author-info">
-                      <h3><a href="#">Admin</a></h3>
-                      <p>Ouch oh alas crud unnecessary invaluable some goodness opposite hello since audacious far barring and absurdly much boa</p>
-                      <ul>			
-                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                        <li><a href=""><i class="fa fa-google-plus"></i></a></li>						
-                      </ul>
-                    </div>
-                  </div>
+        
                   <div class="post-related section_margin_40">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="sidebar-widget">					
                           <div class="widget-title-cover"><h4 class="widget-title"><span>Related Posts</span></h4></div>
                           <div class="latest_style_3">  
+                            {% for p in page.collection(populer_pg).slice(0, 4) %}
                             <div class="latest_style_3_item">                     
-                              <span class="item-count vertical-align">1.</span>
+                              <span class="item-count vertical-align">{{loop.index}}.</span>
                               <div class="alith_post_title_small">
-                                <a href="single.html"><strong>Frtuitous spluttered unlike ouch vivid blinked far inside</strong></a>
+                                <a href="{{p.url}}"><strong>{{p.title}}</strong></a>
                               </div>
                             </div>
-                            <div class="latest_style_3_item">                     
-                              <span class="item-count vertical-align">2.</span>
-                              <div class="alith_post_title_small">
-                                <a href="single.html"><strong>Against and lantern where a and gnashed nefarious</strong></a>
-                              </div>
-                            </div>
-                            <div class="latest_style_3_item">                     
-                              <span class="item-count vertical-align">3.</span>
-                              <div class="alith_post_title_small">
-                                <a href="single.html"><strong>Ouch oh alas crud unnecessary invaluable some</strong></a>
-                              </div> 
-                            </div>
-                            <div class="latest_style_3_item">                     
-                              <span class="item-count vertical-align">4.</span>
-                              <div class="alith_post_title_small">
-                                <a href="single.html"><strong>And far hey much hello and bashful one save less</strong></a>
-                              </div>
-                            </div>
+                            {% endfor %}
                           </div>
                         </div>
                       </div> <!--post-related-->
                       <div class="col-md-6">
                         <div class="post-navigation">
                           <div class="latest_style_2">
-                          <h5><span>Preview Post</span></h5>
-                          <div class="latest_style_2_item">
-                            <figure class="alith_news_img"><a href="single.html"><img class="hover_grey" src="http://via.placeholder.com/200x175" alt=""></a></figure>
-                            <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
-                          </div>
-                          
-                          <h5><span>Next Post</span></h5>
-                          <div class="latest_style_2_item">
-                            <figure class="alith_news_img"><a href="single.html"><img class="hover_grey" src="http://via.placeholder.com/200x175" alt=""></a></figure>
-                            <h3 class="alith_post_title"><a href="single.html">Magna aliqua ut enim ad minim veniam</a></h3>
-                          </div>
-                          </div>
+                            {% for p in page.collection(populer_pg).slice(4, 2) %}
+                            {% if loop.index == 1 %}
+                              <h5><span>Sebelumnya</span></h5>
+                            {% else %}
+                              <h5><span>Selanjutnya</span></h5>
+                            {% endif %}
+                              <div class="latest_style_2_item">
+                                <figure class="alith_news_img"><a href="{{p.url}}"><img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""></a></figure>
+                                <h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
+                              </div>
+                            {% endfor %}
+                            </div>
                         </div>											
                       </div>											
                     </div>
@@ -847,44 +693,43 @@ bottom-logo .social::before, .post-share::before {
 
 					<!--Start Sidebar-->
 					<aside class="col-md-4 sidebar_right">
+              <div class="w3-content w3-section">
+                <img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner1.jpeg') }}">
+                <img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner2.jpeg') }}">
+                <img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner3.jpeg') }}">	
+              </div>
+              <script>
+                var myIndex = 0;
+                carousel();
+
+                function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                  x[i].style.display = "none";  
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}    
+                x[myIndex-1].style.display = "block";  
+                setTimeout(carousel, 4000);    
+                }
+              </script>
 						 <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="sidebar-widget animate-box fadeInUp animated-fast">					
-             <div class="widget-title-cover"><h4 class="widget-title"><span>Popular Articles</span></h4></div>
+             <div class="widget-title-cover"><h4 class="widget-title"><span>Artikel Populer</span></h4></div>
              <div class="latest_style_1">  
+              {% for p in page.collection(populer_pg).slice(6, 10) %}
                <div class="latest_style_1_item">                     
-                 <span class="item-count vertical-align">1.</span>
+                 <span class="item-count vertical-align">{{loop.index}}.</span>
                  <div class="alith_post_title_small">
-                   <a href="single.html"><strong>Ut enim ad minima veniam, quis nostrum</strong></a><p class="meta"><span>2 Sep, 2018</span> <span>268 views</span></p>
+                   <a href="{{p.url}}"><strong>{{p.title}}</strong></a>
+                   <p class="meta">
+                    <span>{{p.header.date|date("d M Y")}}</span> 
+                    {# <span>268 views</span> #}
+                   </p>
                  </div>                                                  
-                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+                 <figure class="alith_news_img"><a href="{{p.url}}"><img src="{{ p.media.images|first.url }}" alt=""></a></figure>
                </div>
-               <div class="latest_style_1_item">                     
-                 <span class="item-count vertical-align">2.</span>
-                 <div class="alith_post_title_small">
-                   <a href="single.html"><strong>Curae lacinia consec tetur varius</strong></a><p class="meta"><span>2 Sep, 2018</span> <span>28 views</span></p>
-                 </div>                                                  
-                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
-               </div>
-               <div class="latest_style_1_item">                     
-                 <span class="item-count vertical-align">3.</span>
-                 <div class="alith_post_title_small">
-                   <a href="single.html"><strong>Euismod lacus vulpu tate augue</strong></a><p class="meta"><span>2 Aug, 2018</span> <span>18 views</span></p>
-                 </div>                                                  
-                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
-               </div>
-               <div class="latest_style_1_item">                     
-                 <span class="item-count vertical-align">4.</span>
-                 <div class="alith_post_title_small">
-                   <a href="single.html"><strong>Quam mauris lorem erat est euismod</strong></a><p class="meta"><span>21 Aug, 2018</span> <span>18 views</span></p>
-                 </div>                                                  
-                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
-               </div>
-               <div class="latest_style_1_item">                     
-                 <span class="item-count vertical-align">5.</span>
-                 <div class="alith_post_title_small">
-                   <a href="single.html"><strong>Nec eget ince ptos aenean gravida</strong></a><p class="meta"><span>21 Jun, 2018</span> <span>18 views</span></p>
-                 </div>                                                  
-                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
-               </div>
+              {% endfor %}
              </div>
            </div>
   
