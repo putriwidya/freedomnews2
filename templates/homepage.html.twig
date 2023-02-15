@@ -663,6 +663,7 @@ display: flex;
 						<div class="headline">
 							<ul class="bxslider">
 							{% for p in my_terbaru %}
+							{% if p.template == "artikel" %}
 								<li>
 								<div class="line_blok">
 									<h3>{{ p.parent.title }}</h3>
@@ -676,11 +677,13 @@ display: flex;
 								</div>
 								<img src="{{ p.media.images|first.url }}" class="img-headline" data-index="{{ loop.index - 1}}" />
 								</li>
+							{% endif %}
 							{% endfor %}
 							</ul>
 							<div id="bx-pager">
 								<ul>
 								{% for p in my_terbaru %}
+								{% if p.template == "artikel" %}
 								<li>
 									<a data-slide-index="{{ loop.index - 1}}" href="#">
 									<img class="lazy" data-original="{{ p.media.images|first.url }}" />
@@ -689,6 +692,7 @@ display: flex;
 									<p data-href="{{ p.url }}" class="link-headline">{{ p.title }}</p>
 									</div>
 								</li>
+								{% endif %}
 								{% endfor %}
 								</ul>
 							</div>
@@ -753,6 +757,7 @@ display: flex;
 						<div class="widget-title-cover"><h4 class="widget-title"><span>Populer</span></h4></div>
 						<div class="row populer">
 						{% for p in my_unggulan2.slice(10, 8) %}
+							{% if p.template == "artikel" %}
 							<div class="col-md-3">
 								<a href="{{p.url}}">
 								<article>
@@ -761,18 +766,19 @@ display: flex;
 								</article>
 								</a>
 							</div>
+							{% endif %}
 						{% endfor %}
 						</div>
 
 					{% set cek_tipe = 0 %}
-					{% for page in pages.children.visible %}
-                    {% if page.url != home_url~'/' and page.children.visible.count > 0 %}
+					{% for page in pages.children %}
+                    {% if page.url != home_url~'/' and page.children.count > 0 %}
 						{% set cek_tipe = cek_tipe + 1 %}
 						{% if (cek_tipe is odd) %}
 						<div class="post_list post_list_style_1">
 							<div class="row">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							{% for p in page.children.visible.slice(0, 5) %}
+							{% for p in page.children.slice(0, 5) %}
 								{% if p.template == "artikel" %}
 									<div class="col-md-6">
 										<a href="{{p.url}}">
@@ -785,13 +791,13 @@ display: flex;
 									</div>
 									
 
-									{% if page.children.visible.count > 0 and loop.index == 1 %}
+									{% if page.children.count > 0 and loop.index == 1 %}
 									<div class="col-md-6">
 										<div class="row item-sm">
 									{% endif %}
 								{% endif %}
 							{% endfor %}
-								{% if page.children.visible.count > 0 %}
+								{% if page.children.count > 0 %}
 									</div>
 								</div>
 								{% endif %}
@@ -800,7 +806,8 @@ display: flex;
 						{% else %}
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
-								{% for p in page.children.visible.slice(0, 8) %}
+								{% for p in page.children.slice(0, 8) %}
+								{% if p.template == "artikel" %}
 								<div class="item">
 									<div class="alith_latest_trading_img_position_relative">
 										<div class="wrap">
@@ -817,6 +824,7 @@ display: flex;
 										</div>
 									</div>
 								</div>
+								{% endif %}
 								{% endfor %}
 							</div>
 						{% endif %}
@@ -836,12 +844,14 @@ display: flex;
 						<div class="widget-title-cover"><h4 class="widget-title"><span>Paling Diminati</span></h4></div>
 						<div class="latest_style_3">  
 						{% for p in my_populer.slice(18, 4) %}
+							{% if p.template == "artikel" %}
 							<div class="latest_style_3_item">                     
 								<span class="item-count vertical-align">{{loop.index}}.</span>
 								<div class="alith_post_title_small">
 									<a href="{{p.url}}"><strong>{{p.title}}</strong></a>
 								</div>
 							</div>
+							{% endif %}
 						{% endfor %}
 						</div>
 					</div>
@@ -851,10 +861,12 @@ display: flex;
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Terbaru</span></h4></div>
 							<div class="latest_style_2">
 								{% for p in my_terbaru_bawah.slice(6, 3) %}
+								{% if p.template == "artikel" %}
 								<div class="latest_style_2_item">
 									<figure class="alith_news_img"><a href="{{p.url}}"><img alt="" src="{{ p.media.images|first.url }}" class="hover_grey"></a></figure>
 									<h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
 								</div>
+								{% endif %}
 								{% endfor %}
 							</div>
 						</div>
@@ -863,7 +875,7 @@ display: flex;
 						<div class="sidebar-widget">					
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Kategori</span></h4></div>
 							<ul class="bottom_menu">
-								{% for page in pages.children.visible %}
+								{% for page in pages.children %}
 									{% if page.url != home_url~'/' %}
 										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
 									{% endif %}
@@ -876,11 +888,13 @@ display: flex;
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Koleksi</span></h4></div>
 							<ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
 								{% for p in my_koleksi.slice(9, 9) %}
+								{% if p.template == "artikel" %}
 								<li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
 									<a class="" target="_blank" href="{{p.url}}">
 										<img class="" title="{{p.title}}" alt="" src="{{ p.media.images|first.url }}">
 									</a>
 								</li>
+								{% endif %}
 								{% endfor %}			
 							</ul>
 						</div>
