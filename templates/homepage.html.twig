@@ -520,45 +520,6 @@ article img{
 	margin-bottom: -30px;
 }
 
-
-/** Popularity **/
-.populer{
-display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.populer div{
-	padding: 15px;
-    border-top: 1px #ccc solid;
-	border-right: 1px #ccc solid;
-}
-.populer div:nth-child(-n+4){
-	border-top: none;
-}
-.populer div:nth-child(4n){
-	border-right: none;
-}
-.populer article img{
-	float: right;
-	width: 65px;
-	height: 65px;
-	object-fit: cover;
-	margin-left: 15px;
-}
-.populer article span{
-	font-weight: 500;
-}
-.populer article small{
-	font-size: 8pt;
-    margin-top: 8px;
-}
-{# span[aria-label="Previous"]{
-	content: "";
-	width: 20px;
-	height: 20px;
-	background-color: #f00;
-} #}
-
 .owl-carousel.owl-loaded{
 	margin-top: 0;
     margin-bottom: 45px;
@@ -768,7 +729,7 @@ display: flex;
 
 					{% set cek_tipe = 0 %}
 					{% for page in pages.children %}
-                    {% if page.url != home_url~'/' and page.children.count > 0 %}
+                    {% if page.url != home_url~'/' and  page.url != home_url~'/info' and page.children.count > 0 %}
 						{% set cek_tipe = cek_tipe + 1 %}
 						{% if (cek_tipe is odd) %}
 						<div class="post_list post_list_style_1">
