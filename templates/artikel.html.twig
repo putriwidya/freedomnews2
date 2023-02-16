@@ -717,7 +717,7 @@ bottom-logo .social::before, .post-share::before {
 						 <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="sidebar-widget animate-box fadeInUp animated-fast">					
              <div class="widget-title-cover"><h4 class="widget-title"><span>Artikel Populer</span></h4></div>
              <div class="latest_style_1">  
-              {% for p in page.collection(populer_pg).slice(6, 10) %}
+              {% for p in my_unggulan %}
                <div class="latest_style_1_item">                     
                  <span class="item-count vertical-align">{{loop.index}}.</span>
                  <div class="alith_post_title_small">

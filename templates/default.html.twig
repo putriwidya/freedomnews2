@@ -6,34 +6,817 @@
 {% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
 {% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
 
-
-{% set pagebanner =page.find(page.header.favorit1_konten).children.order('date', 'desc')|first %}
-{% if pagebanner==null %}
-{% set pagebanner =page.find(page.header.favorit1_konten) %}
+{% set hot1 =page.find(page.header.hotline1_konten).children.order('date', 'desc')|first %}
+{% if hot1==null %}
+{% set hot1 =page.find(page.header.hotline1_konten) %}
 {% endif %}
 
+{% set hot2 =page.find(page.header.hotline2_konten).children.order('date', 'desc')|first %}
+{% if hot2==null %}
+{% set hot2 =page.find(page.header.hotline2_konten) %}
+{% endif %}
+
+{% set hot3 =page.find(page.header.hotline3_konten).children.order('date', 'desc')|first %}
+{% if hot3==null %}
+{% set hot3 =page.find(page.header.hotline3_konten) %}
+{% endif %}
+
+{% set hl =page.find(page.header.headline_konten).children.order('date', 'desc')|first %}
+{% if hl==null %}
+{% set hl =page.find(page.header.headline_konten) %}
+{% endif %}
+
+{% set bn =page.find(page.header.banner_konten).children.order('date', 'desc')|first %}
+{% if bn==null %}
+{% set bn =page.find(page.header.banner_konten) %}
+{% endif %}
+
+{% set unggulan = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 10} %}
+{% set my_unggulan = page.collection(unggulan) %}
+
+{% set terbaru = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set my_terbaru = page.collection(terbaru) %}
+
+{% set unggulan2 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_unggulan2 = page.collection(unggulan2) %}
+
+{% set populer = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_populer = page.collection(populer) %}
+
+{% set terbaru_bawah = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_terbaru_bawah = page.collection(terbaru_bawah) %}
+
+{% set koleksi = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_koleksi = page.collection(koleksi) %}
+
+{% set populer_pg = { items: '@self.siblings', 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{# {% set my_populer_pg = page.collection(populer_pg) %} #}
+
+
 {% block stylesheets %}
-    
     {{ parent() }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
-    {% do assets.add('theme://js/jquery-1.11.0.min.js') %}
-    {% do assets.add('theme://js/jquery-ui-1.10.4.min.js') %}
-    {% do assets.add('theme://js/jquery.queryloader2.min.js') %}
 {% endblock %}
 
+{% block content %}
+<style>
+#unggulan-next, #unggulan-prev{
+  float: right;
+}
+#unggulan-next i, #unggulan-prev i {
+  font-size: 10px;
+  color: #000;
+}
+.teaser_topik h3 a{
+  color: #000;
+}
+.teaser_topik {
+  width: 150px;
+}
+.kop_hottopik{
+  border-bottom: none;
+}
+.headline #bx-pager p{
+  margin-top: 15px;
+}
+.headline #bx-pager ul li a.active{
+  border-top: 2px solid #000;
+}
+h4.widget-title {
+    font-size: 16px;
+    position: relative;
+    text-transform: uppercase;
+    display: inline-block;
+}
+h4.widget-title a::after {
+    background: #000 none repeat scroll 0 0;
+    bottom: 10px;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    left: 100%;
+    position: absolute;
+    width: 100vw;
+}
+h4.widget-title span {
+    padding-left: 15px;
+    padding-right: 10px;
+}
+h4.widget-title span::before {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    content: "";
+    height: 8px;
+    left: 0;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    width: 8px;
+}
+.left-first.overview h4.widget-title a::after {
+    width: 100%;
+}
+.box .img_populer_teaser{
+  background-color: #fff;
+  padding: 15px 0 24px 0;
+}
+.box .img_populer_teaser h2 a{
+  color: #000;
+}
+.conten_populer ul li {
+    padding: 15px 0;
+    background-color: #fff;
+    width: 100%;
+}
+.conten_populer ul li .img_populer{
+    display: block;
+    float: left;
+    margin: 0 15px 0 0;
+    position: relative;
+    width: 35%;
+    padding-bottom: 30%;
+    background-color: #f3f3f3;
+}
+.conten_populer ul li .img_populer img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+}
+.teaser_populer h3 a{
+  color: #000;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: 'IBM Plex Serif', serif;
+}
+.box .img_populer_teaser h2 a{
+  font-size: 18px;
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.teaser_populer p{
+    color: #888;`
+    margin-top: 10px;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 14px;
+    font-weight: 300;
+}
+.img_populer_one span{
+    font-family: 'Playfair Display', serif;
+    background-color: #000;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    position: absolute;
+    font-weight: 300;
+    right: 12px;
+    margin-top: 12px;
+}
+.img_populer_one, .img_populer_one img{
+  height: auto;
+}
 
-{# {% block hero %}
-    {% include 'partials/hero.html.twig' with {id: 'blog-hero', content: page.content, hero_image: blog_image} %}
-{% endblock %} #}
+.conten1{
+    background-color: #fff;
+    border-top: none;
+    border-bottom: 1px #eee solid;
+}
+.center_conten1{
+  width: 100%;
+}
+.wrap_line{
+  background-color: #000 !important;
+  border-bottom: 4px #000 solid;
+}
+.teaser_conten1 p{
+  font-family: 'Playfair Display', serif;
+}
+.center_conten1 .date{
+  font-family: 'Playfair Display', serif;
+}
+.teaser_conten1 h2{
+  margin-top: 15px;
+}
+.teaser_conten1 h1 p a{
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: #000;
+}
+.teaser_conten1 h1 p a::after{
+    content: "";
+    display: block;
+    width: 34px;
+    height: 4px;
+    margin-top: 2px;
+    background-color: #000;
+}
+.teaser_conten1 h2 a{
+  color: #000;
+  font-size: 18px;
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 600;
+}
+.puisi-sastra h2{
+  font-family: 'IBM Plex Serif', serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: #000;
+}
+.knl_vid p{
+  font-family: 'Playfair Display', serif;
+}
+.txt_subkanal.home h2 a{
+  font-family: 'IBM Plex Serif', serif;
+  color: #000;
+}
+.puisi-sastra .kop_kanal h2 a{
+  color: #000;
+}
+.puisi-sastra .kop_kanal h2 a::before{
+  background: rgba(0, 0, 0, 0) url('{{ url('theme://img/patern-1.png') }}') no-repeat scroll right center;
+  content: "";
+  display: inline-block;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: -7px;
+  width: 60px;
+}
+.puisi-sastra .kop_kanal h2 a::after{
+  background: rgba(0, 0, 0, 0) url('{{ url('theme://img/patern-1.png') }}') no-repeat scroll left center;
+    content: "";
+    display: inline-block;
+    height: 30px;
+    margin-left: 10px;
+        margin-bottom: -7px;
+    width: 60px;
+}
 
-{% block body %}
-<section class="section full-width-bg">
-    <div class="row">			
-        <div class="col-lg-12 col-md-12 col-sm-12">{{ page.content|raw }}</div>
-    </div>
-</section>
+.conten_populer{
+  border: none;
+}
+.hot_topik_2_center span{
+    font-size: 24px;
+    float: left;
+}
+.hot_topik_2_center li a{
+    color: #000;
+    float: left;
+    margin-left: 6px;
+    width: calc(100% - 35px);
+    font-family: 'IBM Plex Serif', serif;
+}
+.wrapper_conten_center{
+  padding: 0;
+  border-top: 0;
+}
+.populer_set_left li{
+  background: #fff;
+  border-top: none;
+  padding: 0;
+}
+.populer_set_left_right h1{
+  color: #000;
+  float: left;
+  margin-left: 6px;
+  width: calc(100% - 35px);
+  font-family: 'IBM Plex Serif', serif;
+}
+.populer_set_left_right span{
+  font-size: 24px;
+  float: left;
+}
+.hot_topik_2{
+  margin-bottom: 45px;
+}
+.hot_topik_2_center ul li{
+  border-top: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+.set_subkanal.home li a{
+  color: #000;
+}
+.banner-freedom img{
+  width: 100%;
+  margin-bottom: 30px;
+}
+article img{
+  width: 100%;
+}
+#slider-carousel .wrap{
+  height: 230px;
+}
+#slider-carousel .alith_post_thumb {
+  height: 160px;
+}
+#slider-carousel .grid-caption{
+  background: transparent;
+  padding: 0;
+  color: #000;
+}
+#slider-carousel .owl-item:hover{
+  background: transparent;
+}
+#slider-carousel {
+  margin-top: 0;
+}
+#slider-small.owl-carousel .owl-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.slider-carousel.owl-carousel .owl-item img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+#slider-carousel h2{
+  font-size: 12pt;
+  line-height: 1.2;
+  margin-top: 12px;
+}
+#slider-carousel h2 a{
+  color: #000;
+}
+#slider-carousel .grid-caption{
+  position: relative;
+}
+#slider-carousel .grid-caption .post_meta span{
+  border-radius: 20px;
+  padding: 5px 8px;
+  font-weight: 700;
+}
+#slider-carousel .post_meta span a{
+  color: #fff;
+}
+#slider-carousel .post_meta_small{
+  color: rgb(102, 102, 102);
+  font-size: 8pt;
+}
+.owl-carousel .owl-item{
+/*margin-left: 10px;*/
+}
+.post_list article span{
+    font-size: 18pt;
+    font-weight: 500;
+    margin-top: 12px;
+    line-height: 1.2;
+    display: block;
+}
+.post_list article div{
+  font-size: 9pt;
+  margin-top: 5px;
+  color: #333;
+	margin-bottom: 20px;
+}
+.post_list .item-sm{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.post_list .item-sm article img{
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+}
+.post_list .item-sm article span{
+  font-size: 12pt;
+}
+
+.mySlides{
+	width: 100%;
+}
+.owl-carousel.owl-loaded{
+	margin-bottom: -30px;
+}
+
+
+/** Popularity **/
+.populer{
+display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.populer div{
+	padding: 15px;
+    border-top: 1px #ccc solid;
+	border-right: 1px #ccc solid;
+}
+.populer div:nth-child(-n+4){
+	border-top: none;
+}
+.populer div:nth-child(4n){
+	border-right: none;
+}
+.populer article img{
+	float: right;
+	width: 65px;
+	height: 65px;
+	object-fit: cover;
+	margin-left: 15px;
+}
+.populer article span{
+	font-weight: 500;
+}
+.populer article small{
+	font-size: 8pt;
+    margin-top: 8px;
+}
+{# span[aria-label="Previous"]{
+	content: "";
+	width: 20px;
+	height: 20px;
+	background-color: #f00;
+} #}
+
+.owl-carousel.owl-loaded{
+	margin-top: 0;
+    margin-bottom: 45px;
+}
+.arrow-prev, .arrow-next{
+	position: inherit;
+}
+.owl-prev{
+	position: absolute;
+    left: 0;
+    top: -15px;
+    padding: 5px 10px;
+    border-radius: 100%;
+    background-color: #fff;
+}
+.owl-prev svg{
+	transform:  rotate(180deg);
+}
+.owl-next{
+	position: absolute;
+    right: -20px;
+    top: -15px;
+    padding: 5px 10px;
+    border-radius: 100%;
+    background-color: #fff;
+}
+.grid-caption .post_meta span.meta_categories{
+	background: transparent;
+	padding: 0;
+}
+.grid-caption .post_meta span.meta_categories a{
+	background-color: #000;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.owl-item h2{
+	font-family: 'IBM Plex Serif', serif;
+	font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-size: 13pt;
+}
+.owl-item .post_meta_small{
+	font-size: 9pt;
+    margin-top: 5px;
+    color: #333;
+}
+.bungkus_txt_headline_center{
+	padding-top: 53px;
+    padding-bottom: 53px;
+}
+.latest_style_2_item h3.alith_post_title{
+	margin: 0;
+    margin-left: 40%;
+}
+.latest_style_2_item h3.alith_post_title a{
+	font-size: 11pt;
+}
+.latest_style_2_item .alith_news_img{
+	width: 95px;
+	height: 70px;
+	object-fit: cover;
+}
+.alith-instagram-grid-widget img{
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+}
+.post-content{
+  padding: 0;
+}
+p{
+  margin: 15px 0;
+    font-size: 12pt;
+    line-height: 1.2;
+    font-weight: 400;
+}
+.post-share {
+    text-align: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+    margin: 0 0 40px 0;
+}
+bottom-logo .social::before, .post-share::before {
+    background: rgba(0, 0, 0, 0) url('{{ url('theme://img/patern-1.png') }}') no-repeat scroll right center;
+    content: "";
+    display: inline-block;
+    height: 10px;
+    margin-right: 10px;
+    width: 30px;
+}
+.bottom-logo .social::after, .post-share::after {
+    background: rgba(0, 0, 0, 0) url('{{ url('theme://img/patern-1.png') }}') no-repeat scroll right center;
+    content: "";
+    display: inline-block;
+    height: 10px;
+    margin-left: 10px;
+    width: 30px;
+}
+.bottom-logo .social ul, .post-share ul {
+    display: inline-flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.bottom-logo .social li, .post-share li {
+    display: inline-block;
+    margin: 30px 4px 0 4px;
+}
+.post-share li {
+    margin-top: 0;
+}
+.post-share li a {
+    border: 0;
+    color: #fff;
+}
+.bottom-logo .social li a, .post-share li a {
+    border: 1px solid #333;
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    width: 30px;
+    height: 30px;
+    display: block;
+    font-size: 14pt;
+}
+.post-share li.facebook a, .bottom-logo .social li.facebook a:hover {
+    background: #3b5998 none repeat scroll 0 0;
+    border-color: #3b5998;
+    padding: 2px 2px;
+    float: none;
+    line-height: normal;
+}
+.post-share li.twitter a, .bottom-logo .social li.twitter a:hover {
+    background: #55acee none repeat scroll 0 0;
+    border-color: #55acee;
+    padding: 4px 0px;
+}
+.post-share li.whatsapp a, .bottom-logo .social li.whatsapp a:hover {
+    background: #13af1f none repeat scroll 0 0;
+    border-color: #13af1f;
+    padding: 4px 0px;
+}
+.post-share li.telegram a, .bottom-logo .social li.telegram a:hover {
+    background: #2ca5e0 none repeat scroll 0 0;
+    border-color: #2ca5e0;
+    padding: 4px 0px;
+}
+.post-share li.linkedin a, .bottom-logo .social li.linkedin a:hover {
+    background: #007bb5 none repeat scroll 0 0;
+    border-color: #007bb5;
+    padding: 4px 0px;
+}
+.post-share li.plus a, .bottom-logo .social li.plus a:hover {
+    background: #dd4b39 none repeat scroll 0 0;
+    border-color: #dd4b39;
+    padding: 4px 0px;
+}
+.bottom-logo .social li a i, .post-share li a i {
+    transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+}
+table > tbody > tr > td{
+    padding: 12px;
+    font-size: 10pt;
+    text-align: left;
+    width: 50% !important;
+    display: table-cell;
+    line-height: 1.8;
+}
+table > tbody > tr > td:nth-child(2){
+    font-weight: 500;
+    width: 50% !important;
+}
+table tr {
+    border: 1px solid #ecedf1;
+    display: table-row;
+}
+.dropcap{
+    width: 100%;
+}
+</style>
+	<div class="container-fluid">
+		<div class="container">
+			<div class="primary margin-15">
+				<div class="row">
+					<div class="col-md-8">
+						<article class="section_margin">
+                            <figure class="alith_news_img animate-box fadeInUp animated-fast">
+                                <a href="">
+                                {% if page.media.images|first %}
+                                    {{ page.media.images|first.cropZoom(750,422).html('','', 'thumb')|raw }}
+                                {% endif %}
+                                </a>
+                            </figure>
+                            <div class="post-content">
+                                <div class="single-header">
+                                <h3 class="alith_post_title">{{page.title}}</h3>
+                                <div class="post_meta">
+                                    <a href="#" class="meta_author_avatar">
+                                    <img src="{{ url('theme://img/author-avatar.png') }}" alt="author details">
+                                    </a>
+                                    <span class="meta_author_name"><a href="#" class="author">Admin</a></span>
+                                    <span class="meta_categories"><a href="{{page.parent.url}}">{{page.parent.title}}</a></span>
+                                    <span class="meta_date">{{page.header.date|date("d M Y")}}</span>
+                                </div>
+                                </div>
+                                <div class="single-content animate-box fadeInUp animated-fast">
+                                <p class="alith_post_except animate-box fadeInUp animated-fast">{{page.title}}</p>
+                                <div class="animate-box fadeInUp animated-fast">
+                                    {{ page.content|raw }}	
+                                </div>
+                                <div class="post-share"> 
+                                    <ul class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                    <li class="facebook"><a href="" class="a2a_button_facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="twitter"><a href="" class="a2a_button_twitter"><i class="fa fa-twitter"></i></a></li>
+                                    <li class="whatsapp"><a href="" class="a2a_button_whatsapp"><i class="fa fa-whatsapp"></i></a></li>
+                                    <li class="linkedin"><a href="" class="a2a_button_linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="telegram"><a href="" class="a2a_button_telegram"><i class="fa fa-telegram"></i></a></li>
+                                    <li class="plus"><a class="a2a_dd" href="https://www.addtoany.com/share"><i class="fa fa-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                                <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        
+                                <div class="post-related section_margin_40">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="sidebar-widget">					
+                                        <div class="widget-title-cover"><h4 class="widget-title"><span>Related Posts</span></h4></div>
+                                        <div class="latest_style_3">  
+                                            {% for p in page.collection(populer_pg).slice(0, 4) %}
+                                            <div class="latest_style_3_item">                     
+                                            <span class="item-count vertical-align">{{loop.index}}.</span>
+                                            <div class="alith_post_title_small">
+                                                <a href="{{p.url}}"><strong>{{p.title}}</strong></a>
+                                            </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        </div>
+                                    </div> <!--post-related-->
+                                    <div class="col-md-6">
+                                        <div class="post-navigation">
+                                        <div class="latest_style_2">
+                                            {% for p in page.collection(populer_pg).slice(4, 2) %}
+                                            {% if loop.index == 1 %}
+                                            <h5><span>Sebelumnya</span></h5>
+                                            {% else %}
+                                            <h5><span>Selanjutnya</span></h5>
+                                            {% endif %}
+                                            <div class="latest_style_2_item">
+                                                <figure class="alith_news_img"><a href="{{p.url}}"><img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""></a></figure>
+                                                <h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
+                                            </div>
+                                            {% endfor %}
+                                            </div>
+                                        </div>											
+                                    </div>											
+                                    </div>
+                                </div> <!--post-related and navigation-->
+                                </div> <!--single content-->
+                                
+                            </div>
+                        </article>
+					</div>
+
+					<aside class="col-md-4 sidebar_right">
+                        <div class="w3-content w3-section">
+                            <img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner1.jpeg') }}">
+                            <img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner2.jpeg') }}">
+                            <img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner3.jpeg') }}">	
+                        </div>
+                        <script>
+                            var myIndex = 0;
+                            carousel();
+
+                            function carousel() {
+                            var i;
+                            var x = document.getElementsByClassName("mySlides");
+                            for (i = 0; i < x.length; i++) {
+                            x[i].style.display = "none";  
+                            }
+                            myIndex++;
+                            if (myIndex > x.length) {myIndex = 1}    
+                            x[myIndex-1].style.display = "block";  
+                            setTimeout(carousel, 4000);    
+                            }
+                        </script>
+                        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;">
+                            <div class="sidebar-widget animate-box fadeInUp animated-fast">					
+                                <div class="widget-title-cover"><h4 class="widget-title"><span>Artikel Populer</span></h4></div>
+                                <div class="latest_style_1">  
+                                {% for p in my_unggulan %}
+                                <div class="latest_style_1_item">                     
+                                    <span class="item-count vertical-align">{{loop.index}}.</span>
+                                    <div class="alith_post_title_small">
+                                    <a href="{{p.url}}"><strong>{{p.title}}</strong></a>
+                                    <p class="meta">
+                                        <span>{{p.header.date|date("d M Y")}}</span> 
+                                        {# <span>268 views</span> #}
+                                    </p>
+                                    </div>                                                  
+                                    <figure class="alith_news_img"><a href="{{p.url}}"><img src="{{ p.media.images|first.url }}" alt=""></a></figure>
+                                </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+  
+                        </div>
+                    </aside>
+                </div>
+						
+					</aside>
+					<!--End Sidebar-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="container animate-box">
+			<div class="margin-15">
+				<div class="row">            
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+						<div class="widget-title-cover"><h4 class="widget-title"><span>Paling Diminati</span></h4></div>
+						<div class="latest_style_3">  
+						{% for p in my_populer.slice(18, 4) %}
+							<div class="latest_style_3_item">                     
+								<span class="item-count vertical-align">{{loop.index}}.</span>
+								<div class="alith_post_title_small">
+									<a href="{{p.url}}"><strong>{{p.title}}</strong></a>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Terbaru</span></h4></div>
+							<div class="latest_style_2">
+								{% for p in my_terbaru_bawah.slice(6, 3) %}
+								<div class="latest_style_2_item">
+									<figure class="alith_news_img"><a href="{{p.url}}"><img alt="" src="{{ p.media.images|first.url }}" class="hover_grey"></a></figure>
+									<h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Kategori</span></h4></div>
+							<ul class="bottom_menu">
+								{% for page in pages.children.visible %}
+									{% if page.url != home_url~'/' %}
+										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Koleksi</span></h4></div>
+							<ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
+								{% for p in my_koleksi.slice(9, 9) %}
+								<li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+									<a class="" target="_blank" href="{{p.url}}">
+										<img class="" title="{{p.title}}" alt="" src="{{ p.media.images|first.url }}">
+									</a>
+								</li>
+								{% endfor %}			
+							</ul>
+						</div>
+					</div>
+				</div> <!--.row-->
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -295,6 +295,36 @@ display: flex;
 {% endblock %}
 
 <style>
+.single-content p{
+  line-height: 1.4;
+}
+.single-content ol{
+  font-weight: 400;
+  font-size: 12pt;
+  margin-left: 0;
+}
+.single-content ol li{
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.single-content ol[type="a"] li{
+  list-style: lower-alpha;
+}
+.single-content ol[type="i"] li{
+  list-style: lower-roman;
+}
+#nav, .main_nav_cover ul.sub-menu{
+  background-color: #000;
+}
+.main_nav_cover #main-menu li a, .slicknav_nav a, .slicknav_btn, .slicknav_menu .slicknav_menutxt{
+  color: #fff;
+}
+.slicknav_menu .slicknav_icon-bar{
+  background-color: #fff;
+}
+.slicknav_btn{
+  margin-top: 5px;
+}
 #off-canvas-toggle{
   display: none;
 }

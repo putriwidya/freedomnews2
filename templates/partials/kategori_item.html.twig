@@ -22,8 +22,6 @@
         {% else %}
             <p>{{page.content|truncate(100)|striptags|raw}}</p>
             <div class="post_meta">
-                <a href="#" class="meta_author_avatar"><img src="{{ url('theme://img/author-avatar.png') }}" alt="author details"></a>
-                <span class="meta_author_name"><a href="#" class="author">Admin</a></span>
                 <span class="meta_date">{{ page.header.date|date("d M Y") }}</span>
             </div>
         {% endif %}
