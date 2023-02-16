@@ -298,6 +298,19 @@ display: flex;
 .single-content p{
   line-height: 1.4;
 }
+.single-content blockquote{
+  border-left: 1px #000 dashed;
+  background: transparent;
+  color: #888;
+  text-align: center !important;
+  padding: 60px 20px 20px;
+}
+.single-content blockquote p{
+  margin-top: 0;
+}
+.single-content blockquote::before{
+  font-size: 50px;
+}
 .single-content ol{
   font-weight: 400;
   font-size: 12pt;
@@ -327,6 +340,15 @@ display: flex;
 }
 #off-canvas-toggle{
   display: none;
+}
+.latest_style_1_item .alith_post_title_small{
+  top: 60%;
+}
+.latest_style_1_item .alith_post_title_small a strong{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 @media only screen and (max-width: 728px) {
       .footer{

@@ -593,6 +593,27 @@ article img{
 	height: 80px;
 	object-fit: cover;
 }
+.img-article{
+	position: relative;
+	width: 100%;
+	padding-top: 70%;
+	/* padding-top: 56.25%; 16:9 Aspect Ratio */
+}
+.img-article img{
+	height: 100%;
+    object-fit: cover;
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+}
+.item-sm .img-article{
+	padding-top: 55%;
+}
 </style>
 	<div class="container-fluid">
 		<div class="container animate-box">
@@ -741,7 +762,9 @@ article img{
 									<div class="col-md-6">
 										<a href="{{p.url}}">
 										<article>
-											<img src="{{ p.media.images|first.url }}" />
+											<div class="img-article">
+												<img src="{{ p.media.images|first.url }}" />
+											</div>
 											<span>{{p.title}}</span>
 											<div>{{p.header.date|date("d M Y h:i")}}</div>
 										</article>

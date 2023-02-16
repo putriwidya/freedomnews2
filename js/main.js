@@ -6,6 +6,7 @@
 	});
     var owlCarousel = function(){
         $('#slider-small').owlCarousel({
+			autoplay:true,
             loop: true,
             margin: 10,
             dots: false,
