@@ -3,7 +3,17 @@ extends@: default
 form:
   fields:
     tabs:
+      type: tabs
+      active: 1
       fields:
+        content:
+          type: tab
+          title: Slider Utama
+          fields:
+            header.foto_utama_title:
+              label: Caption Foto Utama
+              type: text
+              style: vertical
         advanced:
           fields:
             columns:
