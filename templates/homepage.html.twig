@@ -510,6 +510,15 @@ article img{
   width: 100%;
   object-fit: cover;
 }
+.post_list .item-sm article img.yt-icon{
+	position: relative;
+    width: 75px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -115px;
+    display: block;
+}
 .post_list .item-sm article span{
   font-size: 12pt;
 }
@@ -611,11 +620,31 @@ article img{
 	font-size: 20px;
 	color: white;
 }
+.img-article img.yt-icon{
+	position: relative;
+    width: 100px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -250px;
+    margin-bottom: 0;
+    display: block;
+}
 .item-sm .img-article{
 	padding-top: 55%;
 }
 .w3-content, .alith_tags_all{
 	 float: left;
+}
+.slider-carousel.owl-carousel .owl-item img.yt-icon{
+	position: relative;
+    width: 75px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -140px;
+    margin-bottom: 80px;
+    display: block;
 }
 @media only screen and (max-width: 728px) {
 	.post_list article div.img-article{
@@ -799,8 +828,8 @@ article img{
 						<div class="post_list post_list_style_1">
 							<div class="row">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							{% for p in page.children.slice(0, 5) %}
-								{% if p.template == "artikel" %}
+							{% for p in page.children.slice(7, 5) %}
+								{% if p.template == "artikel" or p.template == "video_youtube" %}
 									{% if loop.index == 1 or loop.index == 5 %}
 									<div class="col-md-6 hidden-xs">
 									{% else %}
@@ -809,7 +838,14 @@ article img{
 										<a href="{{p.url}}">
 										<article>
 											<div class="img-article">
+											{% if p.header.link==null %} {# Jika bukan video youtube #}
 												<img src="{{ p.media.images|first.url }}" />
+											{% else %}
+												{% set urly = p.header.link|split('v=', 2) %}
+												<img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
+												<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
+											{% endif %}
+												
 											</div>
 											<span>{{p.title}}</span>
 											<div>{{p.header.date|date("d M Y h:i")}}</div>
@@ -824,7 +860,13 @@ article img{
 											<a href="{{p.url}}">
 												<article>
 													<div class="img-article">
-														<img src="{{ p.media.images|first.url }}" />
+														{% if p.header.link==null %} {# Jika bukan video youtube #}
+															<img src="{{ p.media.images|first.url }}" />
+														{% else %}
+															{% set urly = p.header.link|split('v=', 2) %}
+															<img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
+															<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
+														{% endif %}
 													</div>
 													<span>{{p.title}}</span>
 													<div>{{p.header.date|date("d M Y h:i")}}</div>
@@ -844,12 +886,20 @@ article img{
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
 								{% for p in page.children.slice(0, 8) %}
-								{% if p.template == "artikel" %}
+								{% if p.template == "artikel"  or p.template == "video_youtube" %}
 								<div class="item">
 									<div class="alith_latest_trading_img_position_relative">
 										<div class="wrap">
 										<figure class="alith_post_thumb">
-											<a href="{{p.url}}"><img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""/></a>
+											<a href="{{p.url}}">
+											{% if p.header.link==null %} {# Jika bukan video youtube #}
+												<img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""/>
+											{% else %}
+												{% set urly = p.header.link|split('v=', 2) %}
+												<img class="hover_grey" src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" alt=""/>
+												<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
+											{% endif %}
+											</a>
 										</figure>
 										</div>
 										<div class="grid-caption">
