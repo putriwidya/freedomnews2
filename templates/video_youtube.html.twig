@@ -12,6 +12,9 @@
 {% set pagebanner =page.find(page.header.favorit1_konten) %}
 {% endif %}
 
+{% set populer = { items: '@self.siblings', 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'video_youtube'}} %}
+{% set my_populer = page.collection(populer) %}
+
 {% block stylesheets %}
     
     {{ parent() }}
@@ -550,14 +553,17 @@ h4.widget-title{
           <aside class="col-md-4 sidebar_right" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
          <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="sidebar-widget animate-box fadeInUp animated-fast">					
             <div class="widget-title-cover"><h4 class="widget-title"><span>Video Terkait</span></h4></div>
+            {% for p in my_populer.slice(0, 10) %}
              <div class="latest_style_1">  
-               <div class="latest_style_1_item">                     
-                 <figure class="alith_news_img"><a href="single.html"><img src="http://via.placeholder.com/200x175" alt=""></a></figure>
+               <div class="latest_style_1_item">      
+                  {% set urly = p.header.link|split('v=', 2) %}               
+                 <figure class="alith_news_img"><a href="{{p.url}}"><img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" alt=""></a></figure>
                  <div class="alith_post_title_small">
-                   <a href="single.html"><strong>Ut enim ad minima veniam, quis nostrum</strong></a><p class="meta"><span>2 Sep, 2018</span> <span>268 views</span></p>
+                   <a href="single.html"><strong>{{p.title}}</strong></a><p class="meta"><span>{{page.header.date|date("d M Y")}}</span></p>
                  </div>                                                  
                </div>
              </div>
+            {% endfor %}
            </div>
           </div></aside>
           </div>
