@@ -502,6 +502,15 @@ display: flex;
 
     margin-top: 65px;
 }
+#nav-sub, .main_nav_cover ul.sub-menu{
+	background-color: #f1f1f1;
+}
+#nav-sub.main_nav_cover #main-menu li a{
+	color: #000;
+}
+.main_nav_cover .menu-item-has-children a::before{
+	display: none;
+}
 </style>
 	<div class="nav-kategori">
       <div class="container-fluid">
@@ -517,7 +526,7 @@ display: flex;
         <div class="container-fluid">
           <div class="container">
             <div class="row">
-              <div class="col-12 col-md-12 main_nav_cover" id="nav">							
+              <div class="col-12 col-md-12 main_nav_cover" id="nav-sub">							
                 <ul id="main-menu">
                   {% for pg in page.children.visible %}
                     {% if pg.url != home_url~'/' and pg.template == 'kategori' %}

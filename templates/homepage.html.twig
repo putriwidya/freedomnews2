@@ -614,6 +614,47 @@ article img{
 .item-sm .img-article{
 	padding-top: 55%;
 }
+.w3-content, .alith_tags_all{
+	 float: left;
+}
+@media only screen and (max-width: 728px) {
+	.post_list article div.img-article{
+		margin-top: 5px;
+		margin-bottom: 0;
+		padding-top: 70%;
+	}
+	.post_list .item-sm{
+		display: flex;
+	}
+	.post_list .item-sm article img{
+		height: 100%;
+	}
+	.post_list article span, .post_list .item-sm article span{
+	    font-size: 9pt;
+		line-height: 1.3;
+		margin-top: 8px;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.populer .post_meta_small{
+		padding-top: 0;
+		font-size: 8pt;
+		margin-top: 5px;
+		color: #333;
+	}
+	.populer article span{
+		display: block;
+		font-weight: 500;
+		font-size: 9pt;
+		line-height: 1.3;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+}
 </style>
 	<div class="container-fluid">
 		<div class="container animate-box">
@@ -742,6 +783,7 @@ article img{
 								<article>
 									<img src="{{ p.media.images|first.url }}" />
 									<span>{{ p.title }}</span>
+									<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
 								</article>
 								</a>
 							</div>
@@ -753,13 +795,17 @@ article img{
 					{% for page in pages.children %}
                     {% if page.url != home_url~'/' and  page.url != home_url~'/info' and page.children.count > 0 %}
 						{% set cek_tipe = cek_tipe + 1 %}
-						{% if (cek_tipe is odd) %}
+						{% if (cek_tipe is even) %}
 						<div class="post_list post_list_style_1">
 							<div class="row">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							{% for p in page.children.slice(0, 5) %}
 								{% if p.template == "artikel" %}
-									<div class="col-md-6">
+									{% if loop.index == 1 or loop.index == 5 %}
+									<div class="col-md-6 hidden-xs">
+									{% else %}
+									<div class="col-md-6 col-xs-6">
+									{% endif %}
 										<a href="{{p.url}}">
 										<article>
 											<div class="img-article">
@@ -771,10 +817,20 @@ article img{
 										</a>
 									</div>
 									
-
 									{% if page.children.count > 0 and loop.index == 1 %}
-									<div class="col-md-6">
+									<div class="col-md-6 col-xs-12">
 										<div class="row item-sm">
+											<div class="hidden-md hidden-lg col-xs-6">
+											<a href="{{p.url}}">
+												<article>
+													<div class="img-article">
+														<img src="{{ p.media.images|first.url }}" />
+													</div>
+													<span>{{p.title}}</span>
+													<div>{{p.header.date|date("d M Y h:i")}}</div>
+												</article>
+											</a>
+											</div>
 									{% endif %}
 								{% endif %}
 							{% endfor %}

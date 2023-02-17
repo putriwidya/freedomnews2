@@ -365,6 +365,21 @@ figure.image-caption figcaption{
   overflow: hidden;
 }
 @media only screen and (max-width: 728px) {
+  .header{
+        padding: 15px 0;
+  }
+  .header .logo{
+    margin: 0;
+  }
+  .logo img{
+    width: 150px;
+  }
+      #bx-pager{
+        display: none;
+      }
+      .headline img, .headline .bx-wrapper{
+        height: 230px;
+      }
       .footer{
         padding: 30px 15px;
         text-align: center;
@@ -391,13 +406,17 @@ figure.image-caption figcaption{
       }
       .line_blok{
         font-size: 9pt;
+        background: transparent linear-gradient(to right, transparent 0px, rgb(0 0 0 / 90%) 50%) repeat scroll 0 0;
+      }
+      .line_blok h3{
+        margin: 15px 0;
       }
       .bungkus_txt_headline_center{
         padding: 15px !important;
-        padding-bottom: 45px !important;
+        padding-bottom: 15px !important;
       }
       .headline h2{
-        font-size: 18pt;
+        font-size: 14pt;
         line-height: 1.2;
       }
       .margin_pager{
@@ -624,7 +643,7 @@ figure.image-caption figcaption{
             <div class="row">
               <div class="col-12 col-md-12 main_nav_cover" id="nav">							
                 <ul id="main-menu">
-                  <li><a href="{{ home_url }}">Home</a></li>
+                  <li><a href="{{ home_url }}"><i class="fa fa-home"></i> Home</a></li>
                   {% for page in pages.children.visible %}
                     {% if page.url != home_url~'/' and page.template == 'kategori' %}
                     {% set has_child = (page.children.visible.count > 0) ? 'menu-item-has-children' : '' %}
