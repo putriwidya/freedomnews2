@@ -531,7 +531,8 @@ h4.widget-title{
     <div class="container wrapper_conten_center">
 <div class="col-md-8">
             <article class="section_margin">
-              <iframe wiidth="810" height="400" src="https://www.youtube.com/embed/Hi0VbO07wH0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              {% set urly = page.header.link|split('v=', 2) %}
+              <iframe wiidth="810" height="400" src="https://www.youtube.com/embed/{{ urly.1 }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               <div class="post-content">
                 <div class="single-header">
                   <h3 class="alith_post_title">{{page.title}}</h3>
