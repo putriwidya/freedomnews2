@@ -830,7 +830,7 @@ article img{
 						<div class="post_list post_list_style_1">
 							<div class="row">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							{% for p in page.children.slice(7, 5) %}
+							{% for p in page.children.slice(0, 5) %}
 								{% if p.template == "artikel" or p.template == "video_youtube" %}
 									{% if loop.index == 1 or loop.index == 5 %}
 									<div class="col-md-6 hidden-xs">
