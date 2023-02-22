@@ -1,0 +1,649 @@
+{% extends 'partials/base.html.twig' %}
+{% set blog_image = page.media.images[page.header.hero_image] ?: page.media.images|first %}
+{% set collection = page.collection() %}
+{% set blog = page.find(header_var('blog_url')|defined(theme_var('blog-page'))) %}
+{% set show_breadcrumbs = header_var('show_breadcrumbs', [page, blog])|defined(true) %}
+{% set show_sidebar = header_var('show_sidebar', [page, blog])|defined(true)  %}
+{% set show_pagination = header_var('show_pagination', [page, blog])|defined(true) %}
+
+{% set cat = uri.query('cat') %}
+{# {% set collection = page.collection({'items': {'@page.children': '/editorial'}, 'pagination': true, 'order': {'by': 'title'}, 'limit': 3}) %} #}
+{% set collection = page.collection({'items': {'@page.descendants' : '/'~cat}, 'pagination': true, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, 'limit': 3}) %}
+{% set itemsInCollection = page.collection({'items': {'@page.descendants' : '/'~cat}, "filter":{"type":'artikel'}})|length %}
+{% set itemsPerPage = collection.params.limit %}
+{% set pagesInCollection = (itemsInCollection / itemsPerPage)|round(0, 'ceil') %}
+{% set currentPage = uri.param('page')|default('1') %}
+
+{% set unggulan = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 10} %}
+{% set my_unggulan = page.collection(unggulan) %}
+
+{% set terbaru = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set my_terbaru = page.collection(terbaru) %}
+
+{% set unggulan2 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_unggulan2 = page.collection(unggulan2) %}
+
+{% set populer = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_populer = page.collection(populer) %}
+
+{% set terbaru_bawah = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_terbaru_bawah = page.collection(terbaru_bawah) %}
+
+{% set koleksi = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set my_koleksi = page.collection(koleksi) %}
+
+{% set populer_pg = { items: '@self.siblings', 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+
+{% block content %}
+<style>
+      .section_margin {
+    margin-bottom: 30px;
+}
+.alith_news_img img{
+  width: 100%;
+}
+ .col-bs10-4 {
+        width: 40%;
+        /* position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; */
+        float: left;
+      }
+
+      .col-bs10-6 {
+        width: 60%;
+        /* position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; */
+        float: left;
+      }
+
+      .footer__logo {
+        padding: 0 0 15px;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .footer__logo img {
+        height: 50px;
+        width: auto;
+        margin-bottom: -15px;
+      }
+
+      .footer__network {
+        position: relative;
+        padding: 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, .2);
+        border-top: 1px solid rgba(255, 255, 255, .2);
+        font-size: 14px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+
+      .footer__network span {
+        display: inline-block;
+        color: #fff;
+        float: left;
+        margin-right: 24px;
+        margin-top: 20px;
+      }
+
+      .footer__network img {
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .footer__contact p {
+        font-size: 14px;
+      }
+
+      .footer__link {
+        padding: 5px 0;
+        display: block;
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .col-bs12-4,
+      .col-bs9-3 {
+        width: 33.33333%;
+        float: left;
+      }
+
+      .footer__bottom {
+        letter-spacing: .6px;
+        padding-top: 40px;
+        padding-bottom: 60px;
+      }
+
+      .col-bs10-7 {
+        width: 70%;
+        float: left;
+      }
+
+      .col-bs10-3 {
+        width: 30%;
+        float: left;
+      }
+
+      .footer__menu.inline .footer__link {
+        padding: 0 5px;
+      }
+
+      .footer__menu.inline .footer__item {
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer__menu.inline .footer__item:after {
+        content: "|";
+        position: absolute;
+        right: -5px;
+        bottom: 1px;
+      }
+
+      .footer__menu.inline .footer__item:last-child:after {
+        content: "";
+      }
+
+      .footer__copyright {
+        text-align: right;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .footer__copyright p {
+        margin: 0;
+      }
+
+      .sidebar-widget {
+        margin: 0 0 30px 0;
+    display: inline-block;
+    width: 100%;
+}
+      .widget-title-cover {
+    line-height: 1;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+h4.widget-title {
+    font-size: 16px;
+    position: relative;
+    text-transform: uppercase;
+    display: inline-block;
+}
+h4.widget-title span {
+    padding-left: 15px;
+    padding-right: 10px;
+}
+      h4.widget-title span::before {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    content: "";
+    height: 8px;
+    left: 0;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    width: 8px;
+}
+h4.widget-title::after {
+    background: #000 none repeat scroll 0 0;
+    bottom: 10px;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    left: 100%;
+    position: absolute;
+    width: 100vw;
+}
+
+.latest_style_1_item {
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    padding: 10px 0;
+    position: relative;
+    min-height: 100px;
+}
+.latest_style_1 .latest_style_1_item:first-child {
+    padding-top: 0;
+}
+.latest_style_1_item span.item-count {
+    float: left;
+    font-size: 30px;
+}
+.vertical-align {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.latest_style_1_item .alith_post_title_small {
+    clear: none;
+    float: left;
+    left: 12%;
+    margin-left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    color: #888;
+}
+.alith_post_title_small {
+    line-height: 1.2;
+}
+.alith_post_title_small .meta {
+    color: #888;
+    font-size: 12px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+.latest_style_1_item .alith_news_img {
+    display: block;
+    float: right;
+    margin: 0;
+    position: relative;
+    width: 35%;
+}
+.alith_news_img {
+    overflow: hidden;
+}
+figure {
+    margin-bottom: 15px;
+    max-width: 100%;
+    position: relative;
+}
+form.search-form input.search-field {
+  -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    color: #888;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    height: 50px;
+    line-height: 30px;
+    outline: none;
+    padding: 10px;
+    background: #fff;
+    box-shadow: none;
+    border-radius: 0;
+    
+    border: 1px solid #333;
+    font-size: 14px;
+    width: 70%;
+    float: left;
+    
+}
+form.search-form input.search-submit {
+    background: #333 none repeat scroll 0 0;
+    border: 0 none;
+    color: #fff;
+    float: right;
+    letter-spacing: 1px;
+    line-height: 30px;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 30%;
+}
+.alith_tagg {
+    background: #f1f1f1;
+    padding: 10px 15px;
+    color: #222;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+    margin-right: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.alith_post_thumb_big img{
+  height: auto;
+    max-width: 100%;
+}
+.alith_post_thumb_big .post_meta_categories_label {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 10;
+}
+.post_meta_categories_label {
+    background: #000 none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 10px;
+}
+.latest_style_2_item_first {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+.latest_style_2_item {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    position: relative;
+}
+.latest_style_2_item figure {
+    display: block;
+    float: left;
+    margin: 0 15px 0 0;
+    position: relative;
+    width: 35%;
+}
+.latest_style_2_item .alith_news_img {
+    overflow: hidden;
+}
+.latest_style_2_item .alith_news_img img{
+  max-width: 100%;
+  height: 80px;
+  object-fit: cover;
+}
+.latest_style_2_item h3.alith_post_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.post_meta {
+    font-size: 80%;
+    font-weight: 300;
+}
+.post_meta span {
+    color: #888;
+    margin: 0 20px 0 0;
+}
+
+.site-pagination {
+    border-top: 1px solid #eee;
+    font-size: 24px;
+    padding-top: 30px;
+}
+ul.page-numbers {
+    font-weight: 300;
+}
+ul.page-numbers li {
+  line-height: 28px;
+    list-style: none;
+    display: inline-block;
+    padding: 0 10px 0 0;
+}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+ul.page-numbers li a.prev {
+    font-size: 14px;
+    padding-left: 30px;
+    position: relative;
+}
+ul.page-numbers li a.next{
+  font-size: 14px;
+    padding-right: 30px;
+    position: relative;
+    transition-duration: .2s;
+}
+ul.page-numbers li a.prev::after {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/icon-prev.png) repeat scroll 0 0;
+    content: "";
+    height: 17px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px;
+}
+ul.page-numbers li a.next::after {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/icon-next.png) repeat scroll 0 0;
+    content: "";
+    height: 17px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 22px;
+}
+.latest_style_3_item {
+    border-bottom: 1px solid #eee;
+    min-height: 50px;
+    overflow: hidden;
+    padding: 40px 0;
+    position: relative;
+}
+.latest_style_3_item span.item-count {
+    float: left;
+    font-size: 30px;
+}
+.latest_style_3_item .alith_post_title_small {
+    clear: none;
+    float: left;
+    left: 12%;
+    margin-left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90%;
+}
+.vertical-align {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.alith_post_title_small {
+    line-height: 1.2;
+}
+.bottom_menu {
+    overflow: hidden;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+.bottom_menu li {
+    float: left;
+    margin: 2px 0;
+    width: 50%;
+    line-height: 28px;
+    list-style: none;
+}
+.alith-row.alith-gap-10 .alith-col, .alith-row.alith-gap-10 .alith-col-nr {
+    float: left;
+    margin: 0 0 10px;
+    padding: 0 5px;
+}
+.alith-row .alith-col-3 {
+    width: 33.33%;
+    line-height: 28px;
+    list-style: none;
+}
+.alith-col-3 img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.single-comment-title, .comment-reply-title {
+  font-size: 20pt;
+    position: relative;
+    text-align: center;
+    margin-top: 30px;
+    text-transform: uppercase;
+}
+.single-comment-title::before, .comment-reply-title::before {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/patern-1.png) no-repeat scroll right center;
+    content: "";
+    display: inline-block;
+    height: 15px;
+    margin-right: 10px;
+    width: 30px;
+}
+.single-comment-title::after, .comment-reply-title::after {
+    background: rgba(0, 0, 0, 0) url(file:///Users/putriwidya/Downloads/themeforest-Evgqzpdp-hewo-modern-newspaper-html-template/HeWo%20Template/assets/images/patern-1.png) no-repeat scroll right center;
+    content: "";
+    display: inline-block;
+    height: 15px;
+    margin-left: 10px;
+    width: 30px;
+}
+.comments-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+.comments-title p {
+    background: #000 none repeat scroll 0 0;
+    color: #fff;
+    display: inline;
+    padding: 0 20px;
+    text-align: center;
+}
+h3.alith_post_title{
+  margin-top: 0;
+}
+ul.event-meta{
+  list-style: none;
+}
+.wrapper_conten_center.container{
+    margin-top: 75px;
+    padding: 0;
+    border-top: none;
+    margin-left: auto;
+}
+.container-fluid.most-comments{
+  float: left;
+}
+    </style>
+    <div class="container wrapper_conten_center">
+        <div class="col-md-8">
+          <div class="post_list post_list_style_1">
+            <h4 class="single-comment-title">Kategori {{ uri.query('cat') }}</h4>
+            <div class="comments-title"> <p>Ditemukan {{itemsInCollection}} berita dengan kategori {{ uri.query('cat') }}</p></div>
+            {% if itemsInCollection > 0 %}
+              {% for child in collection %}
+              {% include 'partials/kategori_item.html.twig' with {'page':child, 'truncate':true} %}
+              {% endfor %}
+            {% else %}
+              <div class="comments-title"> <p>Belum ada konten dengan kategori {{page.title}}</p></div>
+            {% endif %}	
+                  
+            {% if show_pagination %}
+              {% if pagesInCollection > 1 %}	
+              <div class="site-pagination animate-box fadeInUp animated-fast">
+                <ul class="page-numbers">
+                  {% for i in range(1, pagesInCollection) %}
+                    {% set newpg = page.url ~ '/page' ~ system.param_sep ~ i %}
+                    {% if newpg.hasPrev %}
+                      <li><a rel="prev" href="{{ newurl.prevUrl }}?cat={{cat}}" class="prev page-numbers">PREV</a></li>
+                    {% endif %}
+
+                    <li class="currentpage">
+                      {% if currentPage is same as('' ~ i ~ '') %}
+                        <span class="page-numbers current" aria-current="page">{{ i }}</span>
+                      {% else %}
+                        <a href="{{ page.url ~ '/page' ~ system.param_sep ~ i }}?cat={{cat}}" class="page-numbers">{{ i }}</a>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+            {% endif %}
+
+          </div>
+        </div>
+
+        <aside class="col-md-4 sidebar_right" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+           
+            <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="sidebar-widget animate-box fadeInUp animated-fast">					
+             <div class="widget-title-cover"><h4 class="widget-title"><span>Artikel Populer</span></h4></div>
+             <div class="latest_style_1">  
+            {% for p in my_unggulan %}
+                <div class="latest_style_1_item">                     
+                 <span class="item-count vertical-align">{{loop.index}}.</span>
+                 <div class="alith_post_title_small">
+                   <a href="{{p.url}}"><strong>{{p.title}}</strong></a><p class="meta"><span>{{p.header.date|date("d M Y")}}</span></p>
+                 </div>                                                  
+                 <figure class="alith_news_img"><a href="single.html"><img src="{{ p.media.images|first.url }}" alt=""></a></figure>
+                </div>
+            {% endfor %}
+            </div>
+           </div>
+           </div>
+        </aside>
+
+        <div class="container-fluid most-comments">
+		<div class="container animate-box" style="width: 100%;">
+			<div class="margin-15">
+				<div class="row">            
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+						<div class="widget-title-cover"><h4 class="widget-title"><span>Paling Diminati</span></h4></div>
+						<div class="latest_style_3">  
+						{% for p in my_populer.slice(0, 4) %}
+							<div class="latest_style_3_item">                     
+								<span class="item-count vertical-align">{{loop.index}}.</span>
+								<div class="alith_post_title_small">
+									<a href="{{p.url}}"><strong>{{p.title}}</strong></a>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Terbaru</span></h4></div>
+							<div class="latest_style_2">
+								{% for p in my_terbaru_bawah.slice(0, 3) %}
+								<div class="latest_style_2_item">
+									<figure class="alith_news_img"><a href="{{p.url}}"><img alt="" src="{{ p.media.images|first.url }}" class="hover_grey"></a></figure>
+									<h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Kategori</span></h4></div>
+							<ul class="bottom_menu">
+								{% for page in pages.children.visible %}
+									{% if page.url != home_url~'/' %}
+										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>Koleksi</span></h4></div>
+							<ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
+								{% for p in my_koleksi.slice(0, 9) %}
+								<li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
+									<a class="" target="_blank" href="{{p.url}}">
+										<img class="" title="{{p.title}}" alt="" src="{{ p.media.images|first.url }}">
+									</a>
+								</li>
+								{% endfor %}			
+							</ul>
+						</div>
+					</div>
+				</div> <!--.row-->
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

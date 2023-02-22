@@ -34,7 +34,7 @@
 {% set unggulan = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 10} %}
 {% set my_unggulan = page.collection(unggulan) %}
 
-{% set terbaru = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set terbaru = { items: {'@root.descendants':''}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 5} %}
 {% set my_terbaru = page.collection(terbaru) %}
 
 {% set unggulan2 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
@@ -43,138 +43,138 @@
 {% set populer = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
 {% set my_populer = page.collection(populer) %}
 
-{% set terbaru_bawah = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set terbaru_bawah = { items: {'@root.descendants':''}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}} %}
 {% set my_terbaru_bawah = page.collection(terbaru_bawah) %}
 
-{% set koleksi = { items: {'@root.descendants':''}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}} %}
+{% set koleksi = { items: {'@root.descendants':''}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}} %}
 {% set my_koleksi = page.collection(koleksi) %}
 
-{% set editorial = { items: {'@page':'/editorial'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set editorial = { items: {'@page':'/editorial'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_editorial = page.collection(editorial) %}
 
-{% set nasional = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set nasional = { items: {'@page':'/nasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_nasional = page.collection(nasional) %}
 
-{% set internasional = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set internasional = { items: {'@page':'/internasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_internasional = page.collection(internasional) %}
 
-{% set ekonomi = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set ekonomi = { items: {'@page':'/ekonomi'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_ekonomi = page.collection(ekonomi) %}
 
-{% set hukum = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set hukum = { items: {'@page':'/hukum'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_hukum = page.collection(hukum) %}
 
-{% set olahraga = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set olahraga = { items: {'@page':'/olahraga'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_olahraga = page.collection(olahraga) %}
 
-{% set otomotif = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set otomotif = { items: {'@page':'/otomotif'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_otomotif = page.collection(otomotif) %}
 
-{% set sosok = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set sosok = { items: {'@page':'/sosok'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_sosok = page.collection(sosok) %}
 
-{% set ekonomi8 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
+{% set ekonomi8 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 8} %}
 {% set my_ekonomi8 = page.collection(ekonomi8) %}
 
 {% set unggulan8 = { items: {'@root.descendants':''}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
 {% set my_unggulan8 = page.collection(unggulan8) %}
 
-{% set nasional1 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set nasional1 = { items: {'@page':'/nasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_nasional1 = page.collection(nasional1) %}
 
-{% set internasional1 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set internasional1 = { items: {'@page':'/internasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_internasional = page.collection(internasional1) %}
 
-{% set ekonomi1 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set ekonomi1 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_ekonomi1 = page.collection(ekonomi1) %}
 
-{% set hukum1 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set hukum1 = { items: {'@page':'/hukum'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_hukum1 = page.collection(hukum1) %}
 
-{% set olahraga1 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set olahraga1 = { items: {'@page':'/olahraga'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_olahraga1 = page.collection(olahraga1) %}
 
-{% set otomotif1 = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set otomotif1 = { items: {'@page':'/otomotif'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_otomotif1 = page.collection(otomotif1) %}
 
-{% set sosok1 = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set sosok1 = { items: {'@page':'/sosok'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_sosok1 = page.collection(sosok1) %}
 
-{% set tekno1 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set tekno1 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_tekno1 = page.collection(tekno1) %}
 
 {# Ekonomi 1 #}
-{% set ekonomi_10 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
+{% set ekonomi_10 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_ekonomi10 = page.collection(ekonomi_10) %}
 {# Nasional #}
-{% set nasional_10 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set nasional_10 = { items: {'@page':'/nasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_nasional10 = page.collection(nasional_10) %}
 {# Internsioonal #}
-{% set internasional_10 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set internasional_10 = { items: {'@page':'/internasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_internasional10 = page.collection(internasional_10) %}
 {# Hukum #}
-{% set hukum_10 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set hukum_10 = { items: {'@page':'/hukum'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_hukum10 = page.collection(hukum_10) %}
 {# Olahraga #}
-{% set olahraga_10 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set olahraga_10 = { items: {'@page':'/olahraga'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_olahraga10 = page.collection(olahraga_10) %}
 
 {# Tekno IT 4 #}
 {% set tekno_10 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_tekno10 = page.collection(tekno_10) %}
 {# Ekonomi #}
-{% set ekonomi_11 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set ekonomi_11 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_ekonomi11 = page.collection(ekonomi_11) %}
 {# Otomotif #}
-{% set otomotif_10 = { items: {'@page':'/otomotif'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set otomotif_10 = { items: {'@page':'/otomotif'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_otomotif10 = page.collection(otomotif_10) %}
 {# mimbar #}
-{% set mimbar_10 = { items: {'@page':'/mimbar'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set mimbar_10 = { items: {'@page':'/mimbar'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_mimbar10 = page.collection(mimbar_10) %}
 {# hukum #}
-{% set hukum_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set hukum_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_hukum11 = page.collection(hukum_11) %}
 
 {# Otomotif 4 #}
 {% set otomotif_11 = { items: {'@page':'/otomotif'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 4} %}
 {% set my_otomotif11 = page.collection(otomotif_11) %}
 {# tekno it #}
-{% set tekno_11 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set tekno_11 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_tekno11 = page.collection(tekno_11) %}
 {# olahraga #}
-{% set olahraga_11 = { items: {'@page':'/olahraga'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set olahraga_11 = { items: {'@page':'/olahraga'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_olahraga11 = page.collection(olahraga_11) %}
 {# Sosok #}
-{% set sosok_10 = { items: {'@page':'/sosok'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set sosok_10 = { items: {'@page':'/sosok'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_sosok10 = page.collection(sosok_10) %}
 {# internasional #}
-{% set internasional_11 = { items: {'@page':'/internasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set internasional_11 = { items: {'@page':'/internasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_internasional11 = page.collection(internasional_11) %}
 
 {# Mimbat 4 4 #}
 {% set mimbar_11 = { items: {'@page':'/mimbar'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 8} %}
 {% set my_mimbar11 = page.collection(mimbar_11) %}
 {# ekonomi_11 #}
-{% set ekonomi_12 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set ekonomi_12 = { items: {'@page':'/ekonomi'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_ekonomi12 = page.collection(ekonomi_12) %}
 {# city corner #}
-{% set city_10 = { items: {'@page':'/city-corner'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set city_10 = { items: {'@page':'/city-corner'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_city10 = page.collection(city_10) %}
 {# nasional #}
-{% set nasional_11 = { items: {'@page':'/nasional'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set nasional_11 = { items: {'@page':'/nasional'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_nasional11 = page.collection(nasional_11) %}
 {# hukum #}
-{% set hukum_12 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 1} %}
+{% set hukum_12 = { items: {'@page':'/hukum'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 1} %}
 {% set my_hukum12 = page.collection(hukum_12) %}
 
 {# Olahraga 4 #}
 {% set olahraga_12 = { items: {'@page':'/olahraga'}, 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
 {% set my_olahraga12 = page.collection(olahraga_12) %}
 {# tekno it #}
-{% set tekno_12 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set tekno_12 = { items: {'@page':'/tekno-it'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 5} %}
 {% set my_tekno12 = page.collection(tekno_12) %}
 {# city corner #}
-{% set city_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'newest', 'dir': 'asc'}, "filter":{"type":'artikel'}, "limit": 5} %}
+{% set city_11 = { items: {'@page':'/hukum'}, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, "limit": 5} %}
 {% set my_city11 = page.collection(city_11) %}
 
 
@@ -646,6 +646,17 @@ article img{
     margin-bottom: 80px;
     display: block;
 }
+.more-btn{
+	    margin-left: auto;
+    margin-right: auto;
+    background: #000;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    margin-bottom: 45px;
+    display: table;
+    float: none;
+}
 @media only screen and (max-width: 728px) {
 	.post_list article div.img-article{
 		margin-top: 5px;
@@ -917,6 +928,7 @@ article img{
 								{% endfor %}
 							</div>
 						{% endif %}
+						<a href="{{ home_url }}/all?cat={{page.slug}}" class="more-btn">Lihat lebih banyak {{page.title}} <i class="fa fa-angle-double-right"></i></a>
 					{% endif %}
 					{% endfor %}
 					</div>
