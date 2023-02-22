@@ -8,8 +8,8 @@
 
 {% set cat = uri.query('cat') %}
 {# {% set collection = page.collection({'items': {'@page.children': '/editorial'}, 'pagination': true, 'order': {'by': 'title'}, 'limit': 3}) %} #}
-{% set collection = page.collection({'items': {'@page.descendants' : '/'~cat}, 'pagination': true, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"type":'artikel'}, 'limit': 3}) %}
-{% set itemsInCollection = page.collection({'items': {'@page.descendants' : '/'~cat}, "filter":{"type":'artikel'}})|length %}
+{% set collection = page.collection({'items': {'@page.descendants' : '/'~cat}, 'pagination': true, 'order': {'by': 'date', 'dir': 'desc'}, "filter":{"types":['artikel','video_youtube']}, 'limit': 3}) %}
+{% set itemsInCollection = page.collection({'items': {'@page.descendants' : '/'~cat}, "filter":{"types":['artikel','video_youtube']}})|length %}
 {% set itemsPerPage = collection.params.limit %}
 {% set pagesInCollection = (itemsInCollection / itemsPerPage)|round(0, 'ceil') %}
 {% set currentPage = uri.param('page')|default('1') %}
