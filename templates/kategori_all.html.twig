@@ -524,9 +524,42 @@ ul.event-meta{
 .container-fluid.most-comments{
   float: left;
 }
+
+@media only screen and (max-width: 728px) {
+.wrapper_conten_center.container{
+      width: 100%;
+    margin-top: 0;
+}
+.post_list.post_list_style_1{
+  margin-left: 0;
+  margin-right: 0;
+}
+.single-comment-title, .comment-reply-title{
+  font-size: 14pt;
+      margin-top: 0;
+    margin-bottom: 8px;
+}
+.comments-title p{
+      padding: 2px 8px;
+    font-size: 9pt;
+}
+h3.alith_post_title{
+      font-size: 11pt;
+          margin-bottom: 5px;
+}
+article p{
+      font-size: 11pt;
+}
+article .col-xs-8{
+    padding-left: 0;
+}
+.post_list_style_1 .post_meta{
+  margin-bottom: 0;
+}
+}
     </style>
     <div class="container wrapper_conten_center">
-        <div class="col-md-8">
+        <div class="col-md-8 col-xs-12">
           <div class="post_list post_list_style_1">
             <h4 class="single-comment-title">Kategori {{ uri.query('cat') }}</h4>
             <div class="comments-title"> <p>Ditemukan {{itemsInCollection}} berita dengan kategori {{ uri.query('cat') }}</p></div>
@@ -564,7 +597,7 @@ ul.event-meta{
           </div>
         </div>
 
-        <aside class="col-md-4 sidebar_right" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+        <aside class="col-md-4 col-xs-12 sidebar_right" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
            
             <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="sidebar-widget animate-box fadeInUp animated-fast">					
              <div class="widget-title-cover"><h4 class="widget-title"><span>Artikel Populer</span></h4></div>

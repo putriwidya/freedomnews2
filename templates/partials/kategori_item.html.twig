@@ -1,5 +1,5 @@
 <article class="row section_margin animate-box fadeInUp animated-fast">
-    <div class="col-md-4 animate-box fadeInUp animated-fast">							
+    <div class="col-md-4 col-xs-4 animate-box fadeInUp animated-fast">							
         <figure class="alith_news_img">
             <a href="{{page.url}}">
             {% if page.header.link==null %} {# Jika bukan video youtube #}
@@ -11,7 +11,7 @@
             </a>
         </figure>
     </div>
-    <div class="col-md-8 animate-box fadeInUp animated-fast">
+    <div class="col-md-8 col-xs-8 animate-box fadeInUp animated-fast">
         <h3 class="alith_post_title"><a href="{{page.url}}">{{page.title}}</a></h3>
         {% if page.header.email!=null %}
             <ul class="event-meta">
@@ -20,7 +20,7 @@
                 <li><i class="icons icon-megaphone-1"></i> {{page.header.deskripsi|striptags|truncate(250)}}</li>
             </ul>
         {% else %}
-            <p>{{page.content|truncate(100)|striptags|raw}}</p>
+            <p class="hidden-xs">{{page.content|truncate(100)|striptags|raw}}</p>
             <div class="post_meta">
                 <span class="meta_date">{{ page.header.date|date("d M Y") }}</span>
             </div>
