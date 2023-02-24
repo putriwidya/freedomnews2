@@ -52,6 +52,9 @@
 {% set kategori = { items: '@self.children', 'order': {'by': 'popularity', 'dir': 'asc'}, "filter":{"type":'kategori'}} %}
 {% set my_kategori = page.collection(kategori) %}
 
+
+
+
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
@@ -80,6 +83,7 @@
 }
 .headline #bx-pager p{
   margin-top: 15px;
+  cursor: pointer;
 }
 .headline #bx-pager ul li a.active{
   border-top: 2px solid #000;
@@ -381,6 +385,15 @@ article img{
   width: 100%;
   object-fit: cover;
 }
+.post_list .item-sm article img.yt-icon{
+	position: relative;
+    width: 75px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -115px;
+    display: block;
+}
 .post_list .item-sm article span{
   font-size: 12pt;
 }
@@ -391,39 +404,6 @@ article img{
 .owl-carousel.owl-loaded{
 	margin-bottom: -30px;
 }
-
-
-/** Popularity **/
-.populer{
-display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.populer div{
-	padding: 15px;
-    border-top: 1px #ccc solid;
-	border-right: 1px #ccc solid;
-}
-.populer div:nth-child(-n+4){
-	border-top: none;
-}
-.populer div:nth-child(4n){
-	border-right: none;
-}
-
-.populer article span{
-	font-weight: 500;
-}
-.populer article small{
-	font-size: 8pt;
-    margin-top: 8px;
-}
-{# span[aria-label="Previous"]{
-	content: "";
-	width: 20px;
-	height: 20px;
-	background-color: #f00;
-} #}
 
 .owl-carousel.owl-loaded{
 	margin-top: 0;
@@ -511,6 +491,99 @@ display: flex;
 .main_nav_cover .menu-item-has-children a::before{
 	display: none;
 }
+.img-article{
+	position: relative;
+	width: 100%;
+	padding-top: 70%;
+	/* padding-top: 56.25%; 16:9 Aspect Ratio */
+}
+.img-article img{
+	height: 100%;
+    object-fit: cover;
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+}
+.img-article img.yt-icon{
+	position: relative;
+    width: 100px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -250px;
+    margin-bottom: 0;
+    display: block;
+}
+.item-sm .img-article{
+	padding-top: 55%;
+}
+.w3-content, .alith_tags_all{
+	 float: left;
+}
+.slider-carousel.owl-carousel .owl-item img.yt-icon{
+	position: relative;
+    width: 75px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -140px;
+    margin-bottom: 80px;
+    display: block;
+}
+.more-btn{
+	    margin-left: auto;
+    margin-right: auto;
+    background: #000;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    margin-bottom: 45px;
+    display: table;
+    float: none;
+}
+@media only screen and (max-width: 728px) {
+	.post_list article div.img-article{
+		margin-top: 5px;
+		margin-bottom: 0;
+		padding-top: 70%;
+	}
+	.post_list .item-sm{
+		display: flex;
+	}
+	.post_list .item-sm article img{
+		height: 100%;
+	}
+	.post_list article span, .post_list .item-sm article span{
+	    font-size: 9pt;
+		line-height: 1.3;
+		margin-top: 8px;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.populer .post_meta_small{
+		padding-top: 0;
+		font-size: 8pt;
+		margin-top: 5px;
+		color: #333;
+	}
+	.populer article span{
+		display: block;
+		font-weight: 500;
+		font-size: 9pt;
+		line-height: 1.3;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+}
 </style>
 	<div class="nav-kategori">
       <div class="container-fluid">
@@ -589,6 +662,7 @@ display: flex;
 						<div class="headline">
 							<ul class="bxslider">
 							{% for p in my_terbaru %}
+							{% if p.template == "artikel" %}
 								<li>
 								<div class="line_blok">
 									<h3>{{ p.parent.title }}</h3>
@@ -602,11 +676,13 @@ display: flex;
 								</div>
 								<img src="{{ p.media.images|first.url }}" class="img-headline" data-index="{{ loop.index - 1}}" />
 								</li>
+							{% endif %}
 							{% endfor %}
 							</ul>
 							<div id="bx-pager">
 								<ul>
 								{% for p in my_terbaru %}
+								{% if p.template == "artikel" %}
 								<li>
 									<a data-slide-index="{{ loop.index - 1}}" href="#">
 									<img class="lazy" data-original="{{ p.media.images|first.url }}" />
@@ -615,6 +691,7 @@ display: flex;
 									<p data-href="{{ p.url }}" class="link-headline">{{ p.title }}</p>
 									</div>
 								</li>
+								{% endif %}
 								{% endfor %}
 								</ul>
 							</div>
@@ -627,11 +704,7 @@ display: flex;
 					</div>
 
 
-					<!--Start Sidebar-->
 					<aside class="col-md-4 sidebar_right">
-						{# <div class="sidebar-widget animate-box">					
-							<img class="lazy" data-original="{{ url('theme://img/banner/banner2.jpeg') }}" />
-						</div> #}
 						<div class="w3-content w3-section">
 							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner1.jpeg') }}">
 							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner2.jpeg') }}">
@@ -653,7 +726,7 @@ display: flex;
 						setTimeout(carousel, 4000);    
 						}
 						</script>
-						<div class="sidebar-widget animate-box">					
+						{# <div class="sidebar-widget animate-box">					
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Tags cloud</span></h4></div>
 							<div class="alith_tags_all">
 								<a href="#" class="alith_tagg">Business</a>
@@ -669,7 +742,9 @@ display: flex;
 								<a href="#" class="alith_tagg">Social</a>
 								<a href="#" class="alith_tagg">Three</a>
 							</div>
-						</div> <!--.sidebar-widget-->
+						</div> <!--.sidebar-widget--> #}
+
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ getLastVideo('UCvSYYzVjbf8vHu03UKrBe2w') }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-top: 30px;"></iframe>
 						
 					</aside>
 					<!--End Sidebar-->
@@ -679,76 +754,119 @@ display: flex;
 						<div class="widget-title-cover"><h4 class="widget-title"><span>Populer</span></h4></div>
 						<div class="row populer">
 						{% for p in my_unggulan2.slice(0, 8) %}
+							{% if p.template == "artikel" %}
 							<div class="col-md-3">
 								<a href="{{p.url}}">
 								<article>
 									<img src="{{ p.media.images|first.url }}" />
 									<span>{{ p.title }}</span>
+									<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
 								</article>
 								</a>
 							</div>
+							{% endif %}
 						{% endfor %}
 						</div>
 
-					{% set cek_tipe = 0 %}
-					{% for page in my_kategori %}
-                    {% if page.children.visible.count > 0 %}
-						{% set cek_tipe = cek_tipe + 1 %}
-						{% if (cek_tipe is odd) %}
-						<div class="post_list post_list_style_1">
-							<div class="row">
-							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							{% for p in page.children.visible.slice(0, 5) %}
-							{% if p.template == "artikel" %}
-								<div class="col-md-6">
-									<a href="{{p.url}}">
-									<article>
-										<img src="{{ p.media.images|first.url }}" />
-										<span>{{p.title}}</span>
-										<div>{{p.header.date|date("d M Y h:i")}}</div>
-									</article>
-									</a>
-								</div>
-
-								{% if page.children.visible.count > 0 and loop.index == 1 %}
-								<div class="col-md-6">
-									<div class="row item-sm">
-								{% endif %}
-							{% endif %}
-							{% endfor %}
-								{% if page.children.visible.count > 0 %}
-									</div>
-								</div>
-								{% endif %}
-							</div>
-						</div>
-						{% else %}
-							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
-								{% for p in page.children.visible.slice(0, 8) %}
-								{% if p.template == "artikel" %}
-								<div class="item">
-									<div class="alith_latest_trading_img_position_relative">
-										<div class="wrap">
-										<figure class="alith_post_thumb">
-											<a href="{{p.url}}"><img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""/></a>
-										</figure>
+						{% set cek_tipe = 0 %}
+						{% for page in my_kategori %}
+						{% if page.children.count > 0 %}
+							{% set cek_tipe = cek_tipe + 1 %}
+							{% if (cek_tipe is even) %}
+							<div class="post_list post_list_style_1">
+								<div class="row">
+								<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
+								{% for p in page.children.slice(1, 5) %}
+									{% if p.template == "artikel" or p.template == "video_youtube" %}
+										{% if loop.index == 1 or loop.index == 5 %}
+										<div class="col-md-6 hidden-xs">
+										{% else %}
+										<div class="col-md-6 col-xs-6">
+										{% endif %}
+											<a href="{{p.url}}">
+											<article>
+												<div class="img-article">
+												{% if p.header.link==null %} {# Jika bukan video youtube #}
+													<img src="{{ p.media.images|first.url }}" />
+												{% else %}
+													{% set urly = p.header.link|split('v=', 2) %}
+													<img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
+													<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
+												{% endif %}
+													
+												</div>
+												<span>{{p.title}}</span>
+												<div>{{p.header.date|date("d M Y h:i")}}</div>
+											</article>
+											</a>
 										</div>
-										<div class="grid-caption">
-										<div class="post_meta">
-											<span class="meta_categories"><a href="{{p.parent.url}}">{{p.parent.title}}</a></span>
-										</div>
-										<h2><a href="{{p.url}}" title="">{{p.title}}</a></h2>
-										<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
-										</div>
-									</div>
-								</div>
-								{% endif %}
+										
+										{% if page.children.count > 0 and loop.index == 1 %}
+										<div class="col-md-6 col-xs-12">
+											<div class="row item-sm">
+												<div class="hidden-md hidden-lg col-xs-6">
+												<a href="{{p.url}}">
+													<article>
+														<div class="img-article">
+															{% if p.header.link==null %} {# Jika bukan video youtube #}
+																<img src="{{ p.media.images|first.url }}" />
+															{% else %}
+																{% set urly = p.header.link|split('v=', 2) %}
+																<img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
+																<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
+															{% endif %}
+														</div>
+														<span>{{p.title}}</span>
+														<div>{{p.header.date|date("d M Y h:i")}}</div>
+													</article>
+												</a>
+												</div>
+										{% endif %}
+									{% endif %}
 								{% endfor %}
+									{% if page.children.count > 0 %}
+										</div>
+									</div>
+									{% endif %}
+								</div>
 							</div>
+							{% else %}
+								<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
+								<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
+									{% for p in page.children.slice(0, 8) %}
+									{% if p.template == "artikel"  or p.template == "video_youtube" %}
+									<div class="item">
+										<div class="alith_latest_trading_img_position_relative">
+											<div class="wrap">
+											<figure class="alith_post_thumb">
+												<a href="{{p.url}}">
+												{% if p.header.link==null %} {# Jika bukan video youtube #}
+													<img class="hover_grey" src="{{ p.media.images|first.url }}" alt=""/>
+												{% else %}
+													{% set urly = p.header.link|split('v=', 2) %}
+													<img class="hover_grey" src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" alt=""/>
+													<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
+												{% endif %}
+												</a>
+											</figure>
+											</div>
+											<div class="grid-caption">
+											<div class="post_meta">
+												<span class="meta_categories"><a href="{{p.parent.url}}">{{p.parent.title}}</a></span>
+											</div>
+											<h2><a href="{{p.url}}" title="">{{p.title}}</a></h2>
+											<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
+											</div>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+								</div>
+							{% endif %}
+							<a href="{{ home_url }}/all?cat={{page.slug}}" class="more-btn">Lihat lebih banyak {{page.title}} <i class="fa fa-angle-double-right"></i></a>
 						{% endif %}
-					{% endif %}
-					{% endfor %}
+						{% endfor %}
+						
 					</div>
 				</div>
 			</div>
@@ -763,12 +881,14 @@ display: flex;
 						<div class="widget-title-cover"><h4 class="widget-title"><span>Paling Diminati</span></h4></div>
 						<div class="latest_style_3">  
 						{% for p in my_populer.slice(0, 4) %}
+							{% if p.template == "artikel" %}
 							<div class="latest_style_3_item">                     
 								<span class="item-count vertical-align">{{loop.index}}.</span>
 								<div class="alith_post_title_small">
 									<a href="{{p.url}}"><strong>{{p.title}}</strong></a>
 								</div>
 							</div>
+							{% endif %}
 						{% endfor %}
 						</div>
 					</div>
@@ -778,10 +898,12 @@ display: flex;
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Terbaru</span></h4></div>
 							<div class="latest_style_2">
 								{% for p in my_terbaru_bawah.slice(0, 3) %}
+								{% if p.template == "artikel" %}
 								<div class="latest_style_2_item">
 									<figure class="alith_news_img"><a href="{{p.url}}"><img alt="" src="{{ p.media.images|first.url }}" class="hover_grey"></a></figure>
 									<h3 class="alith_post_title"><a href="{{p.url}}">{{p.title}}</a></h3>
 								</div>
+								{% endif %}
 								{% endfor %}
 							</div>
 						</div>
@@ -790,7 +912,7 @@ display: flex;
 						<div class="sidebar-widget">					
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Kategori</span></h4></div>
 							<ul class="bottom_menu">
-								{% for page in pages.children.visible %}
+								{% for page in pages.children %}
 									{% if page.url != home_url~'/' %}
 										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
 									{% endif %}
@@ -803,11 +925,13 @@ display: flex;
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Koleksi</span></h4></div>
 							<ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
 								{% for p in my_koleksi.slice(0, 9) %}
+								{% if p.template == "artikel" %}
 								<li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
 									<a class="" target="_blank" href="{{p.url}}">
 										<img class="" title="{{p.title}}" alt="" src="{{ p.media.images|first.url }}">
 									</a>
 								</li>
+								{% endif %}
 								{% endfor %}			
 							</ul>
 						</div>
