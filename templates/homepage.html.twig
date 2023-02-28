@@ -841,7 +841,7 @@ article img{
 						<div class="post_list post_list_style_1">
 							<div class="row">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							{% for p in page.children.slice(0, 5) %}
+							{% for p in page.descendants.slice(1, 5) %}
 								{% if p.template == "artikel" or p.template == "video_youtube" %}
 									{% if loop.index == 1 or loop.index == 5 %}
 									<div class="col-md-6 hidden-xs">
@@ -866,7 +866,7 @@ article img{
 										</a>
 									</div>
 									
-									{% if page.children.count > 0 and loop.index == 1 %}
+									{% if page.descendants.count > 0 and loop.index == 1 %}
 									<div class="col-md-6 col-xs-12">
 										<div class="row item-sm">
 											<div class="hidden-md hidden-lg col-xs-6">
@@ -889,7 +889,7 @@ article img{
 									{% endif %}
 								{% endif %}
 							{% endfor %}
-								{% if page.children.count > 0 %}
+								{% if page.descendants.count > 0 %}
 									</div>
 								</div>
 								{% endif %}
@@ -898,7 +898,7 @@ article img{
 						{% else %}
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
-								{% for p in page.children.slice(0, 8) %}
+								{% for p in page.descendants.slice(0, 8) %}
 								{% if p.template == "artikel"  or p.template == "video_youtube" %}
 								<div class="item">
 									<div class="alith_latest_trading_img_position_relative">
