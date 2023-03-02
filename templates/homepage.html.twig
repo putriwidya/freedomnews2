@@ -657,6 +657,15 @@ article img{
     display: table;
     float: none;
 }
+.more-video{
+	background-color: #000;
+	color: #fff;
+	padding: 10px 15px;
+	border-radius: 0;
+	display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
 @media only screen and (max-width: 728px) {
 	.post_list article div.img-article{
 		margin-top: 5px;
@@ -842,43 +851,32 @@ article img{
 					{% set cek_tipe = 0 %}
 					{% for page in pages.children %}
                     {% if page.url != home_url~'/' and  page.url != home_url~'/info' and page.children.count > 0 %}
+						{% set p_collection = page.collection({ items: {'@page.descendants':'/'~page.slug}, "filter":{"types":['artikel','video_youtube']} }) %}
+						{% set p_length = p_collection|length %}
+
 						{% set cek_tipe = cek_tipe + 1 %}
 						{% if (cek_tipe is even) %}
 						<div class="post_list post_list_style_1">
 							<div class="row">
-							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
-							{% for p in page.collection({ items: {'@page.descendants':'/'~page.slug} }).slice(1, 5) %}
-								{% if p.template == "artikel" or p.template == "video_youtube" %}
-									{% if loop.index == 1 or loop.index == 5 %}
+								<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
+								{% for p in p_collection.slice(0, 5) %}
+							
+									{% if loop.index == 1 %}
 									<div class="col-md-6 hidden-xs">
-									{% else %}
-									<div class="col-md-6 col-xs-6">
-									{% endif %}
-										<a href="{{p.url}}">
-										<article>
-											<div class="img-article">
-											{% if p.header.link==null %} {# Jika bukan video youtube #}
-												<img src="{{ p.media.images|first.url }}" />
-											{% else %}
-												{% set urly = p.header.link|split('v=', 2) %}
-												<img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
-												<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
-											{% endif %}
-												
-											</div>
-											<span>{{p.title}}</span>
-											<div>{{p.header.date|date("d M Y h:i")}}</div>
-										</article>
-										</a>
-									</div>
-									
-									{% if page.collection({ items: {'@page.descendants':'/'~page.slug} }).count > 0 and loop.index == 1 %}
+									{% elseif loop.index == 2 %}
 									<div class="col-md-6 col-xs-12">
 										<div class="row item-sm">
-											<div class="hidden-md hidden-lg col-xs-6">
-											<a href="{{p.url}}">
-												<article>
-													<div class="img-article">
+									{% endif %}
+
+											{% if loop.index == 1 %}
+											<div class="col-md-12 col-xs-6">
+											{% else %}
+											<div class="col-md-6 col-xs-6">
+											{% endif %}	
+
+												<a href="{{p.url}}">
+													<article>
+														<div class="img-article">
 														{% if p.header.link==null %} {# Jika bukan video youtube #}
 															<img src="{{ p.media.images|first.url }}" />
 														{% else %}
@@ -886,26 +884,30 @@ article img{
 															<img src="https://img.youtube.com/vi/{{ urly.1 }}/0.jpg" />
 															<img src="{{ url('theme://img/youtube.png') }}" class="yt-icon"/>
 														{% endif %}
-													</div>
-													<span>{{p.title}}</span>
-													<div>{{p.header.date|date("d M Y h:i")}}</div>
-												</article>
-											</a>
+															
+														</div>
+														<span>{{p.title}}</span>
+														<div>{{p.header.date|date("d M Y h:i")}}</div>
+													</article>
+												</a>
+
 											</div>
-									{% endif %}
-								{% endif %}
-							{% endfor %}
-								{% if page.collection({ items: {'@page.descendants':'/'~page.slug} }).count > 0 %}
+											
+									{% if loop.index == 1 %}
 									</div>
-								</div>
-								{% endif %}
+									{% elseif p_length >= 5 and loop.index == 5 or p_length < 5 and loop.index == p_length %}
+										</div>
+									</div>
+									{% endif %}
+										
+								{% endfor %} 
 							</div>
 						</div>
 						{% else %}
+						<div class="row">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
-								{% for p in page.collection({ items: {'@page.descendants':'/'~page.slug} }).slice(0, 8) %}
-								{% if p.template == "artikel"  or p.template == "video_youtube" %}
+								{% for p in p_collection.slice(0, 8) %}
 								<div class="item">
 									<div class="alith_latest_trading_img_position_relative">
 										<div class="wrap">
@@ -930,9 +932,9 @@ article img{
 										</div>
 									</div>
 								</div>
-								{% endif %}
 								{% endfor %}
 							</div>
+						</div>
 						{% endif %}
 						<a href="{{ home_url }}/all?cat={{page.slug}}" class="more-btn">Lihat lebih banyak {{page.title}} <i class="fa fa-angle-double-right"></i></a>
 					{% endif %}
