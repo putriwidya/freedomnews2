@@ -116,6 +116,12 @@
 			allowParentLinks: true,
 			prependTo:'#nav',
 		});
+		$('#main-menu2').slicknav({
+			label: 'MENU',
+			duration: 150,
+			allowParentLinks: true,
+			prependTo:'#nav-sub',
+		});
 		$('#sidebar-menu').slicknav({
 			label: 'MENU',
 			duration: 150,

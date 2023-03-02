@@ -482,11 +482,25 @@ article img{
 
     margin-top: 65px;
 }
-#nav-sub, .main_nav_cover ul.sub-menu{
+#nav-sub, #nav-sub.main_nav_cover ul.sub-menu{
 	background-color: #f1f1f1;
 }
-#nav-sub.main_nav_cover #main-menu li a{
+.main_nav_cover #main-menu2{
+    padding: 0;
+    text-align: center;	
+}
+.main_nav_cover #main-menu2 li, #nav-sub.main_nav_cover ul.sub-menu li{
+	line-height: 40px;
+	padding: 0 10px !important;
+    display: inline-block;
+    position: relative;
+}
+#nav-sub.main_nav_cover #main-menu2 li a{
 	color: #000;
+}
+#nav-sub.main_nav_cover ul.sub-menu li{
+    width: 100%;
+    border-bottom: 0.5px #000 solid;
 }
 .main_nav_cover .menu-item-has-children a::before{
 	display: none;
@@ -600,7 +614,7 @@ article img{
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-12 main_nav_cover" id="nav-sub">							
-                <ul id="main-menu">
+                <ul id="main-menu2">
                   {% for pg in page.children.visible %}
                     {% if pg.url != home_url~'/' and pg.template == 'kategori' %}
                     {% set has_child = (pg.children.visible.count > 0) ? 'menu-item-has-children' : '' %}
