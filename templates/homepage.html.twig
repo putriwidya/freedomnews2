@@ -667,6 +667,9 @@ article img{
     margin-right: auto;
 }
 @media only screen and (max-width: 728px) {
+	.row-mbl{
+		margin: 0;
+	}
 	.post_list article div.img-article{
 		margin-top: 5px;
 		margin-bottom: 0;
@@ -904,7 +907,7 @@ article img{
 							</div>
 						</div>
 						{% else %}
-						<div class="row">
+						<div class="row row-mbl">
 							<div class="widget-title-cover"><h4 class="widget-title"><span><a href="{{page.url}}">{{page.title}}</a></span></h4></div>
 							<div class="owl-carousel owl-theme js carausel_slider slider-carousel">
 								{% for p in p_collection.slice(0, 8) %}
