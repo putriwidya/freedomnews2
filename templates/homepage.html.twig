@@ -657,6 +657,15 @@ article img{
     display: table;
     float: none;
 }
+.more-video{
+	background-color: #000;
+	color: #fff;
+	padding: 10px 15px;
+	border-radius: 0;
+	display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
 @media only screen and (max-width: 728px) {
 	.post_list article div.img-article{
 		margin-top: 5px;
@@ -808,9 +817,14 @@ article img{
 								<a href="#" class="alith_tagg">Three</a>
 							</div>
 						</div> <!--.sidebar-widget--> #}
-
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ getLastVideo('UCvSYYzVjbf8vHu03UKrBe2w') }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-top: 30px;"></iframe>
 						
+						<div class="sidebar-widget">					
+							<div class="widget-title-cover"><h4 class="widget-title"><span>FreedomNews TV</span></h4></div>
+							<div class="latest_style_2">
+								<iframe width="560" height="250" src="https://www.youtube.com/embed/{{ getLastVideo('UCvSYYzVjbf8vHu03UKrBe2w') }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-top: 30px; margin-bottom: 15px;"></iframe>
+								<a href="https://www.youtube.com/@freedomnewsid" class="more-video">Lebih channel video</a>
+							</div>
+						</div>
 					</aside>
 					<!--End Sidebar-->
 				</div>
