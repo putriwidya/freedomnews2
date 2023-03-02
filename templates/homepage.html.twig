@@ -993,7 +993,9 @@ article img{
 							<ul class="bottom_menu">
 								{% for page in pages.children %}
 									{% if page.url != home_url~'/' %}
+										{% if page.template == "kategori" %}
 										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
+										{% endif %}
 									{% endif %}
 								{% endfor %}
 							</ul>
