@@ -46,10 +46,12 @@
 			<div class="col-bs12-8">
 				<ul class="bottom_menu">
 				{% for page in pages.children.visible %}
-					{% if page.url != home_url~'/' %}
+					{% if page.url != home_url~'/' and page.url != 'all' %}
+                        {% if page.template == 'kategori' %}
 						<li class="footer__item">
 							<a href="{{page.url}}" class="footer__link" rel="”noreferred”">{{page.title}}</a>
 						</li>
+                        {% endif %}
 					{% endif %}
 				{% endfor %}
 				</ul>
