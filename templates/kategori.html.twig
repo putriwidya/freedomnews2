@@ -941,7 +941,7 @@ article img{
 							<div class="widget-title-cover"><h4 class="widget-title"><span>Koleksi</span></h4></div>
 							<ul class="alith-instagram-grid-widget alith-clr alith-row alith-gap-10">
 								{% for p in my_koleksi.slice(0, 9) %}
-								{% if p.template == "artikel" %}
+								{% if p.template == "artikel" and p.slug != "all" %}
 								<li class="wow fadeInUp alith-col-nr alith-clr alith-col-3 animated">
 									<a class="" target="_blank" href="{{p.url}}">
 										<img class="" title="{{p.title}}" alt="" src="{{ p.media.images|first.url }}">

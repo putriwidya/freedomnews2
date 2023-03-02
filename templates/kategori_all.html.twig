@@ -530,7 +530,7 @@ article .col-xs-8{
 							<ul class="bottom_menu">
 								{% for page in pages.children.visible %}
 									{% if page.url != home_url~'/' %}
-                  {% if page.template == "kategori" %}
+                  {% if page.template == "kategori" and p.slug != "all" %}
 										<li><a href="{{page.url}}"><i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{page.title}}</a></li>
                   {% endif %}
 									{% endif %}
