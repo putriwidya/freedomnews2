@@ -789,8 +789,16 @@ figure.image-caption figcaption{
         threshold: 200,
         failure_limit: 40
       });
-      </script>
-      <script>
+     
+  $('.bxslider').bxSlider({
+        pagerCustom: '#bx-pager',
+        auto: true,
+        touchEnabled: false,
+        onSlideBefore: function($slideElement, oldIndex, newIndex) {
+          origin_ = $('.img-headline[data-index="' + newIndex + '"]').attr("data-original");
+          $('.img-headline[data-index="' + newIndex + '"]').attr('src', origin_)
+        },
+      });
 
   function adapt() {
     if(document.documentElement.clientWidth >= 768) {
