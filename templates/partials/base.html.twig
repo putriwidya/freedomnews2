@@ -357,9 +357,44 @@ figure.image-caption figcaption{
 .single-content ol[type="i"] li{
   list-style: lower-roman;
 }
+#nav{
+  padding: 0 40px;
+}
 #nav, .main_nav_cover ul.sub-menu{
   background-color: #000;
   height: auto;
+  z-index: 1;
+}
+#nav .bx-wrapper{
+  padding-top: 5px;
+  background: transparent;
+  margin-bottom: 0;
+  height: 36px;
+  box-shadow: none;
+  border: none;
+}
+.bx-wrapper a{
+  color: #fff;
+}
+#nav .bx-viewport{
+  height: 100vh !important;
+}
+#nav-prev .bx-prev, #nav-next .bx-next{
+    color: #fff;
+    position: absolute;
+}
+#nav-prev .bx-prev{
+  left: 15px;
+}
+#nav-next .bx-next{
+    right: 15px;
+    top: 0;
+}
+.bxslider_nav li{
+  text-align: center;
+}
+.main_nav_cover #main-menu li{
+    line-height: 28px !important;
 }
 .main_nav_cover #main-menu li a, .slicknav_nav a, .slicknav_btn, .slicknav_menu .slicknav_menutxt{
   color: #fff;
@@ -670,7 +705,8 @@ figure.image-caption figcaption{
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-12 main_nav_cover" id="nav">							
-                <ul id="main-menu">
+                <span id="nav-prev"></span>
+                <ul id="main-menu" class="bxslider_nav">
                   <li><a href="{{ home_url }}"><i class="fa fa-home"></i> Home</a></li>
                   {% for page in pages.children.visible %}
                     {% if page.url != home_url~'/' and page.template == 'kategori' %}
@@ -696,6 +732,33 @@ figure.image-caption figcaption{
                     {% endif %}
                   {% endfor %}
                 </ul>
+                <span id="nav-next"></span>
+                {# <ul id="main-menu">
+                  <li><a href="{{ home_url }}"><i class="fa fa-home"></i> Home</a></li>
+                  {% for page in pages.children.visible %}
+                    {% if page.url != home_url~'/' and page.template == 'kategori' %}
+                    {% set has_child = (page.children.visible.count > 0) ? 'menu-item-has-children' : '' %}
+                        <li class="{{ has_child }}">
+                            <a href="{{ page.url }}">{{ page.menu }}</a>
+                            {% if page.children.visible.count > 0 %}
+                                {% set cek_tipe = 0 %}
+                                {% for p in page.children.visible %}
+                                    {% if p.template == 'kategori' %}
+                                    {% set cek_tipe = cek_tipe + 1 %}
+                                    {% if cek_tipe == 1 %}
+                                    <ul class="sub-menu">
+                                    {% endif %}
+                                    <li><a style="" href="{{ p.url }}">{{ p.menu }}</a></li>   
+                                    {% endif %}                                            
+                                {% endfor %}
+                                {% if cek_tipe > 0 %}
+                                    </ul>
+                                {% endif %}
+                            {% endif %}        
+                        </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul> #}
               </div>
             </div>
           </div>
@@ -728,15 +791,32 @@ figure.image-caption figcaption{
       });
       </script>
       <script>
-      $('.bxslider').bxSlider({
-        pagerCustom: '#bx-pager',
-        auto: true,
-        touchEnabled: false,
-        onSlideBefore: function($slideElement, oldIndex, newIndex) {
-          origin_ = $('.img-headline[data-index="' + newIndex + '"]').attr("data-original");
-          $('.img-headline[data-index="' + newIndex + '"]').attr('src', origin_)
-        },
+
+  function adapt() {
+    if(document.documentElement.clientWidth >= 768) {
+      $(document).ready(function() {
+        $('.bxslider_nav').bxSlider({
+          controls: true,
+          auto: false,
+          infiniteLoop: false,
+          pager: false,
+          moveSlides: 5,
+          touchEnabled: false,
+          speed: 500,
+          minSlides: 5,
+          maxSlides: 15,
+          slideWidth: 100,
+          nextText: ' <i class="fa fa-chevron-right">&nbsp;</i>',
+          prevText: ' <i class="fa fa-chevron-left">&nbsp;</i>',
+          nextSelector: '#nav-next',
+          prevSelector: '#nav-prev'
+        });
       });
+    }
+  }
+
+  window.onload = adapt();
+  window.onresize = adapt();
       </script>
 
 			<div class="gototop js-top">
