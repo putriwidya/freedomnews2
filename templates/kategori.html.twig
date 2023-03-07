@@ -560,6 +560,49 @@ article img{
     display: table;
     float: none;
 }
+.sidebar-widget{
+	float: left;
+}
+/*** bx slider ***/
+.bx-wrapper{
+	border: none;
+    box-shadow: none;
+}
+.headline_set{
+	margin-bottom: -24px;
+}
+.kop_hottopik h3{
+    font-size: 11pt;
+    margin-top: 0;
+}
+.img_topik{
+	width: 100px;
+    height: 65px;
+    overflow: hidden;
+	float: left;
+}
+.teaser_topik{
+	width: 175px;
+	float: left;
+    margin-left: 1em;
+}
+.teaser_topik h3 {
+    font-size: 14px;
+    line-height: 1.35em;
+    font-weight: 600;
+    padding: 0;
+    letter-spacing: -.035em;
+    width: auto;
+	float: left;
+	margin: 0;
+}
+.teaser_topik h3 a{
+	color: #000;
+    font-size: 9pt;
+}
+.adv_unggulan{
+	display: none;
+}
 @media only screen and (max-width: 728px) {
 	.row-mbl{
 		margin: 0;
@@ -650,29 +693,36 @@ article img{
     </div>
 	<div class="container-fluid">
 		<div class="container animate-box">
-			<div class="row">			
-				<div class="owl-carousel owl-theme js carausel_slider section_margin" id="slider-small">
-				{% for p in my_unggulan %}
-					<div class="px-2 item">
-						<div class="alith_latest_trading_img_position_relative">
-							<figure class="alith_post_thumb">
-								<a href="{{ p.url }}"><img src="{{ p.media.images|first.url }}" alt=""/></a>
-							</figure>
-							<div class="alith_post_title_small">
-								<a href="{{ p.url }}"><strong>{{ p.title }}</strong></a>
-								<p class="meta"><span>{{p.header.date|date("d M Y")}}</span> 
-								{# <span>90 views</span> #}
-								</p>
-							</div>
-						</div>
+			<div class="row">	
+				<div class="headline_set">
+					<div class="wrap_hottopik">
+					<div class="kop_hottopik">
+						<h3>
+						Laporan Khusus
+						<span id="unggulan-next"></span>
+						<span id="unggulan-prev"></span>
+						</h3>
 					</div>
-				{% endfor %}
-				</div>
+					<div class="wrap_hottopik_set">
+						<ul class="bxslider_unggulan">
+						{% for p in my_unggulan %}
+						<li>
+							<div class="img_topik">
+							<img class="unggulan-news lazy" data-index="0" src="{{ p.media.images|first.url }}" />
+							</div>
+							<div class="teaser_topik">
+							<div class="adv_unggulan">Kategori</div>
+							<h3>
+								<a href="{{ p.url }}">{{ p.title }}</a>
+							</h3>
+							</div>
+						</li>
+						{% endfor %}
+						</ul>
+					</div>
+					</div>
+				</div>    
 			</div>
-		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="container">
 			<div class="primary margin-15">
 				<div class="row">
 					<div class="col-md-8">
@@ -959,6 +1009,30 @@ $(window).scroll(function() {
         
         console.log(timeh);
       });
+
+    $('.bxslider_unggulan').bxSlider({
+      controls: true,
+      auto: false,
+      pager: false,
+      moveSlides: 3,
+      touchEnabled: false,
+      speed: 500,
+      minSlides: 3,
+      maxSlides: 15,
+      slideWidth: 300,
+      nextText: ' <i class="fa fa-chevron-right">&nbsp;</i>',
+      prevText: ' <i class="fa fa-chevron-left">&nbsp;</i>',
+      nextSelector: '#unggulan-next',
+      prevSelector: '#unggulan-prev',
+      onSlideBefore: function($slideElement, oldIndex, newIndex) {
+        // console.log(newIndex);
+        $('.unggulan-news[data-index="' + newIndex + '"]').each(function() {
+          //  alert($(this).attr("data-original"));
+          $(this).attr("src", $(this).attr("data-original"));
+          // $('.unggulan-news[data-index="'+newIndex+'"]').attr('src',origin_) 
+        })
+      },
+    });
 </script>
 {% endblock %}
 
