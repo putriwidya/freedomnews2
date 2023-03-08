@@ -784,7 +784,20 @@ article img{
 					</div>
 					<div class="wrap_hottopik_set">
 						<ul class="bxslider_unggulan">
-						{% for p in my_unggulan %}
+						{% set laporan1 = page.find(page.header.laporan1) %}
+						{% set laporan2 = page.find(page.header.laporan2) %}
+						{% set laporan3 = page.find(page.header.laporan3) %}
+						{% set laporan4 = page.find(page.header.laporan4) %}
+						{% set laporan5 = page.find(page.header.laporan5) %}
+						{% set laporan6 = page.find(page.header.laporan6) %}
+						{% set laporan7 = page.find(page.header.laporan7) %}
+						{% set laporan8 = page.find(page.header.laporan8) %}
+						{% set laporan9 = page.find(page.header.laporan9) %}
+						{% set laporan10 = page.find(page.header.laporan10) %}
+
+						{% set myArray = [laporan1, laporan2, laporan3, laporan4, laporan5, laporan6, laporan7, laporan8, laporan9, laporan10] %}
+						{% for p in myArray %}
+						{% if p.template == 'artikel' %}
 						<li>
 							<div class="img_topik">
 							<img class="unggulan-news lazy" data-index="0" src="{{ p.media.images|first.url }}" />
@@ -796,6 +809,7 @@ article img{
 							</h3>
 							</div>
 						</li>
+						{% endif %}
 						{% endfor %}
 						</ul>
 					</div>
@@ -860,9 +874,9 @@ article img{
 							</div>
 						</div>
 						<div class="w3-content w3-section">
-							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner1.jpeg') }}">
-							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner2.jpeg') }}">
-							<img class="mySlides w3-animate-fading" src="{{ url('theme://img/banner/banner3.jpeg') }}">	
+							<a href="{{header.banner1_link}}"><img class="mySlides w3-animate-fading" src="{{page.url(true)|e}}{{header.banner1_media|url_encode(true)}}"></a>
+							<a href="{{header.banner1_link}}"><img class="mySlides w3-animate-fading" src="{{page.url(true)|e}}{{header.banner2_media|url_encode(true)}}"></a>
+							<a href="{{header.banner1_link}}"><img class="mySlides w3-animate-fading" src="{{page.url(true)|e}}{{header.banner3_media|url_encode(true)}}"></a>
 						</div>
 						<script>
 						var myIndex = 0;
