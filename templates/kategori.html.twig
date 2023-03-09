@@ -815,7 +815,7 @@ article img{
 								<article>
 									<img src="{{ p.media.images|first.url }}" />
 									<span>{{ p.title }}</span>
-									<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
+									<div class="post_meta_small">{{p.header.date|date("d M Y H:i")}}</div>
 								</article>
 								</a>
 							</div>
@@ -862,7 +862,7 @@ article img{
 															
 														</div>
 														<span>{{p.title}}</span>
-														<div>{{p.header.date|date("d M Y h:i")}}</div>
+														<div>{{p.header.date|date("d M Y H:i")}}</div>
 													</article>
 												</a>
 
@@ -903,7 +903,7 @@ article img{
 													<span class="meta_categories"><a href="{{p.parent.url}}">{{p.parent.title}}</a></span>
 												</div>
 												<h2><a href="{{p.url}}" title="">{{p.title}}</a></h2>
-												<div class="post_meta_small">{{p.header.date|date("d M Y h:i")}}</div>
+												<div class="post_meta_small">{{p.header.date|date("d M Y H:i")}}</div>
 												</div>
 											</div>
 										</div>
