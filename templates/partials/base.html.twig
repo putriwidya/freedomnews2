@@ -231,7 +231,7 @@
           border-bottom: none;
       }
       .main_nav_cover #main-menu li{
-          padding: 0 5px !important;
+          padding: 0 10px !important;
       }
       .main_nav_cover #main-menu li a{
         font-size: 14px !important;
@@ -440,6 +440,9 @@ figure.image-caption figcaption{
   border-radius: 20px;
 }
 @media only screen and (max-width: 728px) {
+  .bxslider_nav{
+    display: none;
+  }
   .header{
         padding: 15px 0;
   }
@@ -826,15 +829,14 @@ figure.image-caption figcaption{
       $(document).ready(function() {
         $('.bxslider_nav').bxSlider({
           controls: true,
-          auto: false,
           infiniteLoop: false,
-          pager: false,
-          moveSlides: 5,
           touchEnabled: false,
           speed: 500,
           minSlides: 5,
           maxSlides: 15,
-          slideWidth: 100,
+          pager: false,
+          variableWidth: true,
+          slideWidth: true,
           nextText: ' <i class="fa fa-chevron-right">&nbsp;</i>',
           prevText: ' <i class="fa fa-chevron-left">&nbsp;</i>',
           nextSelector: '#nav-next',
