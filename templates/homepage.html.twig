@@ -806,7 +806,9 @@ article img{
 						{% if p.template == 'artikel' %}
 						<li>
 							<div class="img_topik">
-							<img class="unggulan-news lazy" data-index="0" src="{{ p.media.images|first.url }}" />
+								<a href="{{ p.url }}">
+									<img class="unggulan-news lazy" data-index="0" src="{{ p.media.images|first.url }}" />
+								</a>
 							</div>
 							<div class="teaser_topik">
 							<div class="adv_unggulan">Kategori</div>

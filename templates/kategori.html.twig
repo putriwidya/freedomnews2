@@ -731,13 +731,17 @@ article img{
 						{% for p in my_unggulan %}
 						<li>
 							<div class="img_topik">
+							<a href="{{ p.url }}">
 							<img class="unggulan-news lazy" data-index="0" src="{{ p.media.images|first.url }}" />
+							</a>
 							</div>
 							<div class="teaser_topik">
 							<div class="adv_unggulan">Kategori</div>
+							<a href="{{ p.url }}">
 							<h3>
-								<a href="{{ p.url }}">{{ p.title }}</a>
+								{{ p.title }}
 							</h3>
+							</a>
 							</div>
 						</li>
 						{% endfor %}
@@ -759,9 +763,11 @@ article img{
 								</div>
 								<div class="bungkus_txt_headline">
 									<div class="bungkus_txt_headline_center">
+									<a href="{{ p.url }}">
 									<h2>
-										<a href="{{ p.url }}">{{ p.title }}</a>
+										{{ p.title }}
 									</h2>
+									</a>
 									</div>
 								</div>
 								<img src="{{ p.media.images|first.url }}" class="img-headline" data-index="{{ loop.index - 1}}" />
