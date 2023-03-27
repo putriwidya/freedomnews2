@@ -359,6 +359,8 @@ figure.image-caption figcaption{
 }
 #nav{
   padding: 0 40px;
+  /*margin: 0 40px;*/
+  /*width: calc(100% - 80px);*/
 }
 #nav, .main_nav_cover ul.sub-menu{
   background-color: #000;
@@ -377,12 +379,27 @@ figure.image-caption figcaption{
   color: #fff;
 }
 #nav .bx-viewport{
+  overflow: inherit !important;
 /*  height: 100vh !important;*/
 }
 #nav-prev .bx-prev, #nav-next .bx-next{
     color: #fff;
     position: absolute;
 }
+{# #nav-prev, #nav-next{
+  background: #000;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  position: absolute;
+  margin-top: -1px;
+}
+#nav-prev{
+    left: -40px;
+}
+#nav-next{
+  right: -40px;
+} #}
 #nav-prev .bx-prev{
   left: 15px;
 }
@@ -390,6 +407,7 @@ figure.image-caption figcaption{
     right: 15px;
     top: 0;
 }
+
 .bxslider_nav li{
   text-align: center;
 }
