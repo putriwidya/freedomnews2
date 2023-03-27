@@ -844,7 +844,9 @@ article img{
 									</a>
 									</div>
 								</div>
+								<a href="{{ p.url }}">
 								<img src="{{ p.media.images|first.url }}" class="img-headline" data-index="{{ loop.index - 1}}" />
+								</a>
 								</li>
 							{% endif %}
 							{% endfor %}
