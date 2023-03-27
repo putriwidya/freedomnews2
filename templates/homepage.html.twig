@@ -835,9 +835,11 @@ article img{
 								</div>
 								<div class="bungkus_txt_headline">
 									<div class="bungkus_txt_headline_center">
+									<a href="{{ p.url }}">
 									<h2>
-										<a href="{{ p.url }}">{{ p.title }}</a>
+										{{ p.title }}
 									</h2>
+									</a>
 									</div>
 								</div>
 								<img src="{{ p.media.images|first.url }}" class="img-headline" data-index="{{ loop.index - 1}}" />
