@@ -14,8 +14,8 @@
 {% block head deferred %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content='{{page.title|replace({'"':'\''})|raw}}'>
-    
+
+    <meta property="og:title" content="{{ page.title|escape('html_no_quotes') }}">
     <meta property="og:type" content="article" />
     <meta property="og:description" content='{{page.header.deskripsi|addslashes|striptags|truncate(100)}}' />
     <meta property="og:url" content="{{ page.url }}" />
@@ -29,7 +29,7 @@
 
     <meta property="twitter:site" content="Freedomnews" />
     <meta property="twitter:creator" content="@freedomnews" />
-    <meta property="twitter:title" content='{{page.title|replace({'"':'\''})|raw}}'>
+    <meta property="twitter:title" content="{{ page.title|escape('html_no_quotes') }}">
     <meta property="twitter:description" content='{{page.header.deskripsi|addslashes|striptags|truncate(100)}}' />
     <meta property="twitter:image" content="{{ page.media.images|first.url }}" />
     <meta property="twitter:image:alt" content='{{header.foto_utama_title}}'>

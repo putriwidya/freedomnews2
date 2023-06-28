@@ -35,6 +35,14 @@ class FreedomNews2 extends Theme
         $twig->addFilter(new Twig_SimpleFilter('addslashes', 'addslashes'));
     }
 
+    public function html_no_quotes(){
+        $twig
+        ->getExtension(\Twig\Extension\CoreExtension::class)
+        ->setEscaper('html_no_quotes', function($twig_environment, $string, $charset) {
+            return htmlspecialchars($string, ENT_NOQUOTES);
+        });
+    }
+
     public function onTwigInitialized()
     {
         $twig = $this->grav['twig'];
