@@ -29,6 +29,12 @@ class FreedomNews2 extends Theme
         }
     }
 
+    public function addslashes()
+    {
+        $twig = new Twig_Environment($loader);
+        $twig->addFilter(new Twig_SimpleFilter('addslashes', 'addslashes'));
+    }
+
     public function onTwigInitialized()
     {
         $twig = $this->grav['twig'];
