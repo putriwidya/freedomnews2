@@ -19,7 +19,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:description" content='{{page.header.deskripsi|addslashes|striptags|truncate(100)}}' />
     <meta property="og:url" content="{{ page.url }}" />
-    <meta property="og:image" content="{{ page.media.images|first.url }}" />
+    <meta property="og:image" content="{{ base_url_absolute }}{{ page.media.images|first.url(true) }}" />
     <meta property="og:image:alt" content='{{header.foto_utama_title}}'>
     <meta property="og:site_name" content="Freedomnews" />
     <meta property="og:locale" content="id_ID" />
